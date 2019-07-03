@@ -1,1 +1,11 @@
-Code file for game
+import java.util.*;
+import java.io.*;
+import java.math.*;
+
+public class Game
+{
+    public static void MainMethod()
+    {
+    
+    }
+}
