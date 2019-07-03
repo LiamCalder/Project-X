@@ -1,4 +1,4 @@
 @echo off
-%c%
-%run%
+javac dungeon.java
+java dungeon
 pause
