@@ -17,6 +17,7 @@ public class dungeon
         String input = "";
         while (!input.equalsIgnoreCase("start"))
         {
+			//option select
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start"))
@@ -25,19 +26,20 @@ public class dungeon
                 System.out.println("  You descend the stairs...");
                 //make game wait for user
                 Delay(null);
-				//run Room method and return room String
-                String catchRoom = "";
+				//run Room method and return room String and Id
+				String catchRoom = "";
                 String room = Room(catchRoom);
                 System.out.println(room);
 				Delay(null);
-                /*JFrame f = new JFrame("Ass key");
+				
+				//outputs to JFrame instead of console
+                /*JFrame f = new JFrame("ASCII");
                 JLabel l = new  JLabel(room);
                 l.setBounds(1,1,100,100);
                 f.add(l);
                 f.setSize(101,101);
                 f.setLayout(null);
                 f.setVisible(true);*/
-             
             }
             else if (input.equalsIgnoreCase("quit"))
             {
@@ -55,7 +57,7 @@ public class dungeon
         
     }
 	
-	public static void Help(String[] args)
+	private static void Help(String[] args)
 	{
 		System.out.println("");
         System.out.println("  To correctly select an option, type");
@@ -68,23 +70,25 @@ public class dungeon
          Delay(null);
 	}
     
-    public static void Delay(String[] args)
+    private static void Delay(String[] args)
     {
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
     }
 
-    public static String Room(String room)
+    private static String Room(String room)
     {
         Random r = new Random();
         int ran = r.nextInt(31)+1;
+		//change max random number to change shop spawn chance (E.g. 15 cases, max 20 = 1:4 spawn ratio)
         
         switch(ran)
         {
-            case 1: room = "  You enter a Crypt"; break;
+			//idea - make rooms interactive?
+            case 1: room = "  You enter a crypt, probably once connected to a catacomb"; break;
             case 2: room = "  You find yourself in a massive cavern"; break;
             case 3: room = "  A long corridor stretches before you"; break;
-            case 4: room = "  An alter to some unknown deity stands omniously before you"; break;
+            case 4: room = "  An alter to some unknown deity cakes the room in shadow"; break;
             case 5: room = "  It seems you have stumbled upon a mass grave"; break;
             case 6: room = "  shelves full of exotic potions and illegible tomes surround you"; break;
 			case 7: room = "  An evil darkness lurks in the corners of the room"; break;
@@ -104,9 +108,8 @@ public class dungeon
 			case 21:room = "  You spot a chest placed discreetly in the corner"; break; //loot chest
 			case 22:room = "  You spot a chest placed discreetly in the corner"; break; //trap chest
 			case 23:room = "  A portal to some dark world floats omniously in front of you"; break;
-			case 24:room = "  Various adventures like you lay slumped on the floor, succumbed to the perils of the dungeon"; break;
+			case 24:room = "  Various adventurers like you lay slumped on the floor, long since succumbed to the perils of the dungeon"; break;
 			case 25:room = "  the doorway to this room has strange runes scrawled across it - probably a warning"; break;
-			//change max random number to change shop spawn chance (15 cases, max 20 = 1:4 spawn ratio)
 			default:room = "  A shopkeeper sits looking somewhat bored at his stall"; break;
 		}
         
