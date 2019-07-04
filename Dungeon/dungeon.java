@@ -16,7 +16,7 @@ public class dungeon
 		String input = "";
 		while (!input.equalsIgnoreCase("start"))
 		{
-			System.out.print("");
+			System.out.print("  ");
 			input = s.nextLine();
 			if (input.equalsIgnoreCase("start"))
 			{
@@ -24,8 +24,9 @@ public class dungeon
 				System.out.println("  You descend the stairs...");
 				//make game wait for user
 				Delay(null);
-				//Room(room);
-				//System.out.println(room);
+				String catchRoom = "";
+				String room = Room(catchRoom);
+				System.out.println(room);
 			
 			}
 			else if (input.equalsIgnoreCase("quit"))
@@ -56,8 +57,9 @@ public class dungeon
 		String delay = s.nextLine();
 	}
 
-	/*public static String Room(room)
+	public static String Room(String room)
 	{
-		String room = "test";
-	}*/
+		room = "  test";
+		return room; 
+	}
 }
