@@ -64,7 +64,7 @@ public class dungeon
         System.out.println("  'i'. A pause can be identified as a non-");
 		System.out.println("  indented input promt, which is continued ");
 		System.out.println("  by pressing 'Enter'. Indented requires an ");
-		System.out.println("  option to be selected");
+		System.out.println("  option to be selected. enter '?' for this menu");
          Delay(null);
 	}
     
