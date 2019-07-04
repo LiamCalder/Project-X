@@ -45,12 +45,7 @@ public class dungeon
             }
             else
             {
-                System.out.println("");
-                System.out.println("  To correctly select an option,");
-                System.out.println("  type exactly what is in the square");
-                System.out.println("  brackets []. E.g. [Start] type ");
-                System.out.println("  'start', or [i] type 'i'");
-                Delay(null);
+				Help(null);
                 System.out.println("");
                 System.out.println("  Do you want to enter The Dungeon?");
                 System.out.println("  =================================");
@@ -59,6 +54,19 @@ public class dungeon
         }
         
     }
+	
+	public static void Help(String[] args)
+	{
+		System.out.println("");
+        System.out.println("  To correctly select an option, type");
+        System.out.println("  exactly what is in the square brackets");
+        System.out.println("  E.g. [Start] type 'start', or [i] type");
+        System.out.println("  'i'. A pause can be identified as a non-");
+		System.out.println("  indented input promt, which is continued ");
+		System.out.println("  by pressing 'Enter'. Indented requires an ");
+		System.out.println("  option to be selected");
+         Delay(null);
+	}
     
     public static void Delay(String[] args)
     {
