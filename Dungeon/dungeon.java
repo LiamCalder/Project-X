@@ -27,9 +27,9 @@ public class dungeon
                 //make game wait for user
                 Delay(null);
 				//run Room method and return room String and Id
-				String catchRoom = "";
-                String room = Room(catchRoom);
-                System.out.println(room);
+				int catchRoomId = -1;
+                int roomId = RoomId(catchRoomId);
+				RoomGen(roomId);
 				Delay(null);
 				
 				//outputs to JFrame instead of console
@@ -76,43 +76,48 @@ public class dungeon
         String delay = s.nextLine();
     }
 
-    private static String Room(String room)
+    private static int RoomId(int roomId)
     {
         Random r = new Random();
+		String room = "";
         int ran = r.nextInt(31)+1;
 		//change max random number to change shop spawn chance (E.g. 15 cases, max 20 = 1:4 spawn ratio)
-        
-        switch(ran)
+		roomId = ran;
+        return roomId;
+    }
+	
+	private static void RoomGen(int Id)
+	{
+		switch(Id)
         {
 			//idea - make rooms interactive?
-            case 1: room = "  You enter a crypt, probably once connected to a catacomb"; break;
-            case 2: room = "  You find yourself in a massive cavern"; break;
-            case 3: room = "  A long corridor stretches before you"; break;
-            case 4: room = "  An alter to some unknown deity cakes the room in shadow"; break;
-            case 5: room = "  It seems you have stumbled upon a mass grave"; break;
-            case 6: room = "  shelves full of exotic potions and illegible tomes surround you"; break;
-			case 7: room = "  An evil darkness lurks in the corners of the room"; break;
-			case 8: room = "  thick threads of spider silk coat the ceiling and walls around you"; break;
-			case 9: room = "  The floor is littered with eggs. It seems to be a nest of some sort"; break;
-			case 10:room = "  You enter an unremarable little cave, recently inhabited..."; break;
-			case 11:room = "  In the darkness you barely avoid falling into the underground lake in front of you"; break;
-			case 12:room = "  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"; break;
-			case 13:room = "  Strange symbols cover all this room's surfaces"; break;
-			case 14:room = "  It looks like there was once a forge here"; break;
-			case 15:room = "  rusted weapons and armour lay abandoned around you"; break;
-			case 16:room = "  The ground before you falls away into a seemingly endless abyss"; break;
-			case 17:room = "  The air around you suddenly cools"; break;
-			case 18:room = "  in front of you is a once-great statue of some forgotten hero"; break;
-			case 19:room = "  A thick mist gathers around your feet"; break;
-			case 20:room = "  You enter a mineshaft, long abandoned to rot and degradation"; break;
-			case 21:room = "  You spot a chest placed discreetly in the corner"; break; //loot chest
-			case 22:room = "  You spot a chest placed discreetly in the corner"; break; //trap chest
-			case 23:room = "  A portal to some dark world floats omniously in front of you"; break;
-			case 24:room = "  Various adventurers like you lay slumped on the floor, long since succumbed to the perils of the dungeon"; break;
-			case 25:room = "  the doorway to this room has strange runes scrawled across it - probably a warning"; break;
-			default:room = "  A shopkeeper sits looking somewhat bored at his stall"; break;
+			case -1:System.out.println("  This should not appear. if it does, it's a bug"); break;
+            case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb"); break;
+            case 2: System.out.println("  You find yourself in a massive cavern"); break;
+            case 3: System.out.println("  A long corridor stretches before you"); break;
+            case 4: System.out.println("  An alter to some unknown deity cakes the room in shadow"); break;
+            case 5: System.out.println("  It seems you have stumbled upon a mass grave"); break;
+            case 6: System.out.println("  shelves full of exotic potions and illegible tomes surround you"); break;
+			case 7: System.out.println("  An evil darkness lurks in the corners of the room"); break;
+			case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); break;
+			case 9: System.out.println("  The floor is littered with eggs. It seems to be a nest of some sort"); break;
+			case 10:System.out.println("  You enter an unremarable little cave, recently inhabited..."); break;
+			case 11:System.out.println("  In the darkness you barely avoid falling into the underground lake in front of you"); break;
+			case 12:System.out.println("  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"); break;
+			case 13:System.out.println("  Strange symbols cover all this room's surfaces"); break;
+			case 14:System.out.println("  It looks like there was once a forge here"); break;
+			case 15:System.out.println("  rusted weapons and armour lay abandoned around you"); break;
+			case 16:System.out.println("  The ground before you falls away into a seemingly endless abyss"); break;
+			case 17:System.out.println("  The air around you suddenly cools"); break;
+			case 18:System.out.println("  in front of you is a once-great statue of some forgotten hero"); break;
+			case 19:System.out.println("  A thick mist gathers around your feet"); break;
+			case 20:System.out.println("  You enter a mineshaft, long abandoned to rot and degradation"); break;
+			case 21:System.out.println("  You spot a chest placed discreetly in the corner"); break; //loot chest
+			case 22:System.out.println("  You spot a chest placed discreetly in the corner"); break; //trap chest
+			case 23:System.out.println("  A portal to some dark world floats omniously in front of you"); break;
+			case 24:System.out.println("  Various adventurers like you lay slumped on the floor, long since succumbed to the perils of the dungeon"); break;
+			case 25:System.out.println("  the doorway to this room has strange runes scrawled across it - probably a warning"); break;
+			default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall"); break;
 		}
-        
-        return room; 
-    }
+	}
 }
