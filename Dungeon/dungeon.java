@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import javax.swing.*;
 
 public class dungeon
 {
@@ -27,7 +28,14 @@ public class dungeon
                 String catchRoom = "";
                 String room = Room(catchRoom);
                 System.out.println(room);
-            
+                /*JFrame f = new JFrame("Ass key");
+                JLabel l = new  JLabel(room);
+                l.setBounds(1,1,100,100);
+                f.add(l);
+                f.setSize(101,101);
+                f.setLayout(null);
+                f.setVisible(true);*/
+             
             }
             else if (input.equalsIgnoreCase("quit"))
             {
@@ -62,12 +70,15 @@ public class dungeon
         Random r = new Random();
         int ran = r.nextInt(4)+1;
         
+        System.out.println(ran);
         switch(ran)
         {
-            case 1:room = "You enter a Crypt";
-            case 2:room = "The stairs open up to a massive cavern";
-            case 3:room = "A long corridor stretches before you";
-            case 4:room = "dube";
+            case 1:room = "You enter a Crypt"; break;
+            case 2:room = "The stairs open up to a massive cavern"; break;
+            case 3:room = "A long corridor stretches before you"; break;
+            case 4:room = "4"; break;
+            case 5:room = "4"; break;
+            case 6:room = "6"; break;
         }
         
         return room; 
