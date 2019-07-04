@@ -28,6 +28,7 @@ public class dungeon
                 String catchRoom = "";
                 String room = Room(catchRoom);
                 System.out.println(room);
+				Delay(null);
                 /*JFrame f = new JFrame("Ass key");
                 JLabel l = new  JLabel(room);
                 l.setBounds(1,1,100,100);
@@ -55,7 +56,7 @@ public class dungeon
                 System.out.println("  [Start]     [Quit]     [Controls]");
             }
         }
-        System.out.println("  just testing");
+        //after start sequence
         
     }
     
@@ -68,18 +69,25 @@ public class dungeon
     public static String Room(String room)
     {
         Random r = new Random();
-        int ran = r.nextInt(4)+1;
+        int ran = r.nextInt(13)+1;
         
-        System.out.println(ran);
         switch(ran)
         {
-            case 1:room = "You enter a Crypt"; break;
-            case 2:room = "The stairs open up to a massive cavern"; break;
-            case 3:room = "A long corridor stretches before you"; break;
-            case 4:room = "4"; break;
-            case 5:room = "4"; break;
-            case 6:room = "6"; break;
-        }
+            case 1: room = "  You enter a Crypt"; break;
+            case 2: room = "  You find yourself in a massive cavern"; break;
+            case 3: room = "  A long corridor stretches before you"; break;
+            case 4: room = "  An alter to some unknown deity stands omniously before you"; break;
+            case 5: room = "  It seems you have stumbled upon a mass grave"; break;
+            case 6: room = "  shelves full of exotic potions and illegible tomes surround you"; break;
+			case 7: room = "  An evil darkness lurks in the corners of the room"; break;
+			case 8: room = "  thick threads of spider silk coat the ceiling and walls around you"; break;
+			case 9: room = "  The floor is littered with eggs. It seems to be a nest of some sort"; break;
+			case 10: room = "  You enter an unremarable little cave, recently inhabited..."; break;
+			case 11:room = "  In the darkness you barely avoid falling into the underground lake in front of you"; break;
+			case 12:room = "  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"; break;
+			case 13:room = "  Strange symbols cover all this room's surfaces"; break;
+			case 14:room = "  "; break;
+		}
         
         return room; 
     }
