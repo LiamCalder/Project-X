@@ -62,7 +62,6 @@ public class dungeon
 			//call RoomId and grab Id
             int checkRoomId = -1;
             int roomId = RoomId(checkRoomId);
-			System.out.print("  "+roomId);
             boolean isDup = isDuplicate(roomArr, roomId); //check for duplicates
             if (isDup == true)
             {
@@ -236,4 +235,78 @@ public class dungeon
             break;
         }
     }
+	
+	private static void EnemyGen()
+	{
+		int something = -1;
+		switch (something)
+		{
+			case -1:; //debug
+			Delay(null);
+			break;
+			case 0:; //Skeleton
+			Delay(null);
+			break;
+			case 1:; //Spider
+			Delay(null);
+			break;
+			case 2:; //Troll
+			Delay(null);
+			break;
+			case 3:; //Snake
+			Delay(null);
+			break;
+			case 4:; //Necromancer
+			Delay(null);
+			break;
+			case 5:; //Wizard
+			Delay(null);
+			break;
+			case 6:; //Skelton archer
+			Delay(null);
+			break;
+			case 7:; //Goblin
+			Delay(null);
+			break;
+			case 8:; //Outlaw
+			Delay(null);
+			break;
+			case 9:; //Rat
+			Delay(null);
+			break;
+			case 10:; //Wraith
+			Delay(null);
+			break;
+			case 11:; //Fanatic
+			Delay(null);
+			break;
+			case 12:; //Demon
+			Delay(null);
+			break;
+			case 13:; //Dragon
+			Delay(null);
+			break;
+			case 14:; //Orc
+			Delay(null);
+			break;
+			case 15:; //Dweller
+			Delay(null);
+			break;
+			case 16:; //Leviathan
+			Delay(null);
+			break;
+			case 17:; //Pixie
+			Delay(null);
+			break;
+			case 18:; //Harpy
+			Delay(null);
+			break;
+			case 19:; //Fallen Hero
+			Delay(null);
+			break;
+			case 20:; //Guardian
+			Delay(null);
+			break;
+		}
+	}
 }
