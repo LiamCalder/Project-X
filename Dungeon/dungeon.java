@@ -55,20 +55,25 @@ public class dungeon
                 
         Delay(null); //make game wait for user
         Random r = new Random();
-        int vary = r.nextInt(3)+4; //variation on nextLevel chance
-        int roomArr[] = new int[vary];
-        for (int i=0; i<vary; i++) //return roomId and call Id in RoomGen
+        int vary = r.nextInt(3)+4; //variation on number of levels
+        int roomArr[] = new int[vary]; //create array of vary length
+        for (int i=0; i<vary; i++)
         {
+			//call RoomId and grab Id
             int checkRoomId = -1;
             int roomId = RoomId(checkRoomId);
-            isDuplicate(roomArr, roomId);
-            if (isDuplicate == true)
+			System.out.print("  "+roomId);
+            boolean isDup = isDuplicate(roomArr, roomId); //check for duplicates
+            if (isDup == true)
             {
-                
+                i--;
             }
+			else
+			{
+				roomArr[i] = roomId; //if no dupes, add Id to array and generate room
+				RoomGen(roomId);
+			}
         }
-        //roomArr[i] = roomId;
-        //RoomGen(roomId);
         
         //outputs to JFrame instead of console
         /*JFrame f = new JFrame("ASCII");
@@ -80,7 +85,7 @@ public class dungeon
         f.setVisible(true);*/
     }
     
-    private static boolean isDuplicate(int roomArr[], int Id)
+    private static boolean isDuplicate(int roomArr[], int Id) //duplicate check function
     {
         for (int i=0; i<roomArr.length; i++)
         {
@@ -134,8 +139,12 @@ public class dungeon
         Random r = new Random();
         int ran = r.nextInt(31)+1;
         //change max random number to change shop spawn chance (E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
-        roomId = ran;
-        return roomId;
+        if (ran > 25)
+		{
+			ran = 26; //give shops one Id
+		}
+		roomId = ran;
+        return roomId; //pass RoomId back to Run
     }
     
     private static void RoomGen(int Id)
@@ -143,7 +152,7 @@ public class dungeon
         switch(Id)
         {
             //idea - make rooms interactive?
-            //Aslo, code for room goes between case and it's respective break
+            //Also, code for room goes between case and it's respective break
             case -1:System.out.println("  This should not appear. if it does, it's a bug"); 
             Delay(null);
             break;
@@ -207,10 +216,10 @@ public class dungeon
             case 20:System.out.println("  You enter a mineshaft, long abandoned to rot and degradation"); 
             Delay(null);
             break;
-            case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
+            case 21:System.out.println("  You spot a chest placed discreetly in the corner (loot)"); //loot chest
             Delay(null);
             break; 
-            case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
+            case 22:System.out.println("  You spot a chest placed discreetly in the corner (trap)"); //trap chest
             Delay(null);
             break; 
             case 23:System.out.println("  A portal to some dark world floats omniously in front of you"); 
