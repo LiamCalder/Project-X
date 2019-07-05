@@ -31,6 +31,10 @@ public class dungeon
             else if (input.equalsIgnoreCase("controls"))
             {
                 Controls(null);
+                System.out.println("");
+                System.out.println("  Do you want to enter The Dungeon?");
+                System.out.println("  =================================");
+                System.out.println("  [Start] [Quit] [Help] [Controls]");
             }
             else
             {
@@ -38,7 +42,7 @@ public class dungeon
                 System.out.println("");
                 System.out.println("  Do you want to enter The Dungeon?");
                 System.out.println("  =================================");
-                System.out.println("  [Start]     [Quit]     [Controls]");
+                System.out.println("  [Start] [Quit] [Help] [Controls]");
             }
         }
         
@@ -52,12 +56,19 @@ public class dungeon
         Delay(null); //make game wait for user
         Random r = new Random();
         int vary = r.nextInt(3)+4; //variation on nextLevel chance
+        int roomArr[] = new int[vary];
         for (int i=0; i<vary; i++) //return roomId and call Id in RoomGen
         {
             int checkRoomId = -1;
             int roomId = RoomId(checkRoomId);
-            RoomGen(roomId);
+            isDuplicate(roomArr, roomId);
+            if (isDuplicate == true)
+            {
+                
+            }
         }
+        //roomArr[i] = roomId;
+        //RoomGen(roomId);
         
         //outputs to JFrame instead of console
         /*JFrame f = new JFrame("ASCII");
@@ -67,6 +78,18 @@ public class dungeon
         f.setSize(101,101);
         f.setLayout(null);
         f.setVisible(true);*/
+    }
+    
+    private static boolean isDuplicate(int roomArr[], int Id)
+    {
+        for (int i=0; i<roomArr.length; i++)
+        {
+            if (Id == roomArr[i])
+            {
+                return true;
+            } 
+        }
+        return false;
     }
     
     private static void Help(String[] args)
@@ -79,12 +102,20 @@ public class dungeon
         System.out.println("  indented input promt, which is continued ");
         System.out.println("  by pressing 'Enter'. Indented requires an ");
         System.out.println("  option to be selected. enter '?' for this menu");
-         Delay(null);
+        Delay(null);
     }
     
     private static void Controls(String[] args)
     {
         System.out.println("");
+        System.out.println("  To select option: type whatevers in [here]");
+        System.out.println("  i = inventory");
+        System.out.println("  m = map");
+        System.out.println("  s = stats");
+        System.out.println("");
+        System.out.println("  note: non of these work at this stage of the program");
+        System.out.println("  They may or may not be implemented later on");
+        Delay(null);
     }
     
     private static void nextLevel(String[] args)
