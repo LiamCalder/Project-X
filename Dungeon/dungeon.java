@@ -69,7 +69,7 @@ public class dungeon
             }
 			else
 			{
-				roomArr[i] = roomId; //if no dupes, add Id to array and generate room
+				roomArr[i] = roomId; //if no dupes, add Id to array and execute room
 				RoomGen(roomId);
 			}
         }
@@ -84,7 +84,7 @@ public class dungeon
         f.setVisible(true);*/
     }
     
-    private static boolean isDuplicate(int roomArr[], int Id) //duplicate check function
+    private static boolean isDuplicate(int roomArr[], int Id) //duplicate room check function
     {
         for (int i=0; i<roomArr.length; i++)
         {
@@ -117,7 +117,7 @@ public class dungeon
         System.out.println("  m = map");
         System.out.println("  s = stats");
         System.out.println("");
-        System.out.println("  note: non of these work at this stage of the program");
+        System.out.println("  note: none of these work at this stage of the program");
         System.out.println("  They may or may not be implemented later on");
         Delay(null);
     }
@@ -127,7 +127,7 @@ public class dungeon
         
     }
     
-    private static void Delay(String[] args)
+    private static void Delay(String[] args) //wait for user function
     {
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
@@ -160,14 +160,15 @@ public class dungeon
     {	
 		int enArr[];
 		int enemyId;
+		System.out.println(Id);
 		
         switch(Id)
         {
             //idea - make rooms interactive?
             //Also, code for room goes between case and it's respective break
-            case -1:System.out.println("  This should not appear. if it does, room selection isn't working"); 
+            case -1:System.out.println("  This should not appear. if it does, roomId wasn't called"); 
             Delay(null);
-			enArr = new int[]{1}; //any number in curly brackets reperesents possible enemy spawns in room via Id#
+			enArr = new int[]{-1}; //any number in curly brackets reperesents possible enemy spawns in room via Id#
 			enemyId = EnemyId(enArr);
 			EnemyGen(enemyId);
             break;
