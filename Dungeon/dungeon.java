@@ -131,6 +131,10 @@ public class dungeon
     {
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
+		if (delay.equalsIgnoreCase("?"))
+		{
+			Help(null);
+		}
     }
 
     private static int RoomId(int roomId)
@@ -163,7 +167,7 @@ public class dungeon
             //Also, code for room goes between case and it's respective break
             case -1:System.out.println("  This should not appear. if it does, room selection isn't working"); 
             Delay(null);
-			enArr = new int[]{1}; //generates and sends enemy Id's to rng
+			enArr = new int[]{1}; //any number in curly brackets reperesents possible enemy spawns in room via Id#
 			enemyId = EnemyId(enArr);
 			EnemyGen(enemyId);
             break;
@@ -317,8 +321,8 @@ public class dungeon
 			enemyId = EnemyId(enArr);
 			EnemyGen(enemyId);
             break;
-            default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall"); 
-            Delay(null);
+            default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
+			Delay(null);
 			//call (non-existent) shopkeeper method
             break;
         }
@@ -327,7 +331,7 @@ public class dungeon
 	private static void EnemyGen(int Id) //enemy Id list
 	{
 		
-		System.out.println(Id);
+		
 		switch (Id)
 		{
 			case -1:; //debug
@@ -336,7 +340,8 @@ public class dungeon
 			case 0:; //Skeleton
 			Delay(null);
 			break;
-			case 1:; //Spider
+			case 1:System.out.println("  A wild Spider appears! Pikachu! I Choooose You!"); //Spider
+			System.out.println("  Blah blah blah, Combat happens...");
 			Delay(null);
 			break;
 			case 2:; //Troll
@@ -408,7 +413,25 @@ public class dungeon
 			case 24:; //Wyrm
 			Delay(null);
 			break;
-			case 25:; //Possesed
+			case 25:; //Cursed soul
+			Delay(null);
+			break;
+			case 26:; //Fire Elemental
+			Delay(null);
+			break;
+			case 27:; //Water Elemental
+			Delay(null);
+			break;
+			case 28:; //Earth Elemental
+			Delay(null);
+			break;
+			case 29:; //Air Elemental
+			Delay(null);
+			break;
+			case 30:; //Basilisk
+			Delay(null);
+			break;
+			case 31:; //Rock Golem
 			Delay(null);
 			break;
 			
