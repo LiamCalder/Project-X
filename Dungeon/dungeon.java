@@ -444,13 +444,39 @@ public class dungeon
 	        break;
 	        case 13:; //Blunt spear
 	        break;
-	        case 14:; //Expired pepper spray
+	        case 14:; //Rat Urine
 	        break;
 	        case 15:; //Children's slingshot
 	        break;
 	        case 16:; //Unsanitary spatula
 	        break;
 	        case 17:; //Disappointing stone
+	    }
+	}
+	
+	private static void Tier2(int Id) 
+	{
+	    switch (Id)
+	    {
+	        case 1:; //Battle Scarred Broadsword
+	        break;
+	        case 2:; //Merchant's Shadow Daggers
+	        break;
+	        case 3:; //Commoner's Switchblade
+	        break;
+	        case 4:; //Traditional Wooden Bow
+	        break;
+	        case 5:; //Ordinary Mace
+	        break;
+	        case 6:; //Well Worn Axe
+	        break;
+	        case 7:; //Bloodied Machete
+	        break;
+	        case 8:; //Warped Crowbar
+	        break;
+	        case 9:; //Gasoline and Matchsticks
+	        break;
+	        case 10:; //Brass Knuckles
 	    }
 	}
 }
