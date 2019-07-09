@@ -538,27 +538,25 @@ public class dungeon
         //Special stat boosts
         switch (Id)
         {
-            case 1:; //Flaming
+            case 1:; //Flaming (cont. burn damage)
             break;
-            case 2:; //Toxic
+            case 2:; //Toxic (lower dodge of opp + small cont. damage)
             break;
-            case 3:; //Grounding
+            case 3:; //Grounding (flighing enemies lose dodge buff)
             break;
-            case 4:; //Vampirical
+            case 4:; //Vampirical (chance to regain health on hit)
             break;
-            case 5:; //Godly
+            case 5:; //Heroic (more damage to legendary beasts e.g. Dragons)
             break;
-            case 6:; //Epic
+            case 6:; //Enchanted (more damage)
             break;
-            case 7:; //Deadly
+            case 7:; //Deadly (more damage)
             break;
-            case 8:; //Holy
+            case 8:; //Holy (more damage to unholy monsters)
             break;
-            case 9:; //Demonic
+            case 9:; //Demonic (more damage to holy monsters)
             break;
-            case 10:; //Perfect
-            break;
-            case 11:; //Enchanted
+            case 10:; //Perfect (more damage)
         }
     }
 }
