@@ -398,14 +398,19 @@ public class dungeon
 			break;
 			case 31:name = " rock golem"; //Rock Golem
 			break;
-			case 32: System.out.print("  it's a mimic!");
-			System.out.println("  blah blah conflict");
+			case 32: System.out.print("  it's a mimic!"); //Mimic
+			System.out.println("  blah blah conflict"); //call battle method
 			Delay(null);
 			return;
 		}
 		
 		System.out.print("  A"+name+" appears!");
-		System.out.println("  blah blah conflict");
+		System.out.println("  blah blah conflict"); //call to battle method goes here
 		Delay(null);
+	}
+	
+	public static void battle(String[] args)
+	{
+		
 	}
 }
