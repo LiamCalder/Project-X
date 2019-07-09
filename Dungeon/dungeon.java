@@ -215,7 +215,7 @@ public class dungeon
             break;
             case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); 
             Delay(null);
-			enArr = new int[]{0,1};
+			enArr = new int[]{1};
 			enemyId = EnemyId(enArr);
 			EnemyGen(enemyId);
             break;
@@ -293,6 +293,7 @@ public class dungeon
             break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
 			System.out.println("  you get #loot!");
+			//gets loot (method?)
             Delay(null);
             break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
@@ -397,8 +398,9 @@ public class dungeon
 			break;
 			case 31:name = " rock golem"; //Rock Golem
 			break;
-			case 32: System.out.println("  the chest is alive!");
+			case 32: System.out.print("  it's a mimic!");
 			System.out.println("  blah blah conflict");
+			Delay(null);
 			return;
 		}
 		
