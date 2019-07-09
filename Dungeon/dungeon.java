@@ -413,4 +413,44 @@ public class dungeon
 	{
 		
 	}
+	
+	private static void Tier1(int Id) 
+	{
+	    switch (Id)
+	    {
+	        case 1:; //Basic knife
+	        break;
+	        case 2:; //Flimsy sword
+	        break;
+	        case 3:; //Rusty shovel
+	        break;
+	        case 4:; //Vintage frying pan
+	        break;
+	        case 5:; //Moldy brick
+	        break;
+	        case 6:; //Broken baseball bat
+	        break;
+	        case 7:; //Stinky bucket
+	        break;
+	        case 8:; //Poorly made Bow
+	        break;
+	        case 9:; //Dirty glass shard
+	        break;
+	        case 10:; //Sticky scissors
+	        break;
+	        case 11:; //Unreliable wrench
+	        break;
+	        case 12:; //Faulty hammer
+	        break;
+	        case 13:; //Blunt spear
+	        break;
+	        case 14:; //Expired pepper spray
+	        break;
+	        case 15:; //Children's slingshot
+	        break;
+	        case 16:; //Unsanitary spatula
+	        break;
+	        case 17:; //Disappointing stone
+	    }
+	}
 }
