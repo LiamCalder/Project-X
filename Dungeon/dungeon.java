@@ -9,7 +9,6 @@ public class dungeon
     {
         //set up beginning of game
         Scanner s = new Scanner(System.in);
-        System.out.println("  Welcome to Alpha testing");
         System.out.println("");
         System.out.println("  Do you want to enter The Dungeon?");
         System.out.println("  =================================");
@@ -414,69 +413,152 @@ public class dungeon
         
     }
     
-    private static void Tier1(int Id) 
+    private static void QualityT1(int Id) 
     {
+        //Only negative effects on stats
         switch (Id)
         {
-            case 1:; //Basic knife
+            case 1:; //Basic
             break;
-            case 2:; //Flimsy sword
+            case 2:; //Flimsy
             break;
-            case 3:; //Rusty shovel
+            case 3:; //Rusty
             break;
-            case 4:; //Vintage ceremonial blade
+            case 4:; //Vintage
             break;
-            case 5:; //Moldy brick
+            case 5:; //Moldy
             break;
-            case 6:; //Sack of sharp pebbles
+            case 6:; //Old
             break;
-            case 7:; //Stinky bucket
+            case 7:; //Stinky
             break;
-            case 8:; //Poorly made Bow
+            case 8:; //Poorly made
             break;
-            case 9:; //Dirty clay shard
+            case 9:; //Dirty
             break;
-            case 10:; //Old skinning knife
+            case 10:; //Small
             break;
-            case 11:; //Unreliable crossbow
+            case 11:; //Unreliable 
             break;
-            case 12:; //Faulty forge hammer
+            case 12:; //Faulty
             break;
-            case 13:; //Blunt spear
+            case 13:; //Blunt
             break;
-            case 14:; //Shoddy club
+            case 14:; //Shoddy
             break;
-            case 15:; //Child's slingshot
+            case 15:; //Child's
             break;
-            case 16:; //Large stick
+            case 16:; //Cheap
             break;
-            case 17:; //Ordinary stone
+            case 17:; //Ordinary
+            break;
+            case 18:; //Slow
+            break;
+            case 19:; //Broken
+            break;
         }
     }
     
-    private static void Tier2(int Id) 
+    private static void QualityT2(int Id) 
     {
+        //Mixed effects on stats or small buff
         switch (Id)
         {
-            case 1:; //Battle Scarred Broadsword
+            case 1:; //Light
             break;
-            case 2:; //Merchant's Shadow Daggers
+            case 2:; //Heavy
             break;
-            case 3:; //Commoner's concealed blade
+            case 3:; //Dense
             break;
-            case 4:; //Traditional Wooden Bow
+            case 4:; //Nimble
             break;
-            case 5:; //Ordinary Mace
+            case 5:; //Quick
             break;
-            case 6:; //Well Worn Axe
+            case 6:; //Battle-tested
             break;
-            case 7:; //Bloodied Machete
+            case 7:; //Bloodied
             break;
-            case 8:; //Trusty arm-blades
+            case 8:; //Raging
             break;
-            case 9:; //Quarterstaff
+            case 9:; //Sharp
             break;
-            case 10:; //Brass Knuckles
+            case 10:; //Balanced
+            break;
+            case 11:; //Large
+            break;
+            case 12:; //Small
+            break;
+            case 13:; //Modified
+            break;
+            case 14:; //Excited
+            break;
+        }
+    }
+    
+     private static void QualityT3(int Id) 
+    {
+        //good effects of stats
+        switch (Id)
+        {
+            case 1:; //Enhanced
+            break;
+            case 2:; //Unnaturally fast
+            break;
+            case 3:; //Shielding
+            break;
+            case 4:; //Reinforced
+            break;
+            case 5:; //Long-reaching
+            break;
+            case 6:; //Magically-infused
+            break;
+            case 7:; //Dwarven
+            break;
+            case 8:; //Elven
+            break;
+            case 9:; //Improved
+            break;
+            case 10:; //New
+            break;
+            case 11:; //Imbued
+            break;
+            case 12:; //Worthy
+            break;
+            case 13:; //Strong
+            break;
+            case 14:; //Mighty
+            break;
+            case 15:; //Powerful
+            break;
+        }
+    }
+    
+    private static void QualityT4(int Id) 
+    {
+        //Special stat boosts
+        switch (Id)
+        {
+            case 1:; //Flaming
+            break;
+            case 2:; //Toxic
+            break;
+            case 3:; //Grounding
+            break;
+            case 4:; //Vampirical
+            break;
+            case 5:; //Godly
+            break;
+            case 6:; //Epic
+            break;
+            case 7:; //Deadly
+            break;
+            case 8:; //Holy
+            break;
+            case 9:; //Demonic
+            break;
+            case 10:; //Perfect
+            break;
+            case 11:; //Enchanted
         }
     }
 }
