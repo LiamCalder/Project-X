@@ -75,8 +75,8 @@ public class dungeon
         
         //outputs to JFrame instead of console
         /*JFrame f = new JFrame("ASCII");
-        JLabel l = new  JLabel(room);
-        l.setBounds(1,1,100,100);
+        JLabel l = new  JLabel("room");
+        l.setBounds(300,100,100,100);
         f.add(l);
         f.setSize(101,101);
         f.setLayout(null);
@@ -123,7 +123,7 @@ public class dungeon
     
     private static void nextLevel(String[] args)
     {
-        
+        //This method will bump up enemy stats, loot spawn etc and restart run
     }
     
     private static void Delay(String[] args) //wait for user function
@@ -292,7 +292,7 @@ public class dungeon
             break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
             System.out.println("  you get #loot!");
-            //gets loot (method?)
+            //gets loot (method)
             Delay(null);
             break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
@@ -410,7 +410,7 @@ public class dungeon
     
     private static void battle(String[] args)
     {
-        
+        //self evident
     }
     
     private static void QualityT1(int Id) 
@@ -548,15 +548,110 @@ public class dungeon
             break;
             case 5:; //Heroic (more damage to legendary beasts e.g. Dragons)
             break;
-            case 6:; //Enchanted (more damage)
+            case 6:; //Enchanted (more damage) - think of something
             break;
-            case 7:; //Deadly (more damage)
+            case 7:; //Deadly (more damage) - think of something
             break;
             case 8:; //Holy (more damage to unholy monsters)
             break;
             case 9:; //Demonic (more damage to holy monsters)
             break;
-            case 10:; //Perfect (more damage)
+            case 10:; //Perfect (more damage) - think of something
+        }
+    }
+    
+    private static void Weapons(int Id)
+    {
+        //weapon list
+        //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
+        switch (Id)
+        {
+            case 1:; //dagger
+            break;
+            case 2:; //sword
+            break;
+            case 3:; //shortbow
+            break;
+            case 4:; //longbow
+            break;
+            case 5:; //quartertaff
+            break;
+            case 6:; //mace
+            break;
+            case 7:; //axe
+            break;
+            case 8:; //war hammer
+            break;
+            case 9:; //crossbow
+            break;
+            case 10:; //greatsword
+            break;
+            case 11:; //shank
+            break;
+            case 12:; //spear
+            break;
+            case 13:; //wrist-mounted blades
+            break;
+            case 14:; //magic staff
+            break;
+            case 15:; //spell: flame
+            break;
+            case 16:; //spell: lightning
+            break;
+            case 17:; //spell: frost
+            break;
+            case 18:; //spell: sapping
+            break;
+            case 19:; //spell: aura
+            break;
+            case 20:; //spell: speed
+            break;
+            case 21:; //claymore
+            break;
+            case 22:; //morningstar
+            break;
+            case 23:; //pike
+            break;
+            case 24:; //cutlass
+            break;
+            case 25:; //chain
+            break;
+            case 26:; //nailed plank
+            break;
+            case 27:; //modified saw
+            break;
+            case 28:; //war scythe
+            break;
+            case 29:; //spell: dimensional shift
+            break;
+            case 30:; //spell: wall of fire
+        }
+    }
+	
+	private static void LWeapons(int Id) 
+    {
+        //legendary weapons
+        switch (Id)
+        {
+            case 1:; //Excalibur
+            break;
+            case 2:; //Carved Basilisk Tooth
+            break;
+            case 3:; //Meat-Cleaver of the Damned
+            break;
+            case 4:; //spell: Dragonfire
+            break;
+            case 5:; //Gatling Crossbow
+            break;
+            case 6:; //spell: Freeze time
+            break;
+            case 7:; //The Lobotimizer
+            break;
+            case 8:; //Chain-and-Sickle 
+            break;
+            case 9:; //Mithril Hamaxe
+            break;
+            case 10:; //Fists of Fury
         }
     }
 }
