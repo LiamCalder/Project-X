@@ -405,10 +405,17 @@ public class dungeon
         
         System.out.print("  A"+name+" appears!");
         System.out.println("  blah blah conflict"); //call to battle method goes here
+		Battle(null);
         Delay(null);
     }
+	
+	private static void Inventory(int Id)
+	{
+		//method to store what weapon ids you have
+		
+	}
     
-    private static void battle(String[] args)
+    private static void Battle(String[] args)
     {
         //self evident
     }
