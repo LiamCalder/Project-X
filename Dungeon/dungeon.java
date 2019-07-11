@@ -21,6 +21,8 @@ public class dungeon
             input = s.nextLine();
             if (input.equalsIgnoreCase("start"))
             {
+				PHealth(100);
+				Weapons(2);
                 Run(null);//main game method
             }
             else if (input.equalsIgnoreCase("quit"))
@@ -329,9 +331,9 @@ public class dungeon
     private static void EnemyGen(int Id) //enemy Id list
     {
         String name = "";
-		int damage;
-		int speed; //scale of 1-slow to 10-insane fast
-		int health; //player health is 100
+		int damage = 20;
+		int speed = 3; //scale of 1-slow to 10-insane fast
+		int health = 50; //player health is 100
         switch (Id)
         {
             case -1:name = " -debug-"; //debug
@@ -349,7 +351,7 @@ public class dungeon
             case 2:name = " troll"; //Troll
 			damage = 30;
 			speed = 1;
-			health = 120;
+			health = 100;
             break;
             case 3:name = " snake"; //Snake
 			damage = 12;
@@ -359,7 +361,7 @@ public class dungeon
             case 4:name = " necromancer"; //Necromancer
 			damage = 15;
 			speed = 4;
-			health = 80;
+			health = 50;
             break;
             case 5:name = " wizard"; //Wizard
 			damage = 25;
@@ -379,7 +381,7 @@ public class dungeon
             case 8:name = "n outlaw"; //Outlaw
 			damage = 20;
 			speed = 5;
-			health = 90;
+			health = 80;
             break;
             case 9:name = " cave rat"; //Rat
 			damage = 10;
@@ -387,9 +389,9 @@ public class dungeon
 			health = 30;
             break;
             case 10:name = " wraith"; //Wraith
-			damage = ;
+			damage = 20;
 			speed = 7;
-			health = 50;
+			health = 70;
             break;
             case 11:name = " fanatic"; //Fanatic
 			damage = 35;
@@ -399,133 +401,143 @@ public class dungeon
             case 12:name = " demon"; //Demon
 			damage = 25;
 			speed = 7;
-			health = 55;
+			health = 65;
             break;
             case 13:name = " dragon"; //Dragon
 			damage = 45;
 			speed = 2;
-			health = 140;
+			health = 110;
             break;
             case 14:name = "n orc"; //Orc
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 4;
+			health = 70;
             break;
-            case 15:name = " cave dweller"; //Cave Dweller
-			damage = ;
-			speed = ;
-			health = ;
+            case 15:name = " vampire"; //Vampire
+			damage = 20;
+			speed = 7;
+			health = 40;
             break;
             case 16:name = " leviathan"; //Leviathan
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 30;
+			speed = 3;
+			health = 120;
             break;
             case 17:name = " pixie"; //Pixie
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 5;
+			speed = 9;
+			health = 10;
             break;
             case 18:name = " harpie"; //Harpy
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 15;
+			speed = 7;
+			health = 30;
             break;
             case 19:name = " fallen hero"; //Fallen Hero
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 25;
+			speed = 4;
+			health = 40;
             break;
             case 20:name = " guardian"; //Guardian
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 30;
+			speed = 2;
+			health = 90;
             break;
             case 21:name = " carnivorous plant"; //Carnivorous Plant
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 15;
+			speed = 5;
+			health = 80;
             break;
             case 22:name = " giant"; //Giant
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 3;
+			health = 100;
             break;
             case 23:name = " looter"; //Looter
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 15;
+			speed = 6;
+			health = 50;
             break;
             case 24:name = " wyrm"; //Wyrm
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 25;
+			speed = 5;
+			health = 60;
             break;
             case 25:name = " cursed soul"; //Cursed soul
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 15;
+			speed = 6;
+			health = 50;
             break;
             case 26:name = " fire elemental"; //Fire Elemental
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 7;
+			health = 60;
             break;
             case 27:name = " water elemental"; //Water Elemental
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 7;
+			health = 60;
             break;
             case 28:name = " earth elemental"; //Earth Elemental
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 7;
+			health = 60;
             break;
             case 29:name = " air elemental"; //Air Elemental
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 20;
+			speed = 7;
+			health = 60;
             break;
             case 30:name = " basilisk"; //Basilisk
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 25;
+			speed = 6;
+			health = 50;
             break;
             case 31:name = " rock golem"; //Rock Golem
-			damage = ;
-			speed = ;
-			health = ;
+			damage = 15;
+			speed = 2;
+			health = 110;
             break;
             case 32: System.out.print("  it's a mimic!"); //Mimic
-			damage = ;
-			speed = ;
-			health = ;
-            System.out.println("  blah blah conflict"); //call battle method
+			damage = 20;
+			speed = 4;
+			health = 45;
+			Battle(damage, speed, health);
             Delay(null);
             return;
         }
         
         System.out.print("  A"+name+" appears!");
-        System.out.println("  blah blah conflict"); //call to battle method goes here
+		Delay(null);
 		Battle(damage, speed, health);
-        Delay(null);
+        
     }
 	
-	private static void Inventory(int Id)
+	private static void Inventory(int d, int s)
 	{
 		//method to store what weapon ids you have
-		
+		int damage = d;
+		int speed = s;
 	}
     
     private static void Battle(int Edamage, int Espeed, int Ehealth)
     {
         //self evident
-		
-		//get weapon speed and damage
-		Pdamage = 20; //while invt. isnt working
-		Pspeed = 5;
-		Phealth = 100;
+		System.out.println("");
+		System.out.println("  Enemy Stats: ");
+		System.out.println("  Damage = "+Edamage);
+		System.out.println("  Speed = "+Espeed);
+		System.out.println("  Health = "+Ehealth);
+		System.out.println("");
+		//int Pdamage = Inventory.damage();
+		//int Pspeed = Inventory.speed();
+		//int Phealth = Phealth.hp();
     }
+	
+	private static void PHealth(int newHP)
+	{
+		int hp = newHP;
+	}
     
     private static void QualityT1(int Id) 
     {
@@ -678,11 +690,19 @@ public class dungeon
     {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
-        switch (Id)
+        int d;
+		int s;
+		switch (Id)
         {
             case 1:; //dagger
+			d = 10;
+			s = 7;
+			Inventory(d, s);
             break;
             case 2:; //sword
+			d = 20;
+			s = 5;
+			Inventory(d, s);
             break;
             case 3:; //shortbow
             break;
