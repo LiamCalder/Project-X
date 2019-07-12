@@ -5,6 +5,11 @@ import javax.swing.*;
 
 public class dungeon
 {
+	//chuck any global variables here and reference with: this.*
+	private static int hp = 100;
+	private static int dp = 10;
+	private static int sp = 7;
+	
     public static void main(String[] args)
     {
         //set up beginning of game
@@ -21,8 +26,6 @@ public class dungeon
             input = s.nextLine();
             if (input.equalsIgnoreCase("start"))
             {
-				PHealth(100);
-				Weapons(2);
                 Run(null);//main game method
             }
             else if (input.equalsIgnoreCase("quit"))
@@ -123,7 +126,7 @@ public class dungeon
         Delay(null);
     }
     
-    private static void nextLevel(String[] args)
+    private void nextLevel(String[] args)
     {
         //This method will bump up enemy stats, loot spawn etc and restart run
     }
@@ -156,7 +159,139 @@ public class dungeon
         int Id = r.nextInt(enArr.length);
         return enArr[Id];
     }
+	
+	//Setters and getters for damage, speed, and health
+	private static int getDamage(String[] args)
+	{
+		dungeon dun = new dungeon();
+		return dun.dp;
+	}
+	
+	private static void setDamage(int d)
+	{
+		dungeon dun = new dungeon();
+		dun.dp = d;
+	}
+	
+	private static int getSpeed(String[] args)
+	{
+		dungeon dun = new dungeon();
+		return dun.sp;
+	}
+	
+	private static void setSpeed(int s)
+	{
+		dungeon dun = new dungeon();
+		dun.sp = s;
+	}
+	
+	private static int getHealth(String[] args)
+	{
+		dungeon dun = new dungeon();
+		return dun.hp;
+	}
+	
+	private static void setHealth(int h)
+	{
+		dungeon dun = new dungeon();
+		dun.hp = h;
+	}
     
+	private static void Battle(int Edamage, int Espeed, int Ehealth)
+    {
+        //self evident
+		int Pdamage = getDamage(null);
+		int Pspeed = getSpeed(null);
+		int Phealth = getHealth(null);
+		
+		System.out.println("");
+		System.out.println("Debugging purposes:");
+		System.out.println("  Enemy Stats: ");
+		System.out.println("  Damage = "+Edamage);
+		System.out.println("  Speed = "+Espeed);
+		System.out.println("  Health = "+Ehealth);
+		System.out.println("");
+		System.out.println("  Your Stats: ");
+		System.out.println("  Damage = "+Pdamage);
+		System.out.println("  Speed = "+Pspeed);
+		System.out.println("  Health = "+Phealth);
+		System.out.println("");
+    }
+	
+	private void Weapons(int Id)
+    {
+        //weapon list
+        //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
+        int d;
+		int s;
+		switch (Id)
+        {
+            case 1:; //dagger
+			d = 10;
+			s = 7;
+            break;
+            case 2:; //sword
+			d = 20;
+			s = 5;
+            break;
+            case 3:; //shortbow
+            break;
+            case 4:; //longbow
+            break;
+            case 5:; //quartertaff
+            break;
+            case 6:; //mace
+            break;
+            case 7:; //axe
+            break;
+            case 8:; //war hammer
+            break;
+            case 9:; //crossbow
+            break;
+            case 10:; //greatsword
+            break;
+            case 11:; //shank
+            break;
+            case 12:; //spear
+            break;
+            case 13:; //wrist-mounted blades
+            break;
+            case 14:; //magic staff
+            break;
+            case 15:; //spell: flame
+            break;
+            case 16:; //spell: lightning
+            break;
+            case 17:; //spell: frost
+            break;
+            case 18:; //spell: sapping
+            break;
+            case 19:; //spell: aura
+            break;
+            case 20:; //spell: speed
+            break;
+            case 21:; //claymore
+            break;
+            case 22:; //morningstar
+            break;
+            case 23:; //pike
+            break;
+            case 24:; //cutlass
+            break;
+            case 25:; //chain
+            break;
+            case 26:; //nailed plank
+            break;
+            case 27:; //modified saw
+            break;
+            case 28:; //war scythe
+            break;
+            case 29:; //spell: dimensional shift
+            break;
+            case 30:; //spell: wall of fire
+        }
+    }
+	
     private static void RoomGen(int Id)
     {   
         int enArr[];
@@ -327,7 +462,7 @@ public class dungeon
             break;
         }
     }
-    
+	
     private static void EnemyGen(int Id) //enemy Id list
     {
         String name = "";
@@ -513,33 +648,7 @@ public class dungeon
         
     }
 	
-	private static void Inventory(int d, int s)
-	{
-		//method to store what weapon ids you have
-		int damage = d;
-		int speed = s;
-	}
-    
-    private static void Battle(int Edamage, int Espeed, int Ehealth)
-    {
-        //self evident
-		System.out.println("");
-		System.out.println("  Enemy Stats: ");
-		System.out.println("  Damage = "+Edamage);
-		System.out.println("  Speed = "+Espeed);
-		System.out.println("  Health = "+Ehealth);
-		System.out.println("");
-		//int Pdamage = Inventory.damage();
-		//int Pspeed = Inventory.speed();
-		//int Phealth = Phealth.hp();
-    }
-	
-	private static void PHealth(int newHP)
-	{
-		int hp = newHP;
-	}
-    
-    private static void QualityT1(int Id) 
+    private void QualityT1(int Id) 
     {
         //Only negative effects on stats
         switch (Id)
@@ -585,7 +694,7 @@ public class dungeon
         }
     }
     
-    private static void QualityT2(int Id) 
+    private void QualityT2(int Id) 
     {
         //Mixed effects on stats or small buff
         switch (Id)
@@ -621,7 +730,7 @@ public class dungeon
         }
     }
     
-     private static void QualityT3(int Id) 
+     private void QualityT3(int Id) 
     {
         //good effects of stats
         switch (Id)
@@ -659,7 +768,7 @@ public class dungeon
         }
     }
     
-    private static void QualityT4(int Id) 
+    private void QualityT4(int Id) 
     {
         //Special stat boosts
         switch (Id)
@@ -685,84 +794,8 @@ public class dungeon
             case 10:; //Perfect (more damage) - think of something
         }
     }
-    
-    private static void Weapons(int Id)
-    {
-        //weapon list
-        //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
-        int d;
-		int s;
-		switch (Id)
-        {
-            case 1:; //dagger
-			d = 10;
-			s = 7;
-			Inventory(d, s);
-            break;
-            case 2:; //sword
-			d = 20;
-			s = 5;
-			Inventory(d, s);
-            break;
-            case 3:; //shortbow
-            break;
-            case 4:; //longbow
-            break;
-            case 5:; //quartertaff
-            break;
-            case 6:; //mace
-            break;
-            case 7:; //axe
-            break;
-            case 8:; //war hammer
-            break;
-            case 9:; //crossbow
-            break;
-            case 10:; //greatsword
-            break;
-            case 11:; //shank
-            break;
-            case 12:; //spear
-            break;
-            case 13:; //wrist-mounted blades
-            break;
-            case 14:; //magic staff
-            break;
-            case 15:; //spell: flame
-            break;
-            case 16:; //spell: lightning
-            break;
-            case 17:; //spell: frost
-            break;
-            case 18:; //spell: sapping
-            break;
-            case 19:; //spell: aura
-            break;
-            case 20:; //spell: speed
-            break;
-            case 21:; //claymore
-            break;
-            case 22:; //morningstar
-            break;
-            case 23:; //pike
-            break;
-            case 24:; //cutlass
-            break;
-            case 25:; //chain
-            break;
-            case 26:; //nailed plank
-            break;
-            case 27:; //modified saw
-            break;
-            case 28:; //war scythe
-            break;
-            case 29:; //spell: dimensional shift
-            break;
-            case 30:; //spell: wall of fire
-        }
-    }
 	
-	private static void LWeapons(int Id) 
+	private void LWeapons(int Id) 
     {
         //legendary weapons
         switch (Id)
