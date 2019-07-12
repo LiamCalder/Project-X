@@ -5,10 +5,13 @@ import javax.swing.*;
 
 public class dungeon
 {
-	//chuck any global variables here and reference with: this.*
-	private static int hp = 100;
-	private static int dp = 10;
-	private static int sp = 7;
+	//Player stats and stuff
+	private static int hp = 100; //health
+	private static int dp = 10;  //damage
+	private static int sp = 7;   //speed
+	private static int SpellArray[] = new int[]{0,0,0,0,0,0,0,0,0,0}; //an array for learned spell Id's
+	private static int score = 0;//score
+	private static int mp = 100; //mana
 	
     public static void main(String[] args)
     {
@@ -26,7 +29,7 @@ public class dungeon
             input = s.nextLine();
             if (input.equalsIgnoreCase("start"))
             {
-                Run(null);//main game method
+                LevelChain(null);//level method
             }
             else if (input.equalsIgnoreCase("quit"))
             {
@@ -52,7 +55,7 @@ public class dungeon
         
     }
     
-    private static void Run(String[] args)
+    private static void LevelChain(String[] args)
     {
         System.out.println("");
         System.out.println("  You descend the stairs...");
@@ -77,6 +80,8 @@ public class dungeon
                 RoomGen(roomId);
             }
         }
+		
+		NextLevel(null);
         
         //outputs to JFrame instead of console
         /*JFrame f = new JFrame("ASCII");
@@ -126,9 +131,11 @@ public class dungeon
         Delay(null);
     }
     
-    private void nextLevel(String[] args)
+    private static void NextLevel(String[] args)
     {
-        //This method will bump up enemy stats, loot spawn etc and restart run
+        //This method will bump up enemy stats, loot spawns etc
+		System.out.println("  You find a staircase leading deeper into the dungeon");
+		LevelChain(null); //then restart LevelChain
     }
     
     private static void Delay(String[] args) //wait for user function
@@ -196,6 +203,29 @@ public class dungeon
 		dungeon dun = new dungeon();
 		dun.hp = h;
 	}
+	private static int getScore(String[] args)
+	{
+		dungeon dun = new dungeon();
+		return dun.score;
+	}
+	
+	private static void setScore(int sc)
+	{
+		dungeon dun = new dungeon();
+		dun.score = sc;
+	}
+	
+	private static int getMana(String[] args)
+	{
+		dungeon dun = new dungeon();
+		return dun.mp;
+	}
+	
+	private static void setMana(int m)
+	{
+		dungeon dun = new dungeon();
+		dun.mp = m;
+	}
     
 	private static void Battle(int Edamage, int Espeed, int Ehealth)
     {
@@ -216,6 +246,7 @@ public class dungeon
 		System.out.println("  Speed = "+Pspeed);
 		System.out.println("  Health = "+Phealth);
 		System.out.println("");
+		Delay(null);
     }
 	
 	private void Weapons(int Id)
@@ -229,6 +260,8 @@ public class dungeon
             case 1:; //dagger
 			d = 10;
 			s = 7;
+			setDamage(d);
+			setSpeed(s);
             break;
             case 2:; //sword
 			d = 20;
@@ -444,7 +477,7 @@ public class dungeon
             enemyId = EnemyId(enArr);
             EnemyGen(enemyId);
             break;
-            case 24:System.out.println("  Various adventurers like you lay slumped on the floor, long since succumbed to the perils of the dungeon"); 
+            case 24:System.out.println("  The floor is littered with the old bodies of would-be heroes"); 
             Delay(null);
             enArr = new int[]{0,6,10,19,23};
             enemyId = EnemyId(enArr);
