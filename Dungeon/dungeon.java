@@ -235,7 +235,7 @@ public class dungeon
 		int Phealth = getHealth(null);
 		
 		System.out.println("");
-		System.out.println("Debugging purposes:");
+		System.out.println("  Debugging purposes:");
 		System.out.println("  Enemy Stats: ");
 		System.out.println("  Damage = "+Edamage);
 		System.out.println("  Speed = "+Espeed);
@@ -245,9 +245,14 @@ public class dungeon
 		System.out.println("  Damage = "+Pdamage);
 		System.out.println("  Speed = "+Pspeed);
 		System.out.println("  Health = "+Phealth);
-		System.out.println("");
 		Delay(null);
     }
+	
+	private static void Shop(String[] args)
+	{
+		System.out.println("  Shop Stuff");
+		Delay(null);
+	}
 	
 	private void Weapons(int Id)
     {
@@ -462,7 +467,7 @@ public class dungeon
             break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
             System.out.println("  you get #loot!");
-            //gets loot (method)
+            //gets loot (method or plain rng)
             Delay(null);
             break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
@@ -491,7 +496,7 @@ public class dungeon
             break;
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
             Delay(null);
-            //call (non-existent) shopkeeper method
+            Shop(null);
             break;
         }
     }
@@ -666,7 +671,8 @@ public class dungeon
 			speed = 2;
 			health = 110;
             break;
-            case 32: System.out.print("  it's a mimic!"); //Mimic
+            case 32: System.out.println("");
+			System.out.print("  it's a mimic!"); //Mimic
 			damage = 20;
 			speed = 4;
 			health = 45;
