@@ -12,6 +12,8 @@ public class dungeon
 	private static int SpellArray[] = new int[]{0,0,0,0,0,0,0,0,0,0}; //an array for learned spell Id's
 	private static int score = 0;//score
 	private static int mp = 100; //mana
+	private static int t = 1;    //weapon quality Tier
+	private static int tid = 1;  //weapon quality id
 	
     public static void main(String[] args)
     {
@@ -737,7 +739,7 @@ public class dungeon
         //Only negative effects on stats
         switch (Id)
         {
-            case 1:; //Basic
+            case 1:; //Basic - no effects
             break;
             case 2:; //Flimsy
             break;
