@@ -167,7 +167,7 @@ public class dungeon
         return enArr[Id];
     }
 	
-	//Setters and getters for damage, speed, and health
+	//Setters and getters for damage, speed, health, score, and mana
 	private static int getDamage(String[] args)
 	{
 		dungeon dun = new dungeon();
@@ -229,23 +229,66 @@ public class dungeon
     
 	private static void Battle(int Edamage, int Espeed, int Ehealth)
     {
-        //self evident
-		int Pdamage = getDamage(null);
-		int Pspeed = getSpeed(null);
-		int Phealth = getHealth(null);
-		
-		System.out.println("");
-		System.out.println("  Debugging purposes:");
-		System.out.println("  Enemy Stats: ");
-		System.out.println("  Damage = "+Edamage);
-		System.out.println("  Speed = "+Espeed);
-		System.out.println("  Health = "+Ehealth);
-		System.out.println("");
-		System.out.println("  Your Stats: ");
-		System.out.println("  Damage = "+Pdamage);
-		System.out.println("  Speed = "+Pspeed);
-		System.out.println("  Health = "+Phealth);
-		Delay(null);
+		String input = "";
+		while (!input.equalsIgnoreCase("weapon") && !input.equalsIgnoreCase("spell") && !input.equalsIgnoreCase("health") && !input.equalsIgnoreCase("mana"))
+		{
+			Scanner s = new Scanner(System.in);
+			//gets global player variables
+			int Pdamage = getDamage(null);
+			int Pspeed = getSpeed(null);
+			int Phealth = getHealth(null);
+			
+			//debug stats
+			System.out.println("");
+			System.out.println("  Enemy Stats: ");
+			System.out.println("  Damage = "+Edamage);
+			System.out.println("  Speed = "+Espeed);
+			System.out.println("  Health = "+Ehealth);
+			System.out.println("");
+			System.out.println("  Your Stats: ");
+			System.out.println("  Damage = "+Pdamage);
+			System.out.println("  Speed = "+Pspeed);
+			System.out.println("  Health = "+Phealth);
+			System.out.println("");
+			System.out.println("  What will you do?");
+			System.out.println("  =================");
+			System.out.println("  [Weapon] | [Spell]");
+			System.out.println("  - - - - - - - - -");
+			System.out.println("  [Health] | [Mana]");
+			System.out.print("  ");
+			input = s.nextLine();
+			if (input.equalsIgnoreCase("weapon")) 
+			{
+				//attack with weapon stats
+				System.out.println("  Weapon attack");
+				//enemy turn method
+			}
+			else if (input.equalsIgnoreCase("spell"))
+			{
+				//attack with spell stats
+				System.out.println("  Spell attack");
+				//enemy turn method
+			}
+			else if (input.equalsIgnoreCase("health"))
+			{
+				//use health potion if availiable
+				System.out.println("  you heal yourself");
+				//enemy turn method
+			}
+			else if (input.equalsIgnoreCase("mana"))
+			{
+				//use mana potion if availiable
+				System.out.println("  feel the magik flow");
+				//enemy turn method
+			}
+			else
+			{
+				System.out.println("");
+				System.out.println("  Not a valid option. Enter '?' for help");
+			}
+			
+			Delay(null);
+		}
     }
 	
 	private static void Shop(String[] args)
@@ -271,6 +314,8 @@ public class dungeon
             case 2:; //sword
 			d = 20;
 			s = 5;
+			setDamage(d);
+			setSpeed(s);
             break;
             case 3:; //shortbow
             break;
