@@ -466,7 +466,8 @@ public class dungeon
             EnemyGen(enemyId);
             break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
-            System.out.println("  you get #loot!");
+			Delay(null);
+            System.out.println("  you open the chest to see what's in it");
             //gets loot (method or plain rng)
             Delay(null);
             break; 
@@ -671,13 +672,12 @@ public class dungeon
 			speed = 2;
 			health = 110;
             break;
-            case 32: System.out.println("");
-			System.out.print("  it's a mimic!"); //Mimic
+            case 32:System.out.print("  it's a mimic!"); //Mimic
+			Delay(null);
 			damage = 20;
 			speed = 4;
 			health = 45;
 			Battle(damage, speed, health);
-            Delay(null);
             return;
         }
         
