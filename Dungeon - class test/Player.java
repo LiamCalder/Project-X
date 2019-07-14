@@ -1,18 +1,39 @@
 public class Player {
-    private int hp;
-	public static int pw = 1;
+    
+	private int hp;
+	public static int wId = 1;
+	public static String name;
+	public static int damage;
+	public static int speed;
+	dungeon d = new dungeon();
 	
-	public void setWeapon(int wp) {
-		pw = wp;
-	}
-	
-	public int getWeapon(String[] args) {
-		return pw;
-	}
-
-    public Player(String[] args) {
+    public Player() {
         hp = 100;
     }
+	
+	public void setWeapon(int sw) {
+		wId = sw;
+	}
+	
+	public int getWeapon() {
+		return wId;
+	}
+	
+	public void setDamage(int st) {
+		damage = st;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	
+	public void setSpeed(int ss) {
+		speed = ss;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
 	
 	public int getHealth() {
 		return hp;
@@ -24,7 +45,10 @@ public class Player {
         // Damage output
         System.out.println("  You were hit by the " + w.getName() + " for " + w.getDamage() + " damage.");
         if (hp <= 0) {
-            System.out.println("  You are dead!");
+			d.Delay(null);
+            System.out.println("  You Have Perished in the Dungeon...");
+			d.Delay(null);
+			System.exit(1);
         } else {
             System.out.println("  You have " + hp + " hp.");
         }

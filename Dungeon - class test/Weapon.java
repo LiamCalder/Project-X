@@ -11,7 +11,7 @@ public abstract class Weapon {
 		this.speed = speed;
 
         //quality = OneOfTheTierQualityMultipliers()
-        quality = 1; // For demonstrative purposes
+        quality = 1; // For now
     }
 
     public String getName() {

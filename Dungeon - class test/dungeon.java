@@ -5,8 +5,7 @@ public class dungeon {
 	//initialise Classes
 	
 	//Player
-	static Player pl = new Player(null);
-	static int pw = pl.pw;
+	static Player pl = new Player();
 	
 	//Melee weapons
     static Weapon dagger         = new Melee("Dagger", 7, 8);            
@@ -189,7 +188,7 @@ public class dungeon {
 		LevelChain(null); //then restart LevelChain
     }
     
-    private static void Delay(String[] args) {//wait for user function
+    public static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
         if (delay.equalsIgnoreCase("?")) {
@@ -218,55 +217,59 @@ public class dungeon {
     
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
-		en.setHealth(h);
-		System.out.println("  It's a " + e.getName() + "!");
+		en.setHealth(h); //set enemy health
+		int w = pl.getWeapon(); //get weapon Id
+		WeaponStats(w); //get weapon stats
+		Delay(null);
+		System.out.println("  A " + e.getName() + " Appears!");
 		Delay(null);
 		
-		String input = "";
-		while (en.getHealth() > 0 && pl.getHealth() > 0) {
+		while (en.getHealth() > 0) {
 			Scanner s = new Scanner(System.in);
 			
-			//debug stats
-			System.out.println("  Enemy Stats: ");
-			System.out.println("  Damage = "+e.getDamage());
-			System.out.println("  Speed = "+e.getSpeed());
-			System.out.println("  Health = "+en.getHealth());
-			System.out.println("");
-			System.out.println("  Your Stats: ");
-			System.out.println("  Damage = ");
-			System.out.println("  Speed = ");
-			System.out.println("  Health = "+pl.getHealth());
-			System.out.println("");
+		   /*debug stats
+			*System.out.println("  Enemy Stats: ");
+			*System.out.println("  Damage = "+e.getDamage());
+			*System.out.println("  Speed = "+e.getSpeed());
+			*System.out.println("  Health = "+en.getHealth());
+			*System.out.println("");
+			*System.out.println("  Your Stats: ");
+			*System.out.println("  Damage = "+pl.getDamage());
+			*System.out.println("  Speed = "+pl.getSpeed());
+			*System.out.println("  Health = "+pl.getHealth());
+			*/
 			System.out.println("  What will you do?");
 			System.out.println("  =================");
 			System.out.println("  [Weapon] | [Spell]");
 			System.out.println("  - - - - - - - - -");
 			System.out.println("  [Health] | [Mana]");
-			System.out.print("  ");
-			input = s.nextLine();
-			if (input.equalsIgnoreCase("weapon")) {
-				en.hit(dagger);
-				System.out.println("");
-				System.out.println("  You attack with your weapon");
-				//enemy turn method
+			
+			String input = s.nextLine();
+			if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
+				en.hit(e);
+				if (en.getHealth() <= 0) {
+					Delay(null);
+					System.out.println("  You enter the next room");
+					Delay(null);
+					return;
+				}
+				Delay(null);
+				pl.hit(e);
 			}
-			else if (input.equalsIgnoreCase("spell")) {
+			else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
 				//attack with spell stats
-				System.out.println("");
-				System.out.println("  You cast your spell");
-				//enemy turn method
+				Delay(null);
+				pl.hit(e);
 			}
-			else if (input.equalsIgnoreCase("health")) {
+			else if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
 				//use health potion if availiable
-				System.out.println("");
-				System.out.println("  You feel your wounds mending");
-				//enemy turn method
+				Delay(null);
+				pl.hit(e);
 			}
-			else if (input.equalsIgnoreCase("mana")) {
+			else if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
 				//use mana potion if availiable
-				System.out.println("");
-				System.out.println("  Your mana is revitalized");
-				//enemy turn method
+				Delay(null);
+				pl.hit(e);
 			}
 			else {
 				System.out.println("  Not a valid option. Enter '?' for help");
@@ -281,45 +284,75 @@ public class dungeon {
 		Delay(null);
 	}
 	
-	private void WeaponStats(int Id) {
+	private static void WeaponStats(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
 			//Melee weapons
-            case 1:
-            case 2:
-			case 3:
-            case 4:
-            case 5:
-			case 6:
-			case 7:
-            case 8:
-            case 9:
-            case 10:
-            case 11:
-			case 12:
-            case 13:
-            case 14:
-            case 15:
-            case 16:
-            case 17:
-			case 18:
+            case 1:pl.setDamage(dagger.getDamage()); 
+				   pl.setSpeed(dagger.speed); break;
+            case 2:pl.setDamage(sword.getDamage()); 
+				   pl.setSpeed(sword.speed); break;
+			case 3:pl.setDamage(mace.getDamage()); 
+				   pl.setSpeed(mace.speed); break;
+            case 4:pl.setDamage(axe.getDamage()); 
+				   pl.setSpeed(axe.speed); break;
+            case 5:pl.setDamage(warHammer.getDamage()); 
+				   pl.setSpeed(warHammer.speed); break;
+			case 6:pl.setDamage(quarterstaff.getDamage()); 
+				   pl.setSpeed(quarterstaff.speed); break;
+			case 7:pl.setDamage(greatsword.getDamage()); 
+				   pl.setSpeed(greatsword.speed); break;
+            case 8:pl.setDamage(shank.getDamage()); 
+				   pl.setSpeed(shank.speed); break;
+            case 9:pl.setDamage(spear.getDamage()); 
+				   pl.setSpeed(spear.speed); break;
+            case 10:pl.setDamage(wristBlades.getDamage()); 
+				    pl.setSpeed(wristBlades.speed); break;
+            case 11:pl.setDamage(magicStaff.getDamage()); 
+				    pl.setSpeed(magicStaff.speed); break;
+			case 12:pl.setDamage(claymore.getDamage()); 
+				    pl.setSpeed(claymore.speed); break;
+            case 13:pl.setDamage(morningstar.getDamage()); 
+				    pl.setSpeed(morningstar.speed); break;
+            case 14:pl.setDamage(pike.getDamage()); 
+				    pl.setSpeed(pike.speed); break;
+            case 15:pl.setDamage(cutlass.getDamage()); 
+				    pl.setSpeed(cutlass.speed); break;
+            case 16:pl.setDamage(chain.getDamage()); 
+				    pl.setSpeed(chain.speed); break;
+            case 17:pl.setDamage(ballChain.getDamage()); 
+				    pl.setSpeed(ballChain.speed); break;
+			case 18:pl.setDamage(warScythe.getDamage()); 
+				    pl.setSpeed(warScythe.speed); break;
 			
 			//Ranged weapons
-            case 19:
-            case 20:
-            case 21:
-			case 22:
+            case 19:pl.setDamage(shortbow.getDamage()); 
+				    pl.setSpeed(shortbow.speed); break;
+            case 20:pl.setDamage(longbow.getDamage()); 
+				    pl.setSpeed(longbow.speed); break;
+            case 21:pl.setDamage(shurikan.getDamage()); 
+				    pl.setSpeed(shurikan.speed); break;
+			case 22:pl.setDamage(crossbow.getDamage()); 
+				    pl.setSpeed(crossbow.speed); break;
            
 		    //Magic weapons
-            case 23:
-            case 24:
-            case 25:
-            case 26:
-            case 27:
-            case 28:
-            case 29:
-            case 30:
+            case 23:pl.setDamage(flame.getDamage()); 
+				    pl.setSpeed(flame.speed); break;
+            case 24:pl.setDamage(lightning.getDamage()); 
+				    pl.setSpeed(lightning.speed); break;
+            case 25:pl.setDamage(frost.getDamage()); 
+				    pl.setSpeed(frost.speed); break;
+            case 26:pl.setDamage(sapping.getDamage()); 
+			 	    pl.setSpeed(sapping.speed); break;
+            case 27:pl.setDamage(aura.getDamage()); 
+	 			    pl.setSpeed(aura.speed); break;
+            case 28:pl.setDamage(speed.getDamage());  
+				    pl.setSpeed(speed.speed); break;
+            case 29:pl.setDamage(shift.getDamage()) ; 
+				    pl.setSpeed(shift.speed); break;
+            case 30:pl.setDamage(fireWall.getDamage() ); 
+				    pl.setSpeed(fireWall.speed); break;
         }
     }
 	
@@ -368,168 +401,112 @@ public class dungeon {
         int enemyId;
         
         switch(Id) {
-            //idea - make rooms interactive?
-            //Also, code for room goes between case and it's respective break
             case -1:System.out.println("  This should not appear. if it does, roomId wasn't called"); 
-            Delay(null);
-            enArr = new int[]{-1}; //any number in curly brackets reperesents possible enemy spawns in room via Id#
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{-1}; //numbers in curly brackets reperesents possible enemy spawns in room via Id#
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
-            Delay(null);
-            enArr = new int[]{0,4,6,19,23,25};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,4,6,19,23,25};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 2: System.out.println("  You find yourself in a massive cavern"); 
-            Delay(null);
-            enArr = new int[]{1,2,7,13,17,18,22,29};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{1,2,7,13,17,18,22,29};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 3: System.out.println("  A long corridor stretches before you"); 
-            Delay(null);
-            enArr = new int[]{1,3,9,15,17,20,31};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
-            case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow"); 
-            Delay(null);
-            enArr = new int[]{4,5,10,11,12,25};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{1,3,9,15,17,20,31};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
+            case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow");     
+					enArr = new int[]{4,5,10,11,12,25};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 5: System.out.println("  It seems you have stumbled upon a mass grave"); 
-            Delay(null);
-            enArr = new int[]{0,6,9,15,19,23};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,6,9,15,19,23};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 6: System.out.println("  shelves full of exotic potions and illegible tomes surround you"); 
-            Delay(null);
-            enArr = new int[]{4,5,11,12,30};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{4,5,11,12,30};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 7: System.out.println("  An evil darkness lurks in the corners of the room"); 
-            Delay(null);
-            enArr = new int[]{10,11,12,25};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{10,11,12,25};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); 
-            Delay(null);
-            enArr = new int[]{1};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{1};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 9: System.out.println("  The floor is littered with eggs. It seems to be a nest of some sort"); 
-            Delay(null);
-            enArr = new int[]{1,3,13,30};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{1,3,13,30};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 10:System.out.println("  You enter an unremarable little cave, recently inhabited..."); 
-            Delay(null);
-            enArr = new int[]{2,5,7,8,11,14,15,23};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{2,5,7,8,11,14,15,23};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 11:System.out.println("  In the darkness you barely avoid falling into the underground lake in front of you");
-            Delay(null);
-            enArr = new int[]{16,17,18,24,27,30};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{16,17,18,24,27,30};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 12:System.out.println("  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"); 
-            Delay(null);
-            enArr = new int[]{2,3,13,16,21,22,24,30};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{2,3,13,16,21,22,24,30};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 13:System.out.println("  Strange symbols cover all this room's surfaces"); 
-            Delay(null);
-            enArr = new int[]{4,5,11,12,15,20,25};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{4,5,11,12,15,20,25};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 14:System.out.println("  It looks like there was once a forge here"); 
-            Delay(null);
-            enArr = new int[]{0,6,7,8,14,15,23,26};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,6,7,8,14,15,23,26};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 15:System.out.println("  rusted weapons and armour lay abandoned around you"); 
-            Delay(null);
-            enArr = new int[]{0,6,7,8,14,15,23};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,6,7,8,14,15,23};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 16:System.out.println("  The ground before you falls away into a seemingly endless abyss"); 
-            Delay(null);
-            enArr = new int[]{10,12,13,17,18,26,27,28,29};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{10,12,13,17,18,26,27,28,29};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 17:System.out.println("  The air around you suddenly cools"); 
-            Delay(null);
-            enArr = new int[]{4,10,12,29};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{4,10,12,29};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 18:System.out.println("  in front of you is a once-great statue of some forgotten hero"); 
-            Delay(null);
-            enArr = new int[]{0,6,9,11,19,20,28};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,6,9,11,19,20,28};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 19:System.out.println("  A thick mist gathers around your feet"); 
-            Delay(null);
-            enArr = new int[]{4,5,10,12,17,29,31};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{4,5,10,12,17,29,31};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 20:System.out.println("  You enter a mineshaft, long abandoned to rot and degradation"); 
-            Delay(null);
-            enArr = new int[]{0,1,2,3,7,9,23,31};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,1,2,3,7,9,23,31};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
-			Delay(null);
-            System.out.println("  you open the chest to see what's in it");
-            //gets loot (method or plain rng)
-            Delay(null);
-            break; 
+					System.out.println("  you open the chest to see what's in it");
+					/*gets loot (method or plain rng)*/ break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
-            Delay(null);
-            enArr = new int[]{32};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break; 
+					enArr = new int[]{32};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break; 
             case 23:System.out.println("  A portal to some dark world floats omniously in front of you"); 
-            Delay(null);
-            enArr = new int[]{10,11,12};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{10,11,12};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 24:System.out.println("  The floor is littered with the old bodies of would-be heroes"); 
-            Delay(null);
-            enArr = new int[]{0,6,10,19,23};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{0,6,10,19,23};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 25:System.out.println("  the doorway to this room has strange runes scrawled across it - probably a warning"); 
-            Delay(null);
-            enArr = new int[]{2,13,20,21,24,30,31};
-            enemyId = EnemyId(enArr);
-            EnemyGen(enemyId);
-            break;
+					enArr = new int[]{2,13,20,21,24,30,31};
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
-            Delay(null);
-            Shop(null);
-            break;
+					Delay(null);
+					Shop(null); break;
         }
     }
 	

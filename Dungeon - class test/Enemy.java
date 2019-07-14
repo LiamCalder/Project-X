@@ -1,5 +1,8 @@
 public class Enemy {
     private int hp;
+	public boolean isDead = false;
+	Player pl = new Player();
+	dungeon d = new dungeon();
 
     public void setHealth(int h) {
 		hp = h;
@@ -10,12 +13,14 @@ public class Enemy {
 	}
 
     public void hit(Weapon w) {
-        hp -= w.getDamage();
+        hp -= pl.getDamage();
 
         // Damage output
-        System.out.println("  You hit the " + w.getName() + " for " + w.getDamage() + " damage.");
+		System.out.println("");
+        System.out.println("  You hit the " + w.getName() + " for " + pl.getDamage() + " damage.");
         if (hp <= 0) {
             System.out.println("  The " + w.getName() + " dies!");
+			isDead = true;
         } else {
             System.out.println("  The " + w.getName() + " has " + hp + " hp.");
         }
