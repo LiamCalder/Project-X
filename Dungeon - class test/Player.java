@@ -4,6 +4,10 @@ public class Player {
     public Player(String[] args) {
         hp = 100;
     }
+	
+	public int getHealth() {
+		return hp;
+	}
 
     public void hit(Weapon w) {
         hp -= w.getDamage();

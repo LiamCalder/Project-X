@@ -1,6 +1,6 @@
 public class Ranged extends Weapon {
-    public Ranged(String name, double damage) {
-        super(name, damage);
+    public Ranged(String name, double damage, int speed) {
+        super(name, damage, speed);
     }
 
     public int getDamage() {
