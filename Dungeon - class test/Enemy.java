@@ -1,7 +1,7 @@
 public class Enemy {
     private int hp;
 
-    public int setHealth(int h) {
+    public void setHealth(int h) {
 		hp = h;
 	}
 	
