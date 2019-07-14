@@ -13,11 +13,11 @@ public class Enemy {
         hp -= w.getDamage();
 
         // Damage output
-        System.out.println("  You hit by the " + w.getName() + " for " + w.getDamage() + " damage.");
+        System.out.println("  You hit the " + w.getName() + " for " + w.getDamage() + " damage.");
         if (hp <= 0) {
             System.out.println("  The " + w.getName() + " dies!");
         } else {
-            System.out.println("  The + " + w.getName() + " has " + hp + " hp.");
+            System.out.println("  The " + w.getName() + " has " + hp + " hp.");
         }
     }
 }

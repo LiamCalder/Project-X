@@ -1,32 +1,32 @@
 import java.util.*;
 //import javax.swing.*;
 
-public class dungeon
-{
+public class dungeon {
 	//initialise Classes
 	
 	//Player
 	static Player pl = new Player(null);
+	static int pw = pl.pw;
 	
 	//Melee weapons
-    static Weapon dagger         = new Melee("Dagger", 10, 8);            
+    static Weapon dagger         = new Melee("Dagger", 7, 8);            
     static Weapon sword          = new Melee("Sword", 10, 6);             
-	static Weapon mace           = new Melee("Mace", 10, 3);		        
-    static Weapon axe            = new Melee("Axe", 10, 4);		        
-    static Weapon warHammer      = new Melee("War Hammer", 10, 3);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 10, 2);	    
-    static Weapon shank          = new Melee("Shank", 10, 7);		        
+	static Weapon mace           = new Melee("Mace", 12, 3);		        
+    static Weapon axe            = new Melee("Axe", 11, 4);		        
+    static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
+	static Weapon quarterstaff   = new Melee("Quarterstaff", 8, 7);      
+	static Weapon greatsword     = new Melee("Greatsword", 13, 2);	    
+    static Weapon shank          = new Melee("Shank", 7, 7);		        
     static Weapon spear          = new Melee("Spear", 10, 6);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 10, 7);      
-    static Weapon magicStaff     = new Melee("Magic Staff", 10, 4);       
-	static Weapon claymore       = new Melee("Claymore", 10, 2);          
-    static Weapon morningstar    = new Melee("Morningstar", 10, 3);       
-    static Weapon pike           = new Melee("Pike", 10, 5);              
-    static Weapon cutlass        = new Melee("Cutlass", 10, 7);           
-    static Weapon chain          = new Melee("Chain", 10, 3);		        
-    static Weapon ballChain      = new Melee("Ball and Chain", 10, 1);      
-	static Weapon warScythe      = new Melee("War Scythe", 10, 5);        
+    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);      
+    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4);       
+	static Weapon claymore       = new Melee("Claymore", 15, 2);          
+    static Weapon morningstar    = new Melee("Morningstar", 14, 3);       
+    static Weapon pike           = new Melee("Pike", 13, 5);              
+    static Weapon cutlass        = new Melee("Cutlass", 11, 7);           
+    static Weapon chain          = new Melee("Chain", 12, 3);		        
+    static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
+	static Weapon warScythe      = new Melee("War Scythe", 12, 5);        
 			
 	//Ranged weapons
     static Weapon shortbow       = new Ranged("Shortbow", 10, 7);         
@@ -46,7 +46,7 @@ public class dungeon
 	
 	//Enemies
 	static Weapon skeleton         = new Melee("Skeleton", 10, 7);           
-    static Weapon spider           = new Melee("Dagger", 6, 8);             
+    static Weapon spider           = new Melee("Spider", 6, 8);             
     static Weapon troll            = new Melee("Troll", 14, 2);              
     static Weapon snake            = new Melee("Snake", 5, 8);              
     static Weapon necromancer      = new Magic("Necromancer", 12, 5);        
@@ -79,8 +79,7 @@ public class dungeon
     static Weapon golem            = new Melee("Rock Golem", 13, 2);         
     static Weapon mimic            = new Melee("Mimic", 11, 4);
 	
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         //set up beginning of game
         Scanner s = new Scanner(System.in);
         System.out.println("");
@@ -88,29 +87,24 @@ public class dungeon
         System.out.println("  =================================");
         System.out.println("  [Start] [Quit] [Help] [Controls]");
         String input = "";
-        while (!input.equalsIgnoreCase("start"))
-        {
+        while (!input.equalsIgnoreCase("start")) {
             //option select
             System.out.print("  ");
             input = s.nextLine();
-            if (input.equalsIgnoreCase("start"))
-            {
+            if (input.equalsIgnoreCase("start")) {
                 LevelChain(null);//level method
             }
-            else if (input.equalsIgnoreCase("quit"))
-            {
+            else if (input.equalsIgnoreCase("quit")) {
                 System.exit(1);
             }
-            else if (input.equalsIgnoreCase("controls"))
-            {
+            else if (input.equalsIgnoreCase("controls")) {
                 Controls(null);
                 System.out.println("");
                 System.out.println("  Do you want to enter The Dungeon?");
                 System.out.println("  =================================");
                 System.out.println("  [Start] [Quit] [Help] [Controls]");
             }
-            else
-            {
+            else {
                 Help(null);
                 System.out.println("");
                 System.out.println("  Do you want to enter The Dungeon?");
@@ -121,8 +115,7 @@ public class dungeon
         
     }
     
-    private static void LevelChain(String[] args)
-    {
+    private static void LevelChain(String[] args) {
         System.out.println("");
         System.out.println("  You descend the stairs...");
                 
@@ -130,18 +123,15 @@ public class dungeon
         Random r = new Random();
         int vary = r.nextInt(3)+4; //variation on number of levels
         int roomArr[] = new int[vary]; //create array of vary length
-        for (int i=0; i<vary; i++)
-        {
+        for (int i=0; i<vary; i++) {
             //call RoomId and grab Id
             int checkRoomId = -1;
             int roomId = RoomId(checkRoomId);
             boolean isDup = isDuplicate(roomArr, roomId); //check for duplicates
-            if (isDup == true)
-            {
+            if (isDup == true) {
                 i--;
             }
-            else
-            {
+            else {
                 roomArr[i] = roomId; //if no dupes, add Id to array and execute room
                 RoomGen(roomId);
             }
@@ -159,10 +149,8 @@ public class dungeon
         f.setVisible(true);*/
     }
     
-    private static boolean isDuplicate(int roomArr[], int Id) //duplicate room check function
-    {
-        for (int i=0; i<roomArr.length; i++)
-        {
+    private static boolean isDuplicate(int roomArr[], int Id) {//duplicate room check function
+        for (int i=0; i<roomArr.length; i++) {
             if (Id == roomArr[i])
             {
                 return true;
@@ -171,8 +159,7 @@ public class dungeon
         return false;
     }
     
-    private static void Help(String[] args)
-    {
+    private static void Help(String[] args) {
         System.out.println("");
         System.out.println("  To correctly select an option, type");
         System.out.println("  exactly what is in the square brackets");
@@ -184,8 +171,7 @@ public class dungeon
         Delay(null);
     }
     
-    private static void Controls(String[] args)
-    {
+    private static void Controls(String[] args) {
         System.out.println("");
         System.out.println("  To select option: type whatevers in [here]");
         System.out.println("  i = inventory");
@@ -197,54 +183,47 @@ public class dungeon
         Delay(null);
     }
     
-    private static void NextLevel(String[] args)
-    {
+    private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
 		System.out.println("  You find a staircase leading deeper into the dungeon");
 		LevelChain(null); //then restart LevelChain
     }
     
-    private static void Delay(String[] args) //wait for user function
-    {
+    private static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
-        if (delay.equalsIgnoreCase("?"))
-        {
+        if (delay.equalsIgnoreCase("?")) {
             Help(null);
         }
-		if (delay.equalsIgnoreCase("quit"))
-		{
+		if (delay.equalsIgnoreCase("quit")) {
 			System.exit(1);
 		}
     }
 
-    private static int RoomId(int roomId) //room Id list
-    {
+    private static int RoomId(int roomId) { //room Id list
         Random r = new Random();
         roomId = r.nextInt(31)+1; //update with new room cases
         //change max random number to change shop spawn chance (E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
-        if (roomId > 25)
-        {
+        if (roomId > 25) {
             roomId = 26; //give shops one Id
         }
         return roomId; //pass RoomId back to Caller
     }
     
-    private static int EnemyId(int[] enArr)
-    {
+    private static int EnemyId(int[] enArr) {
         Random r = new Random();
         int Id = r.nextInt(enArr.length);
         return enArr[Id];
     }
     
-	private static void Battle(Weapon p, Weapon e, int h)
-    {
+	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
 		en.setHealth(h);
+		System.out.println("  It's a " + e.getName() + "!");
+		Delay(null);
 		
 		String input = "";
-		while (en.getHealth() > 0 && pl.getHealth() > 0)
-		{
+		while (en.getHealth() > 0 && pl.getHealth() > 0) {
 			Scanner s = new Scanner(System.in);
 			
 			//debug stats
@@ -254,8 +233,8 @@ public class dungeon
 			System.out.println("  Health = "+en.getHealth());
 			System.out.println("");
 			System.out.println("  Your Stats: ");
-			System.out.println("  Damage = "+p.getDamage());
-			System.out.println("  Speed = "+p.getSpeed());
+			System.out.println("  Damage = ");
+			System.out.println("  Speed = ");
 			System.out.println("  Health = "+pl.getHealth());
 			System.out.println("");
 			System.out.println("  What will you do?");
@@ -265,36 +244,31 @@ public class dungeon
 			System.out.println("  [Health] | [Mana]");
 			System.out.print("  ");
 			input = s.nextLine();
-			if (input.equalsIgnoreCase("weapon")) 
-			{
-				//attack with weapon stats
+			if (input.equalsIgnoreCase("weapon")) {
+				en.hit(dagger);
 				System.out.println("");
 				System.out.println("  You attack with your weapon");
 				//enemy turn method
 			}
-			else if (input.equalsIgnoreCase("spell"))
-			{
+			else if (input.equalsIgnoreCase("spell")) {
 				//attack with spell stats
 				System.out.println("");
 				System.out.println("  You cast your spell");
 				//enemy turn method
 			}
-			else if (input.equalsIgnoreCase("health"))
-			{
+			else if (input.equalsIgnoreCase("health")) {
 				//use health potion if availiable
 				System.out.println("");
 				System.out.println("  You feel your wounds mending");
 				//enemy turn method
 			}
-			else if (input.equalsIgnoreCase("mana"))
-			{
+			else if (input.equalsIgnoreCase("mana")) {
 				//use mana potion if availiable
 				System.out.println("");
 				System.out.println("  Your mana is revitalized");
 				//enemy turn method
 			}
-			else
-			{
+			else {
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
 			
@@ -302,21 +276,18 @@ public class dungeon
 		}
     }
 	
-	private static void Shop(String[] args)
-	{
+	private static void Shop(String[] args) {
 		System.out.println("  Shop Stuff");
 		Delay(null);
 	}
 	
-	private void Weapons(int Id)
-    {
+	private void WeaponStats(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
-		switch (Id)
-        {
+		switch (Id) {
 			//Melee weapons
-            case 1:pw = "dagger"; break;
-            case 2:pw = "sword"; break;
+            case 1:
+            case 2:
 			case 3:
             case 4:
             case 5:
@@ -352,13 +323,51 @@ public class dungeon
         }
     }
 	
-    private static void RoomGen(int Id)
-    {   
+    private static void EnemyGen(int Id) {//enemy Id list
+		Enemy en = new Enemy();
+        switch (Id) {
+			     //Battle(Enemy base stats, skeleton health)
+            case 0:Battle(skeleton, 20); break;
+            case 1:Battle(spider, 15); break;
+            case 2:Battle(troll, 40); break;      
+            case 3:Battle(snake, 12); break; 			
+            case 4:Battle(necromancer, 25); break;  			
+            case 5:Battle(wizard, 23); break;  
+            case 6:Battle(skeletonArcher, 18); break;  
+            case 7:Battle(goblin, 22); break;  
+            case 8:Battle(outlaw, 27); break;  
+            case 9:Battle(caveRat, 14); break;  
+            case 10:Battle(wraith, 26); break;  
+            case 11:Battle(fanatic, 16); break;  
+            case 12:Battle(demon, 30); break;  
+            case 13:Battle(dragon, 50); break;  
+            case 14:Battle(orc, 25); break;  
+            case 15:Battle(vampire, 21); break;  
+            case 16:Battle(leviathan, 45); break; 
+            case 17:Battle(pixie, 10); break; 
+            case 18:Battle(harpy, 17); break; 
+            case 19:Battle(fallenHero, 29); break; 
+            case 20:Battle(guardian, 25); break; 
+            case 21:Battle(carnPlant, 19); break; 
+            case 22:Battle(giant, 32); break; 
+            case 23:Battle(looter, 20); break; 
+            case 24:Battle(wyrm, 28); break; 
+            case 25:Battle(cursedSoul, 23); break; 
+            case 26:Battle(fElemental, 18); break; 
+            case 27:Battle(wElemental, 18); break; 
+            case 28:Battle(eElemental, 18); break; 
+            case 29:Battle(aElemental, 18); break; 
+            case 30:Battle(basilisk, 34); break; 
+            case 31:Battle(golem, 37); break; 
+            case 32:Battle(mimic, 22); break;
+        }
+    }
+	
+	private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;
         
-        switch(Id)
-        {
+        switch(Id) {
             //idea - make rooms interactive?
             //Also, code for room goes between case and it's respective break
             case -1:System.out.println("  This should not appear. if it does, roomId wasn't called"); 
@@ -524,53 +533,9 @@ public class dungeon
         }
     }
 	
-    private static void EnemyGen(int Id) //enemy Id list
-    {
-		Enemy en = new Enemy();
-        switch (Id)
-        {
-			     //Battle(Player weapon, skeleton base stats, skeleton health)
-            case 0:Battle(pw, skeleton, 20); break;
-            case 1:Battle(pw, spider, 15); break;
-            case 2:Battle(pw, troll, 40); break;      
-            case 3:Battle(pw, snake, 12); break; 			
-            case 4:Battle(pw, necromancer, 25); break;  			
-            case 5:Battle(pw, wizard, 23); break;  
-            case 6:Battle(pw, skeletonArcher, 18); break;  
-            case 7:Battle(pw, goblin, 22); break;  
-            case 8:Battle(pw, outlaw, 27); break;  
-            case 9:Battle(pw, caveRat, 14); break;  
-            case 10:Battle(pw, wraith, 26); break;  
-            case 11:Battle(pw, fanatic, 16); break;  
-            case 12:Battle(pw, demon, 30); break;  
-            case 13:Battle(pw, dragon, 50); break;  
-            case 14:Battle(pw, orc, 25); break;  
-            case 15:Battle(pw, vampire, 21); break;  
-            case 16:Battle(pw, leviathan, 45); break; 
-            case 17:Battle(pw, pixie, 10); break; 
-            case 18:Battle(pw, harpy, 17); break; 
-            case 19:Battle(pw, fallenHero, 29); break; 
-            case 20:Battle(pw, guardian, 25); break; 
-            case 21:Battle(pw, carnPlant, 19); break; 
-            case 22:Battle(pw, giant, 32); break; 
-            case 23:Battle(pw, looter, 20); break; 
-            case 24:Battle(pw, wyrm, 28); break; 
-            case 25:Battle(pw, cursedSoul, 23); break; 
-            case 26:Battle(pw, fElemental, 18); break; 
-            case 27:Battle(pw, wElemental, 18); break; 
-            case 28:Battle(pw, eElemental, 18); break; 
-            case 29:Battle(pw, aElemental, 18); break; 
-            case 30:Battle(pw, basilisk, 34); break; 
-            case 31:Battle(pw, golem, 37); break; 
-            case 32:Battle(pw, mimic, 22); break;
-        }
-    }
-	
-    private void QualityT1(int Id) 
-    {
+    private void QualityT1(int Id)  {
         //Only negative effects on stats
-        switch (Id)
-        {
+        switch (Id) {
             case 1:; //Basic - no effects
             break;
             case 2:; //Flimsy
@@ -648,11 +613,9 @@ public class dungeon
         }
     }
     
-     private void QualityT3(int Id) 
-    {
+     private void QualityT3(int Id) {
         //good effects of stats
-        switch (Id)
-        {
+        switch (Id) {
             case 1:; //Enhanced
             break;
             case 2:; //Unnaturally fast
@@ -686,11 +649,9 @@ public class dungeon
         }
     }
     
-    private void QualityT4(int Id) 
-    {
+    private void QualityT4(int Id) {
         //Special stat boosts
-        switch (Id)
-        {
+        switch (Id) {
             case 1:; //Flaming (cont. burn damage)
             break;
             case 2:; //Toxic (lower dodge of opp + small cont. damage)
@@ -713,11 +674,9 @@ public class dungeon
         }
     }
 	
-	private void LWeapons(int Id) 
-    {
+	private void LWeapons(int Id) {
         //legendary weapons
-        switch (Id)
-        {
+        switch (Id) {
             case 1:; //Excalibur
             break;
             case 2:; //Carved Basilisk Tooth

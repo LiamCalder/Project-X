@@ -1,5 +1,14 @@
 public class Player {
     private int hp;
+	public static int pw = 1;
+	
+	public void setWeapon(int wp) {
+		pw = wp;
+	}
+	
+	public int getWeapon(String[] args) {
+		return pw;
+	}
 
     public Player(String[] args) {
         hp = 100;
@@ -8,7 +17,7 @@ public class Player {
 	public int getHealth() {
 		return hp;
 	}
-
+	
     public void hit(Weapon w) {
         hp -= w.getDamage();
 
