@@ -1,10 +1,13 @@
 public class Enemy {
     private int hp;
 
-    public Enemy(int h) {
-        hp = h;
-		
-    }
+    public int setHealth(int h) {
+		hp = h;
+	}
+	
+	public int getHealth() {
+		return hp;
+	}
 
     public void hit(Weapon w) {
         hp -= w.getDamage();
@@ -12,9 +15,9 @@ public class Enemy {
         // Damage output
         System.out.println("  You hit by the " + w.getName() + " for " + w.getDamage() + " damage.");
         if (hp <= 0) {
-            System.out.println("  The " + w.getName + " dies!");
+            System.out.println("  The " + w.getName() + " dies!");
         } else {
-            System.out.println("  The + " + w.getName + " has " + hp + " hp.");
+            System.out.println("  The + " + w.getName() + " has " + hp + " hp.");
         }
     }
 }

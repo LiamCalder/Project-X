@@ -5,8 +5,8 @@ public class dungeon
 {
 	//initialise Classes
 	
-	//Player and enemy classes
-	Player p1 = new Player(null);
+	//Player
+	Player pl = new Player(null);
 	
 	//Melee weapons
     Weapon dagger          = new Melee("Dagger", 10);            
@@ -45,39 +45,39 @@ public class dungeon
     Weapon fireWall       = new Magic("Wall Of Fire", 10);      
 	
 	//Enemies
-	Weapon skeleton          = new Melee("Skeleton", 10);           
-    Weapon spider            = new Melee("Dagger", 10);             
-    Weapon troll             = new Melee("Troll", 10);              
-    Weapon snake             = new Melee("Snake", 10);              
-    Weapon necromancer       = new Magic("Necromancer", 10);        
-    Weapon wizard            = new Magic("Wizard", 10);             
-    Weapon skeletonArcher    = new Ranged("Skeleton Archer", 10);   
-    Weapon goblin            = new Melee("Goblin", 10);             
-    Weapon Outlaw            = new Melee("outlaw", 10);             
-    Weapon caveRat           = new Melee("Cave Rat", 10);           
-    Weapon wraith           = new Melee("Wraith", 10);             
-    Weapon fanatic          = new Melee("Fantic", 10);             
-    Weapon demon            = new Magic("Demon", 10);              
-    Weapon Dragon           = new Melee("Dragon", 10);             
-    Weapon orc              = new Melee("Orc", 10);                
-    Weapon vampire          = new Magic("Vampire", 10);            
-    Weapon leviathan        = new Melee("Leviathan", 10);          
-    Weapon pixie            = new Magic("Pixie", 10);              
-    Weapon harpy            = new Melee("Harpy", 10);              
-    Weapon fallenHero       = new Melee("Fallen Hero", 10);        
-    Weapon Guardian         = new Melee("Guardian", 10);           
-    Weapon carnPlant        = new Melee("Carnivorous Plant", 10);  
-    Weapon giant            = new Melee("Giant", 10);              
-    Weapon looter           = new Melee("Looter", 10);             
-    Weapon wyrm             = new Melee("Wyrm", 10);               
+	Weapon skeleton         = new Melee("Skeleton", 10);           
+    Weapon spider           = new Melee("Dagger", 6);             
+    Weapon troll            = new Melee("Troll", 14);              
+    Weapon snake            = new Melee("Snake", 5);              
+    Weapon necromancer      = new Magic("Necromancer", 12);        
+    Weapon wizard           = new Magic("Wizard", 13);             
+    Weapon skeletonArcher   = new Ranged("Skeleton Archer", 9);   
+    Weapon goblin           = new Melee("Goblin", 8);             
+    Weapon outlaw           = new Melee("outlaw", 10);             
+    Weapon caveRat          = new Melee("Cave Rat", 5);           
+    Weapon wraith           = new Melee("Wraith", 13);             
+    Weapon fanatic          = new Melee("Fantic", 12);             
+    Weapon demon            = new Magic("Demon", 15);              
+    Weapon dragon           = new Melee("Dragon", 16);             
+    Weapon orc              = new Melee("Orc", 11);                
+    Weapon vampire          = new Magic("Vampire", 12);            
+    Weapon leviathan        = new Melee("Leviathan", 14);          
+    Weapon pixie            = new Magic("Pixie", 6);              
+    Weapon harpy            = new Melee("Harpy", 7);              
+    Weapon fallenHero       = new Melee("Fallen Hero", 12);        
+    Weapon guardian         = new Melee("Guardian", 14);           
+    Weapon carnPlant        = new Melee("Carnivorous Plant", 9);  
+    Weapon giant            = new Melee("Giant", 11);              
+    Weapon looter           = new Melee("Looter", 8);             
+    Weapon wyrm             = new Melee("Wyrm", 13);               
     Weapon cursedSoul       = new Melee("Cursed Soul", 10);        
-    Weapon fElemental       = new Ranged("Fire Elemental", 10);    
-    Weapon wElemental       = new Ranged("Water Elemental", 10);   
-    Weapon eElemental       = new Ranged("Earth Elemental", 10);   
-    Weapon aElemental       = new Ranged("Air Elemental", 10);     
-    Weapon basilisk         = new Melee("Basilisk", 10);           
-    Weapon golem            = new Melee("Rock Golem", 10);         
-    Weapon mimic            = new Melee("Mimic", 10);
+    Weapon fElemental       = new Ranged("Fire Elemental", 12);    
+    Weapon wElemental       = new Ranged("Water Elemental", 12);   
+    Weapon eElemental       = new Ranged("Earth Elemental", 12);   
+    Weapon aElemental       = new Ranged("Air Elemental", 12);     
+    Weapon basilisk         = new Melee("Basilisk", 14);           
+    Weapon golem            = new Melee("Rock Golem", 13);         
+    Weapon mimic            = new Melee("Mimic", 11);
 	
     public static void main(String[] args)
     {
@@ -237,8 +237,11 @@ public class dungeon
         return enArr[Id];
     }
     
-	private static void Battle(Weapon w)
+	private static void Battle(Weapon w, int h)
     {
+		Enemy en = new Enemy();
+		en.setHealth(h);
+		
 		String input = "";
 		while (!input.equalsIgnoreCase("weapon") && !input.equalsIgnoreCase("spell") && !input.equalsIgnoreCase("health") && !input.equalsIgnoreCase("mana"))
 		{
@@ -246,9 +249,9 @@ public class dungeon
 			
 			//debug stats
 			System.out.println("  Enemy Stats: ");
-			System.out.println("  Damage = ");
+			System.out.println("  Damage = "+w.getDamage());
 			System.out.println("  Speed = ");
-			System.out.println("  Health = ");
+			System.out.println("  Health = "+en.getHealth());
 			System.out.println("");
 			System.out.println("  Your Stats: ");
 			System.out.println("  Damage = ");
@@ -523,43 +526,75 @@ public class dungeon
 	
     private static void EnemyGen(int Id) //enemy Id list
     {
+		Enemy en = new Enemy();
         switch (Id)
         {
-            case 0:Enemy en = new Enemy(100);          break;
-            case 1:Weapon spider            = new Melee("Dagger", 10);            break;
-            case 2:Weapon troll             = new Melee("Troll", 10);             break;
-            case 3:Weapon snake             = new Melee("Snake", 10);             break;
-            case 4:Weapon necromancer       = new Magic("Necromancer", 10);       break;
-            case 5:Weapon wizard            = new Magic("Wizard", 10);            break;
-            case 6:Weapon skeletonArcher    = new Ranged("Skeleton Archer", 10);  break;
-            case 7:Weapon goblin            = new Melee("Goblin", 10);            break;
-            case 8:Weapon Outlaw            = new Melee("outlaw", 10);            break;
-            case 9:Weapon caveRat           = new Melee("Cave Rat", 10);          break;
-            case 10:Weapon wraith           = new Melee("Wraith", 10);            break;
-            case 11:Weapon fanatic          = new Melee("Fantic", 10);            break;
-            case 12:Weapon demon            = new Magic("Demon", 10);             break;
-            case 13:Weapon Dragon           = new Melee("Dragon", 10);            break;
-            case 14:Weapon orc              = new Melee("Orc", 10);               break;
-            case 15:Weapon vampire          = new Magic("Vampire", 10);           break;
-            case 16:Weapon leviathan        = new Melee("Leviathan", 10);         break;
-            case 17:Weapon pixie            = new Magic("Pixie", 10);             break;
-            case 18:Weapon harpy            = new Melee("Harpy", 10);             break;
-            case 19:Weapon fallenHero       = new Melee("Fallen Hero", 10);       break;
-            case 20:Weapon Guardian         = new Melee("Guardian", 10);          break;
-            case 21:Weapon carnPlant        = new Melee("Carnivorous Plant", 10); break;
-            case 22:Weapon giant            = new Melee("Giant", 10);             break;
-            case 23:Weapon looter           = new Melee("Looter", 10);            break;
-            case 24:Weapon wyrm             = new Melee("Wyrm", 10);              break;
-            case 25:Weapon cursedSoul       = new Melee("Cursed Soul", 10);       break;
-            case 26:Weapon fElemental       = new Ranged("Fire Elemental", 10);   break;
-            case 27:Weapon wElemental       = new Ranged("Water Elemental", 10);  break;
-            case 28:Weapon eElemental       = new Ranged("Earth Elemental", 10);  break;
-            case 29:Weapon aElemental       = new Ranged("Air Elemental", 10);    break;
-            case 30:Weapon basilisk         = new Melee("Basilisk", 10);          break;
-            case 31:Weapon golem            = new Melee("Rock Golem", 10);        break;
-            case 32:Weapon mimic            = new Melee("Mimic", 10);             
-					System.out.print("  it's a mimic!");
-					return;
+            case 0:Battle(skeleton, 20); break;;
+			/*
+            case 1:Enemy en = new Enemy(15);
+			Battle(spider, en); break;
+            case 2:Enemy en = new Enemy(40);
+			Battle(troll, en); break;      
+            case 3:Enemy en = new Enemy(12);
+			Battle(snake, en); break; 			
+            case 4:Enemy en = new Enemy(25);
+			Battle(necromancer, en); break;  			
+            case 5:Enemy en = new Enemy(23);
+			Battle(wizard, en); break;  
+            case 6:Enemy en = new Enemy(18);
+			Battle(skeletonArcher, en); break;  
+            case 7:Enemy en = new Enemy(22);
+			Battle(goblin, en); break;  
+            case 8:Enemy en = new Enemy(27);
+			Battle(outlaw, en); break;  
+            case 9:Enemy en = new Enemy(14);
+			Battle(caveRat, en); break;  
+            case 10:Enemy en = new Enemy(26);
+			Battle(wraith, en); break;  
+            case 11:Enemy en = new Enemy(16);
+			Battle(fanatic, en); break;  
+            case 12:Enemy en = new Enemy(30);
+			Battle(demon, en); break;  
+            case 13:Enemy en = new Enemy(50);
+			Battle(dragon, en); break;  
+            case 14:Enemy en = new Enemy(25);
+			Battle(orc, en); break;  
+            case 15:Enemy en = new Enemy(21);
+			Battle(vampire, en); break;  
+            case 16:Enemy en = new Enemy(45);
+			Battle(leviathan, en); break; 
+            case 17:Enemy en = new Enemy(10);
+			Battle(pixie, en); break; 
+            case 18:Enemy en = new Enemy(17);
+			Battle(harpy, en); break; 
+            case 19:Enemy en = new Enemy(29);   
+			Battle(fallenHero, en); break; 
+            case 20:Enemy en = new Enemy(35);
+			Battle(guardian, en); break; 
+            case 21:Enemy en = new Enemy(19);
+			Battle(carnPlant, en); break; 
+            case 22:Enemy en = new Enemy(32);         
+			Battle(giant, en); break; 
+            case 23:Enemy en = new Enemy(20);
+			Battle(looter, en); break; 
+            case 24:Enemy en = new Enemy(28);  
+			Battle(wyrm, en); break; 
+            case 25:Enemy en = new Enemy(23);
+			Battle(cursedSoul, en); break; 
+            case 26:Enemy en = new Enemy(18);
+			Battle(fElemental, en); break; 
+            case 27:Enemy en = new Enemy(18);
+			Battle(wElemental, en); break; 
+            case 28:Enemy en = new Enemy(18);
+			Battle(eElemental, en); break; 
+            case 29:Enemy en = new Enemy(18);
+			Battle(aElemental, en); break; 
+            case 30:Enemy en = new Enemy(34);
+			Battle(basilisk, en); break; 
+            case 31:Enemy en = new Enemy(37);
+			Battle(golem, en); break; 
+            case 32:Enemy en = new Enemy(22);
+			Battle(mimic, en); break;*/
         }
     }
 	
