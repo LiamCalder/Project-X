@@ -4,7 +4,7 @@ import java.util.*;
 public class dungeon {
 	//initialise Classes
 	
-	//Player
+	//Player and enemy class
 	static Player pl = new Player();
 	
 	//Melee weapons
@@ -14,15 +14,14 @@ public class dungeon {
     static Weapon axe            = new Melee("Axe", 11, 4);		        
     static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
 	static Weapon quarterstaff   = new Melee("Quarterstaff", 8, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 13, 2);	    
+	static Weapon greatsword     = new Melee("Greatsword", 13, 3);	    
     static Weapon shank          = new Melee("Shank", 7, 7);		        
     static Weapon spear          = new Melee("Spear", 10, 6);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);      
-    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4);       
+    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);       
 	static Weapon claymore       = new Melee("Claymore", 15, 2);          
     static Weapon morningstar    = new Melee("Morningstar", 14, 3);       
     static Weapon pike           = new Melee("Pike", 13, 5);              
-    static Weapon cutlass        = new Melee("Cutlass", 11, 7);           
+    static Weapon cutlass        = new Melee("Cutlass", 11, 5);           
     static Weapon chain          = new Melee("Chain", 12, 3);		        
     static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
 	static Weapon warScythe      = new Melee("War Scythe", 12, 5);        
@@ -31,7 +30,8 @@ public class dungeon {
     static Weapon shortbow       = new Ranged("Shortbow", 10, 7);         
     static Weapon longbow        = new Ranged("Longbow", 10, 5);          
     static Weapon shurikan       = new Ranged("Shurikan", 10, 8);         
-	static Weapon crossbow       = new Ranged("Crossbow", 10, 3);	        
+	static Weapon crossbow       = new Ranged("Crossbow", 10, 3);
+    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4); 	
            
 	//Magic weapons
     static Weapon flame          = new Magic("Fireball", 10, 7);	        
@@ -56,7 +56,7 @@ public class dungeon {
     static Weapon caveRat          = new Melee("Cave Rat", 5, 8);           
     static Weapon wraith           = new Melee("Wraith", 13, 5);             
     static Weapon fanatic          = new Melee("Fantic", 12, 4);             
-    static Weapon demon            = new Magic("Demon", 15, 5);              
+    static Weapon demon            = new Magic("Demon", 13, 5);              
     static Weapon dragon           = new Melee("Dragon", 16, 2);             
     static Weapon orc              = new Melee("Orc", 11, 4);                
     static Weapon vampire          = new Magic("Vampire", 12, 5);            
@@ -80,7 +80,10 @@ public class dungeon {
 	
     public static void main(String[] args) {
         //set up beginning of game
-        Scanner s = new Scanner(System.in);
+		Scanner s = new Scanner(System.in);
+		int weapon = pl.getWeapon(); //get weapon Id
+		WeaponStats(weapon);
+		
         System.out.println("");
         System.out.println("  Do you want to enter The Dungeon?");
         System.out.println("  =================================");
@@ -221,22 +224,22 @@ public class dungeon {
 		int w = pl.getWeapon(); //get weapon Id
 		WeaponStats(w); //get weapon stats
 		Delay(null);
-		System.out.println("  A " + e.getName() + " Appears!");
+		System.out.println("  A " + e.getName() + " appears!");
 		Delay(null);
 		
 		while (en.getHealth() > 0) {
 			Scanner s = new Scanner(System.in);
 			
-		   /*debug stats
-			*System.out.println("  Enemy Stats: ");
-			*System.out.println("  Damage = "+e.getDamage());
-			*System.out.println("  Speed = "+e.getSpeed());
-			*System.out.println("  Health = "+en.getHealth());
-			*System.out.println("");
-			*System.out.println("  Your Stats: ");
-			*System.out.println("  Damage = "+pl.getDamage());
-			*System.out.println("  Speed = "+pl.getSpeed());
-			*System.out.println("  Health = "+pl.getHealth());
+		    //debug stats
+			/*System.out.println("  Enemy Stats: ");
+			System.out.println("  Damage = "+e.getDamage());
+			System.out.println("  Speed = "+e.getSpeed());
+			System.out.println("  Health = "+en.getHealth());
+			System.out.println("");
+			System.out.println("  Your Stats: ");
+			System.out.println("  Damage = "+pl.getDamage());
+			System.out.println("  Speed = "+pl.getSpeed());
+			System.out.println("  Health = "+pl.getHealth());
 			*/
 			System.out.println("  What will you do?");
 			System.out.println("  =================");
@@ -244,17 +247,15 @@ public class dungeon {
 			System.out.println("  - - - - - - - - -");
 			System.out.println("  [Health] | [Mana]");
 			
+			System.out.print("  ");
 			String input = s.nextLine();
 			if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
-				en.hit(e);
-				if (en.getHealth() <= 0) {
-					Delay(null);
-					System.out.println("  You enter the next room");
-					Delay(null);
+				enDodgeChance(e, en);
+				if (en.isDead == true) {
 					return;
 				}
 				Delay(null);
-				pl.hit(e);
+				plDodgeChance(e);
 			}
 			else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
 				//attack with spell stats
@@ -279,9 +280,50 @@ public class dungeon {
 		}
     }
 	
+	private static void enDodgeChance(Weapon e, Enemy en) {
+		/*what this does is like a tug of war for dodge/strike
+		 *cababilities. Player aims for high numbers and enemy aims
+		 *for low numbers. each int of difference between opposing
+		 *stats pushes the limit in the favour of the higher stat
+		 *opponent by 3.
+		 *E.g. pl 8 speed, en 4 speed, ratio is 62/38 in player favour
+		 */
+		Random r = new Random();
+		int score = r.nextInt(100)+1;
+		int difference = pl.getSpeed() - e.getSpeed();
+		int target = 50 + (difference * 3);
+		
+		if (score >= target) {
+			en.hit(e);
+		} else {
+			System.out.println("");
+			System.out.println("  The "+e.getName()+" dodges your attack!");
+		}
+	}
+	
+	private static void plDodgeChance(Weapon e) {
+		//see above method
+		Random r = new Random();
+		int score = r.nextInt(100)+1;
+		int difference = pl.getSpeed() - e.getSpeed();
+		int target = 50 + (difference * 3);
+		
+		if (score < target) {
+			pl.hit(e);
+		} else {
+			System.out.println("  You dodge the "+e.getName()+"'s attack!");
+		}
+	}
+	
 	private static void Shop(String[] args) {
 		System.out.println("  Shop Stuff");
 		Delay(null);
+	}
+	
+	private static void GetStats(Weapon w) {
+		pl.setDamage(w.getDamage()); 
+		pl.setSpeed(w.speed);
+		pl.setName(w.name);
 	}
 	
 	private static void WeaponStats(int Id) {
@@ -289,75 +331,44 @@ public class dungeon {
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
 			//Melee weapons
-            case 1:pl.setDamage(dagger.getDamage()); 
-				   pl.setSpeed(dagger.speed); break;
-            case 2:pl.setDamage(sword.getDamage()); 
-				   pl.setSpeed(sword.speed); break;
-			case 3:pl.setDamage(mace.getDamage()); 
-				   pl.setSpeed(mace.speed); break;
-            case 4:pl.setDamage(axe.getDamage()); 
-				   pl.setSpeed(axe.speed); break;
-            case 5:pl.setDamage(warHammer.getDamage()); 
-				   pl.setSpeed(warHammer.speed); break;
-			case 6:pl.setDamage(quarterstaff.getDamage()); 
-				   pl.setSpeed(quarterstaff.speed); break;
-			case 7:pl.setDamage(greatsword.getDamage()); 
-				   pl.setSpeed(greatsword.speed); break;
-            case 8:pl.setDamage(shank.getDamage()); 
-				   pl.setSpeed(shank.speed); break;
-            case 9:pl.setDamage(spear.getDamage()); 
-				   pl.setSpeed(spear.speed); break;
-            case 10:pl.setDamage(wristBlades.getDamage()); 
-				    pl.setSpeed(wristBlades.speed); break;
-            case 11:pl.setDamage(magicStaff.getDamage()); 
-				    pl.setSpeed(magicStaff.speed); break;
-			case 12:pl.setDamage(claymore.getDamage()); 
-				    pl.setSpeed(claymore.speed); break;
-            case 13:pl.setDamage(morningstar.getDamage()); 
-				    pl.setSpeed(morningstar.speed); break;
-            case 14:pl.setDamage(pike.getDamage()); 
-				    pl.setSpeed(pike.speed); break;
-            case 15:pl.setDamage(cutlass.getDamage()); 
-				    pl.setSpeed(cutlass.speed); break;
-            case 16:pl.setDamage(chain.getDamage()); 
-				    pl.setSpeed(chain.speed); break;
-            case 17:pl.setDamage(ballChain.getDamage()); 
-				    pl.setSpeed(ballChain.speed); break;
-			case 18:pl.setDamage(warScythe.getDamage()); 
-				    pl.setSpeed(warScythe.speed); break;
-			
+            case 1: GetStats(dagger); break;
+            case 2: GetStats(sword); break;
+			case 3: GetStats(mace); break;
+            case 4: GetStats(axe); break;
+            case 5: GetStats(warHammer); break;
+			case 6: GetStats(quarterstaff); break;
+			case 7: GetStats(greatsword); break;
+            case 8: GetStats(shank); break;
+            case 9: GetStats(spear); break;
+            case 10:GetStats(wristBlades); break;
+            case 11:GetStats(claymore); break;
+			case 12:GetStats(morningstar); break;
+            case 13:GetStats(pike); break;
+            case 14:GetStats(cutlass); break;
+            case 15:GetStats(chain); break;
+            case 16:GetStats(ballChain); break;
+			case 17:GetStats(warScythe); break;
+            
 			//Ranged weapons
-            case 19:pl.setDamage(shortbow.getDamage()); 
-				    pl.setSpeed(shortbow.speed); break;
-            case 20:pl.setDamage(longbow.getDamage()); 
-				    pl.setSpeed(longbow.speed); break;
-            case 21:pl.setDamage(shurikan.getDamage()); 
-				    pl.setSpeed(shurikan.speed); break;
-			case 22:pl.setDamage(crossbow.getDamage()); 
-				    pl.setSpeed(crossbow.speed); break;
+            case 19:GetStats(shortbow); break;
+            case 20:GetStats(longbow); break;
+            case 21:GetStats(shurikan); break;
+			case 22:GetStats(crossbow); break;
+			case 23:GetStats(magicStaff); break;
            
 		    //Magic weapons
-            case 23:pl.setDamage(flame.getDamage()); 
-				    pl.setSpeed(flame.speed); break;
-            case 24:pl.setDamage(lightning.getDamage()); 
-				    pl.setSpeed(lightning.speed); break;
-            case 25:pl.setDamage(frost.getDamage()); 
-				    pl.setSpeed(frost.speed); break;
-            case 26:pl.setDamage(sapping.getDamage()); 
-			 	    pl.setSpeed(sapping.speed); break;
-            case 27:pl.setDamage(aura.getDamage()); 
-	 			    pl.setSpeed(aura.speed); break;
-            case 28:pl.setDamage(speed.getDamage());  
-				    pl.setSpeed(speed.speed); break;
-            case 29:pl.setDamage(shift.getDamage()) ; 
-				    pl.setSpeed(shift.speed); break;
-            case 30:pl.setDamage(fireWall.getDamage() ); 
-				    pl.setSpeed(fireWall.speed); break;
+            case 24:GetStats(flame); break;
+            case 25:GetStats(lightning); break;
+            case 26:GetStats(frost); break;
+            case 27:GetStats(sapping); break;
+            case 28:GetStats(aura); break;
+            case 29:GetStats(speed); break;
+            case 30:GetStats(shift); break;
+            case 31:GetStats(fireWall); break;
         }
     }
 	
     private static void EnemyGen(int Id) {//enemy Id list
-		Enemy en = new Enemy();
         switch (Id) {
 			     //Battle(Enemy base stats, skeleton health)
             case 0:Battle(skeleton, 20); break;

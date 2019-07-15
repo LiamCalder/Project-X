@@ -13,14 +13,15 @@ public abstract class Weapon {
         //quality = OneOfTheTierQualityMultipliers()
         quality = 1; // For now
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public abstract int getDamage();
+	
+	public String getName() {
+		return name;
+	}
 	
 	public int getSpeed() {
-        return speed;
-    }
+		return speed;
+	}
+	
+
+    public abstract int getDamage();
 }

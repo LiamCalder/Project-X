@@ -17,9 +17,12 @@ public class Enemy {
 
         // Damage output
 		System.out.println("");
-        System.out.println("  You hit the " + w.getName() + " for " + pl.getDamage() + " damage.");
+        System.out.println("  You hit the "+ w.getName()+" with your "+pl.getName()+" for "+pl.getDamage()+" damage.");
         if (hp <= 0) {
             System.out.println("  The " + w.getName() + " dies!");
+			d.Delay(null);
+			System.out.println("  You enter the next room");
+			d.Delay(null);
 			isDead = true;
         } else {
             System.out.println("  The " + w.getName() + " has " + hp + " hp.");

@@ -1,7 +1,7 @@
 public class Player {
     
 	private int hp;
-	public static int wId = 1;
+	public static int wId = 13; //determines starting weapon Id;
 	public static String name;
 	public static int damage;
 	public static int speed;
@@ -10,6 +10,14 @@ public class Player {
     public Player() {
         hp = 100;
     }
+	
+	public void setName(String sn) {
+		name = sn;
+	}
+	
+	public String getName() {
+		return name;
+	}
 	
 	public void setWeapon(int sw) {
 		wId = sw;
@@ -43,7 +51,7 @@ public class Player {
         hp -= w.getDamage();
 
         // Damage output
-        System.out.println("  You were hit by the " + w.getName() + " for " + w.getDamage() + " damage.");
+        System.out.println("  The " + w.getName() + " hits you for " + w.getDamage() + " damage.");
         if (hp <= 0) {
 			d.Delay(null);
             System.out.println("  You Have Perished in the Dungeon...");
