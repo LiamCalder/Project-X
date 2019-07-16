@@ -9,38 +9,38 @@ public class dungeon {
 	//Player and enemy class
 	static Player pl = new Player();
 	
-	//Melee weapons
-    static Weapon dagger         = new Melee("Dagger", 7, 8);            
-    static Weapon sword          = new Melee("Sword", 10, 6);             
-	static Weapon mace           = new Melee("Mace", 12, 3);		        
+	//Melee weapons - speed determines dodge chance
+    static Weapon dagger         = new Melee("Dagger", 5, 6);            
+    static Weapon sword          = new Melee("Sword", 7, 5);             
+	static Weapon mace           = new Melee("Mace", 10, 4);		        
     static Weapon axe            = new Melee("Axe", 11, 4);		        
-    static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 8, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 13, 3);	    
-    static Weapon shank          = new Melee("Shank", 7, 7);		        
-    static Weapon spear          = new Melee("Spear", 10, 6);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);       
-	static Weapon claymore       = new Melee("Claymore", 15, 2);          
-    static Weapon morningstar    = new Melee("Morningstar", 14, 3);       
-    static Weapon pike           = new Melee("Pike", 13, 5);              
-    static Weapon cutlass        = new Melee("Cutlass", 11, 5);           
-    static Weapon chain          = new Melee("Chain", 12, 3);		        
+    static Weapon warHammer      = new Melee("War Hammer", 12, 3);        
+	static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 7);      
+	static Weapon greatsword     = new Melee("Greatsword", 11, 4);	    
+    static Weapon shank          = new Melee("Shank", 6, 8);		        
+    static Weapon spear          = new Melee("Spear", 8, 6);		        
+    static Weapon wristBlades    = new Melee("Wrist Blades", 7, 9);       
+	static Weapon claymore       = new Melee("Claymore", 14, 3);          
+    static Weapon morningstar    = new Melee("Morningstar", 13, 4);       
+    static Weapon pike           = new Melee("Pike", 11, 8);              
+    static Weapon cutlass        = new Melee("Cutlass", 9, 6);           
+    static Weapon chain          = new Melee("Chain", 12, 6);		        
     static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
-	static Weapon warScythe      = new Melee("War Scythe", 12, 5);        
+	static Weapon warScythe      = new Melee("War Scythe", 14 ,2);        
 			
-	//Ranged weapons
-    static Weapon shortbow       = new Ranged("Shortbow", 10, 7);         
-    static Weapon longbow        = new Ranged("Longbow", 10, 5);          
-    static Weapon shurikan       = new Ranged("Shurikan", 10, 8);         
-	static Weapon crossbow       = new Ranged("Crossbow", 10, 3);
-    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4); 	
+	//Ranged weapons - ^ same
+    static Weapon shortbow       = new Ranged("Shortbow", 9, 7);         
+    static Weapon longbow        = new Ranged("Longbow", 12, 5);          
+    static Weapon shurikan       = new Ranged("Shurikan", 7, 8);         
+	static Weapon crossbow       = new Ranged("Crossbow", 14, 3);
+    static Weapon magicStaff     = new Melee("Magic Staff", 14, 6); 	
            
-	//Magic weapons
-    static Weapon flame          = new Magic("Fireball", 10, 7);	        
-    static Weapon lightning      = new Magic("Lightning Bolt", 10, 7);    
-    static Weapon frost          = new Magic("Ice Beam", 10, 7);          
+	//Magic weapons - speed increases chance to hit on top of weapon speed 
+    static Weapon flame          = new Magic("Fireball", 12, 7);	        
+    static Weapon lightning      = new Magic("Lightning Bolt", 10, 10);    
+    static Weapon frost          = new Magic("Ice Beam", 14, 4);          
     static Weapon sapping        = new Magic("Drain Speed", 10, 7);       
-    static Weapon aura           = new Magic("Defensive Aura", 10, 10);    
+    static Weapon aura           = new Magic("Defensive Aura", 10, 10);   
     static Weapon speed          = new Magic("Swiftness", 10, 10);         
     static Weapon shift          = new Magic("Dimensional Shift", 10, 10); 
     static Weapon fireWall       = new Magic("Wall Of Fire", 10, 10);      

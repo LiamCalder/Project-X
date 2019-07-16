@@ -78,70 +78,41 @@ public abstract class Weapon {
         //Mixed effects on stats or small buff
         switch (Id)
         {
-            case 1:; //Light
-            break;
-            case 2:; //Heavy
-            break;
-            case 3:; //Dense
-            break;
-            case 4:; //Nimble
-            break;
-            case 5:; //Quick
-            break;
-            case 6:; //Battle-tested
-            break;
-            case 7:; //Bloodied
-            break;
-            case 8:; //Raging
-            break;
-            case 9:; //Sharp
-            break;
-            case 10:; //Balanced
-            break;
-            case 11:; //Large
-            break;
-            case 12:; //Small
-            break;
-            case 13:; //Modified
-            break;
-            case 14:; //Excited
-            break;
+            case 1: qualityD = 1; qualityS = 1; qualityN = "Light "; break;
+            case 2: qualityD = 1; qualityS = 1; qualityN = "Heavy "; break;
+            case 3: qualityD = 1; qualityS = 1; qualityN = "Dense "; break;
+            case 4: qualityD = 1; qualityS = 1; qualityN = "Nimble "; break;
+            case 5: qualityD = 1; qualityS = 1; qualityN = "Quick "; break;
+            case 6: qualityD = 1; qualityS = 1; qualityN = "Battle-tested "; break;
+            case 7: qualityD = 1; qualityS = 1; qualityN = "Bloodied "; break;
+            case 8: qualityD = 1; qualityS = 1; qualityN = "Raging "; break;
+            case 9: qualityD = 1; qualityS = 1; qualityN = "Sharp "; break;
+            case 10:qualityD = 1; qualityS = 1; qualityN = "Balanced "; break;
+            case 11:qualityD = 1; qualityS = 1; qualityN = "Large "; break;
+            case 12:qualityD = 1; qualityS = 1; qualityN = "Small "; break;
+            case 13:qualityD = 1; qualityS = 1; qualityN = "Modified "; break;
+            case 14:qualityD = 1; qualityS = 1; qualityN = "Excited "; break;
         }
     }
     
      private void QualityT3(int Id) {
         //good effects of stats
         switch (Id) {
-            case 1:; //Enhanced
-            break;
-            case 2:; //Unnaturally fast
-            break;
-            case 3:; //Shielding
-            break;
-            case 4:; //Reinforced
-            break;
-            case 5:; //Long-reaching
-            break;
-            case 6:; //Magically-infused
-            break;
-            case 7:; //Dwarven
-            break;
-            case 8:; //Elven
-            break;
-            case 9:; //Improved
-            break;
-            case 10:; //New
-            break;
-            case 11:; //Imbued
-            break;
-            case 12:; //Worthy
-            break;
-            case 13:; //Strong
-            break;
-            case 14:; //Mighty
-            break;
-            case 15:; //Powerful
-            break;
+            case 1: qualityD = 1; qualityS = 1; qualityN = "Enhanced "; break;
+            case 2: qualityD = 1; qualityS = 1; qualityN = "Unnaturally Fast "; break;
+            case 3: qualityD = 1; qualityS = 1; qualityN = "Shielding "; break;
+            case 4: qualityD = 1; qualityS = 1; qualityN = "Reinforced "; break;
+            case 5: qualityD = 1; qualityS = 1; qualityN = "Long Reaching "; break;
+            case 6: qualityD = 1; qualityS = 1; qualityN = "Magically Infused "; break;
+            case 7: qualityD = 1; qualityS = 1; qualityN = "Dwarven "; break;
+            case 8: qualityD = 1; qualityS = 1; qualityN = "Elven "; break;
+            case 9: qualityD = 1; qualityS = 1; qualityN = "Improved "; break;
+            case 10:qualityD = 1; qualityS = 1; qualityN = "New "; break;
+            case 11:qualityD = 1; qualityS = 1; qualityN = "Imbued "; break;
+            case 12:qualityD = 1; qualityS = 1; qualityN = "Worthy "; break;
+            case 13:qualityD = 1; qualityS = 1; qualityN = "Strong "; break;
+            case 14:qualityD = 1; qualityS = 1; qualityN = "Mighty "; break;
+            case 15:qualityD = 1; qualityS = 1; qualityN = "Powerful "; break;
         }
     }
     
@@ -158,9 +129,9 @@ public abstract class Weapon {
             break;
             case 5:; //Heroic (more damage to legendary beasts e.g. Dragons)
             break;
-            case 6:; //Enchanted (more damage) - think of something
+            case 6:; //Enchanted (more damage to magical enemies)
             break;
-            case 7:; //Deadly (more damage) - think of something
+            case 7:; //Deadly (more damage to lving enemies)
             break;
             case 8:; //Holy (more damage to unholy monsters)
             break;
