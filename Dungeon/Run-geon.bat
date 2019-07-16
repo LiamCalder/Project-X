@@ -2,3 +2,4 @@
 title Dungeon
 javac dungeon.java
 java dungeon
+pause

@@ -2,41 +2,43 @@ import java.util.*;
 //import javax.swing.*;
 
 public class dungeon {
-	//initialise Classes
+	//initialize Variables
+	int maxQuality = 1; //highest weapon tier that can be generated. Note enemies are also affected by tiers
 	
+	//initialise Classes
 	//Player and enemy class
 	static Player pl = new Player();
 	
 	//Melee weapons
-    static Weapon dagger         = new Melee("Dagger", 5, 6);            
-    static Weapon sword          = new Melee("Sword", 7, 5);             
-	static Weapon mace           = new Melee("Mace", 10, 4);		        
-    static Weapon axe            = new Melee("Axe", 11, 6);		        
-    static Weapon warHammer      = new Melee("War Hammer", 12, 5);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 11, 8);	    
-    static Weapon shank          = new Melee("Shank", 6, 8);		        
-    static Weapon spear          = new Melee("Spear", 8, 9);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 7, 10);       
-	static Weapon claymore       = new Melee("Claymore", 14, 3);          
-    static Weapon morningstar    = new Melee("Morningstar", 13, 4);       
-    static Weapon pike           = new Melee("Pike", 11, 9);              
-    static Weapon cutlass        = new Melee("Cutlass", 9, 12);           
-    static Weapon chain          = new Melee("Chain", 15, 6);		        
-    static Weapon ballChain      = new Melee("Ball and Chain", 16, 2);      
-	static Weapon warScythe      = new Melee("War Scythe", 18, 7);        
+    static Weapon dagger         = new Melee("Dagger", 7, 8);            
+    static Weapon sword          = new Melee("Sword", 10, 6);             
+	static Weapon mace           = new Melee("Mace", 12, 3);		        
+    static Weapon axe            = new Melee("Axe", 11, 4);		        
+    static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
+	static Weapon quarterstaff   = new Melee("Quarterstaff", 8, 7);      
+	static Weapon greatsword     = new Melee("Greatsword", 13, 3);	    
+    static Weapon shank          = new Melee("Shank", 7, 7);		        
+    static Weapon spear          = new Melee("Spear", 10, 6);		        
+    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);       
+	static Weapon claymore       = new Melee("Claymore", 15, 2);          
+    static Weapon morningstar    = new Melee("Morningstar", 14, 3);       
+    static Weapon pike           = new Melee("Pike", 13, 5);              
+    static Weapon cutlass        = new Melee("Cutlass", 11, 5);           
+    static Weapon chain          = new Melee("Chain", 12, 3);		        
+    static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
+	static Weapon warScythe      = new Melee("War Scythe", 12, 5);        
 			
 	//Ranged weapons
-    static Weapon shortbow       = new Ranged("Shortbow", 9, 7);         
-    static Weapon longbow        = new Ranged("Longbow", 12, 5);          
-    static Weapon shurikan       = new Ranged("Shurikan", 7, 12);         
-	static Weapon crossbow       = new Ranged("Crossbow", 15, 3);
-    static Weapon magicStaff     = new Melee("Magic Staff", 14, 9); 	
+    static Weapon shortbow       = new Ranged("Shortbow", 10, 7);         
+    static Weapon longbow        = new Ranged("Longbow", 10, 5);          
+    static Weapon shurikan       = new Ranged("Shurikan", 10, 8);         
+	static Weapon crossbow       = new Ranged("Crossbow", 10, 3);
+    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4); 	
            
 	//Magic weapons
     static Weapon flame          = new Magic("Fireball", 10, 7);	        
-    static Weapon lightning      = new Magic("Lightning Bolt", 13, 9);    
-    static Weapon frost          = new Magic("Ice Beam", 14, 4);          
+    static Weapon lightning      = new Magic("Lightning Bolt", 10, 7);    
+    static Weapon frost          = new Magic("Ice Beam", 10, 7);          
     static Weapon sapping        = new Magic("Drain Speed", 10, 7);       
     static Weapon aura           = new Magic("Defensive Aura", 10, 10);    
     static Weapon speed          = new Magic("Swiftness", 10, 10);         
@@ -81,7 +83,7 @@ public class dungeon {
     public static void main(String[] args) {
         //set up beginning of game
 		Scanner s = new Scanner(System.in);
-		int weapon = pl.getWeapon(); //get weapon Id
+		int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
 		WeaponStats(weapon);
 		
         System.out.println("");
@@ -252,6 +254,7 @@ public class dungeon {
 			if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
 				enDodgeChance(e, en);
 				if (en.isDead == true) {
+					pl.addScore(100+h); //+100 for winning, + damage dealt
 					return;
 				}
 				Delay(null);
@@ -281,19 +284,14 @@ public class dungeon {
     }
 	
 	private static void enDodgeChance(Weapon e, Enemy en) {
-		/*what this does is like a tug of war for dodge/strike
-		 *cababilities. Player aims for high numbers and enemy aims
-		 *for low numbers. each int of difference between opposing
-		 *stats pushes the limit in the favour of the higher stat
-		 *opponent by 3.
-		 *E.g. pl 8 speed, en 4 speed, ratio is 62/38 in player favour
-		 */
+		//dodge chance is speedx4% chace, eg 6x4 = 24% chance
+		//to dodge attack with max 40% (10x4) chance to dodge
+		//to dodge score must be lower than target.
 		Random r = new Random();
+		int target = e.getSpeed() * 4;
 		int score = r.nextInt(100)+1;
-		int difference = pl.getSpeed() - e.getSpeed();
-		int target = 50 + (difference * 3);
 		
-		if (score >= target) {
+		if (score > target) {
 			en.hit(e);
 		} else {
 			System.out.println("");
@@ -302,11 +300,9 @@ public class dungeon {
 	}
 	
 	private static void plDodgeChance(Weapon e) {
-		//see above method
 		Random r = new Random();
+		int target = e.getSpeed() * 4;
 		int score = r.nextInt(100)+1;
-		int difference = pl.getSpeed() - e.getSpeed();
-		int target = 50 + (difference * 3);
 		
 		if (score < target) {
 			pl.hit(e);
@@ -324,6 +320,7 @@ public class dungeon {
 		pl.setDamage(w.getDamage()); 
 		pl.setSpeed(w.speed);
 		pl.setName(w.name);
+		w.SendQualityName();
 	}
 	
 	private static void WeaponStats(int Id) {
@@ -371,19 +368,19 @@ public class dungeon {
     private static void EnemyGen(int Id) {//enemy Id list
         switch (Id) {
 			     //Battle(Enemy base stats, skeleton health)
-            case 0:Battle(skeleton, 17); break;
+            case 0:Battle(skeleton, 20); break;
             case 1:Battle(spider, 15); break;
             case 2:Battle(troll, 40); break;      
             case 3:Battle(snake, 12); break; 			
             case 4:Battle(necromancer, 25); break;  			
-            case 5:Battle(wizard, 32); break;  
+            case 5:Battle(wizard, 23); break;  
             case 6:Battle(skeletonArcher, 18); break;  
             case 7:Battle(goblin, 22); break;  
-            case 8:Battle(outlaw, 25); break;  
+            case 8:Battle(outlaw, 27); break;  
             case 9:Battle(caveRat, 14); break;  
-            case 10:Battle(wraith, 28); break;  
+            case 10:Battle(wraith, 26); break;  
             case 11:Battle(fanatic, 16); break;  
-            case 12:Battle(demon, 35); break;  
+            case 12:Battle(demon, 30); break;  
             case 13:Battle(dragon, 50); break;  
             case 14:Battle(orc, 25); break;  
             case 15:Battle(vampire, 21); break;  
@@ -391,7 +388,7 @@ public class dungeon {
             case 17:Battle(pixie, 10); break; 
             case 18:Battle(harpy, 17); break; 
             case 19:Battle(fallenHero, 29); break; 
-            case 20:Battle(guardian, 28); break; 
+            case 20:Battle(guardian, 25); break; 
             case 21:Battle(carnPlant, 19); break; 
             case 22:Battle(giant, 32); break; 
             case 23:Battle(looter, 20); break; 
@@ -402,8 +399,8 @@ public class dungeon {
             case 28:Battle(eElemental, 18); break; 
             case 29:Battle(aElemental, 18); break; 
             case 30:Battle(basilisk, 34); break; 
-            case 31:Battle(golem, 45); break; 
-            case 32:Battle(mimic, 23); break;
+            case 31:Battle(golem, 37); break; 
+            case 32:Battle(mimic, 22); break;
         }
     }
 	
@@ -518,147 +515,6 @@ public class dungeon {
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
 					Delay(null);
 					Shop(null); break;
-        }
-    }
-	
-    private void QualityT1(int Id)  {
-        //Only negative effects on stats
-        switch (Id) {
-            case 1:; //Basic - no effects
-            break;
-            case 2:; //Flimsy
-            break;
-            case 3:; //Rusty
-            break;
-            case 4:; //Vintage
-            break;
-            case 5:; //Moldy
-            break;
-            case 6:; //Old
-            break;
-            case 7:; //Stinky
-            break;
-            case 8:; //Poorly made
-            break;
-            case 9:; //Dirty
-            break;
-            case 10:; //Small
-            break;
-            case 11:; //Unreliable 
-            break;
-            case 12:; //Faulty
-            break;
-            case 13:; //Blunt
-            break;
-            case 14:; //Shoddy
-            break;
-            case 15:; //Child's
-            break;
-            case 16:; //Cheap
-            break;
-            case 17:; //Ordinary
-            break;
-            case 18:; //Slow
-            break;
-            case 19:; //Broken
-            break;
-        }
-    }
-    
-    private void QualityT2(int Id) 
-    {
-        //Mixed effects on stats or small buff
-        switch (Id)
-        {
-            case 1:; //Light
-            break;
-            case 2:; //Heavy
-            break;
-            case 3:; //Dense
-            break;
-            case 4:; //Nimble
-            break;
-            case 5:; //Quick
-            break;
-            case 6:; //Battle-tested
-            break;
-            case 7:; //Bloodied
-            break;
-            case 8:; //Raging
-            break;
-            case 9:; //Sharp
-            break;
-            case 10:; //Balanced
-            break;
-            case 11:; //Large
-            break;
-            case 12:; //Small
-            break;
-            case 13:; //Modified
-            break;
-            case 14:; //Excited
-            break;
-        }
-    }
-    
-     private void QualityT3(int Id) {
-        //good effects of stats
-        switch (Id) {
-            case 1:; //Enhanced
-            break;
-            case 2:; //Unnaturally fast
-            break;
-            case 3:; //Shielding
-            break;
-            case 4:; //Reinforced
-            break;
-            case 5:; //Long-reaching
-            break;
-            case 6:; //Magically-infused
-            break;
-            case 7:; //Dwarven
-            break;
-            case 8:; //Elven
-            break;
-            case 9:; //Improved
-            break;
-            case 10:; //New
-            break;
-            case 11:; //Imbued
-            break;
-            case 12:; //Worthy
-            break;
-            case 13:; //Strong
-            break;
-            case 14:; //Mighty
-            break;
-            case 15:; //Powerful
-            break;
-        }
-    }
-    
-    private void QualityT4(int Id) {
-        //Special stat boosts
-        switch (Id) {
-            case 1:; //Flaming (cont. burn damage)
-            break;
-            case 2:; //Toxic (lower dodge of opp + small cont. damage)
-            break;
-            case 3:; //Grounding (flighing enemies lose dodge buff)
-            break;
-            case 4:; //Vampirical (chance to regain health on hit)
-            break;
-            case 5:; //Heroic (more damage to legendary beasts e.g. Dragons)
-            break;
-            case 6:; //Enchanted (more damage) - think of something
-            break;
-            case 7:; //Deadly (more damage) - think of something
-            break;
-            case 8:; //Holy (more damage to unholy monsters)
-            break;
-            case 9:; //Demonic (more damage to holy monsters)
-            break;
-            case 10:; //Perfect (more damage) - think of something
         }
     }
 	

@@ -4,6 +4,6 @@ public class Melee extends Weapon {
     }
 
     public int getDamage() {
-        return (int) Math.round(damage * quality); //round damage to an integer
+        return (int) Math.round(damage * qualityD); //round damage to an integer
     }
 }
