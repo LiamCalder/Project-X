@@ -8,35 +8,35 @@ public class dungeon {
 	static Player pl = new Player();
 	
 	//Melee weapons
-    static Weapon dagger         = new Melee("Dagger", 7, 8);            
-    static Weapon sword          = new Melee("Sword", 10, 6);             
-	static Weapon mace           = new Melee("Mace", 12, 3);		        
-    static Weapon axe            = new Melee("Axe", 11, 4);		        
-    static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 8, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 13, 3);	    
-    static Weapon shank          = new Melee("Shank", 7, 7);		        
-    static Weapon spear          = new Melee("Spear", 10, 6);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 7);       
-	static Weapon claymore       = new Melee("Claymore", 15, 2);          
-    static Weapon morningstar    = new Melee("Morningstar", 14, 3);       
-    static Weapon pike           = new Melee("Pike", 13, 5);              
-    static Weapon cutlass        = new Melee("Cutlass", 11, 5);           
-    static Weapon chain          = new Melee("Chain", 12, 3);		        
-    static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
-	static Weapon warScythe      = new Melee("War Scythe", 12, 5);        
+    static Weapon dagger         = new Melee("Dagger", 5, 6);            
+    static Weapon sword          = new Melee("Sword", 7, 5);             
+	static Weapon mace           = new Melee("Mace", 10, 4);		        
+    static Weapon axe            = new Melee("Axe", 11, 6);		        
+    static Weapon warHammer      = new Melee("War Hammer", 12, 5);        
+	static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 7);      
+	static Weapon greatsword     = new Melee("Greatsword", 11, 8);	    
+    static Weapon shank          = new Melee("Shank", 6, 8);		        
+    static Weapon spear          = new Melee("Spear", 8, 9);		        
+    static Weapon wristBlades    = new Melee("Wrist Blades", 7, 10);       
+	static Weapon claymore       = new Melee("Claymore", 14, 3);          
+    static Weapon morningstar    = new Melee("Morningstar", 13, 4);       
+    static Weapon pike           = new Melee("Pike", 11, 9);              
+    static Weapon cutlass        = new Melee("Cutlass", 9, 12);           
+    static Weapon chain          = new Melee("Chain", 15, 6);		        
+    static Weapon ballChain      = new Melee("Ball and Chain", 16, 2);      
+	static Weapon warScythe      = new Melee("War Scythe", 18, 7);        
 			
 	//Ranged weapons
-    static Weapon shortbow       = new Ranged("Shortbow", 10, 7);         
-    static Weapon longbow        = new Ranged("Longbow", 10, 5);          
-    static Weapon shurikan       = new Ranged("Shurikan", 10, 8);         
-	static Weapon crossbow       = new Ranged("Crossbow", 10, 3);
-    static Weapon magicStaff     = new Melee("Magic Staff", 14, 4); 	
+    static Weapon shortbow       = new Ranged("Shortbow", 9, 7);         
+    static Weapon longbow        = new Ranged("Longbow", 12, 5);          
+    static Weapon shurikan       = new Ranged("Shurikan", 7, 12);         
+	static Weapon crossbow       = new Ranged("Crossbow", 15, 3);
+    static Weapon magicStaff     = new Melee("Magic Staff", 14, 9); 	
            
 	//Magic weapons
     static Weapon flame          = new Magic("Fireball", 10, 7);	        
-    static Weapon lightning      = new Magic("Lightning Bolt", 10, 7);    
-    static Weapon frost          = new Magic("Ice Beam", 10, 7);          
+    static Weapon lightning      = new Magic("Lightning Bolt", 13, 9);    
+    static Weapon frost          = new Magic("Ice Beam", 14, 4);          
     static Weapon sapping        = new Magic("Drain Speed", 10, 7);       
     static Weapon aura           = new Magic("Defensive Aura", 10, 10);    
     static Weapon speed          = new Magic("Swiftness", 10, 10);         
@@ -371,19 +371,19 @@ public class dungeon {
     private static void EnemyGen(int Id) {//enemy Id list
         switch (Id) {
 			     //Battle(Enemy base stats, skeleton health)
-            case 0:Battle(skeleton, 20); break;
+            case 0:Battle(skeleton, 17); break;
             case 1:Battle(spider, 15); break;
             case 2:Battle(troll, 40); break;      
             case 3:Battle(snake, 12); break; 			
             case 4:Battle(necromancer, 25); break;  			
-            case 5:Battle(wizard, 23); break;  
+            case 5:Battle(wizard, 32); break;  
             case 6:Battle(skeletonArcher, 18); break;  
             case 7:Battle(goblin, 22); break;  
-            case 8:Battle(outlaw, 27); break;  
+            case 8:Battle(outlaw, 25); break;  
             case 9:Battle(caveRat, 14); break;  
-            case 10:Battle(wraith, 26); break;  
+            case 10:Battle(wraith, 28); break;  
             case 11:Battle(fanatic, 16); break;  
-            case 12:Battle(demon, 30); break;  
+            case 12:Battle(demon, 35); break;  
             case 13:Battle(dragon, 50); break;  
             case 14:Battle(orc, 25); break;  
             case 15:Battle(vampire, 21); break;  
@@ -391,7 +391,7 @@ public class dungeon {
             case 17:Battle(pixie, 10); break; 
             case 18:Battle(harpy, 17); break; 
             case 19:Battle(fallenHero, 29); break; 
-            case 20:Battle(guardian, 25); break; 
+            case 20:Battle(guardian, 28); break; 
             case 21:Battle(carnPlant, 19); break; 
             case 22:Battle(giant, 32); break; 
             case 23:Battle(looter, 20); break; 
@@ -402,8 +402,8 @@ public class dungeon {
             case 28:Battle(eElemental, 18); break; 
             case 29:Battle(aElemental, 18); break; 
             case 30:Battle(basilisk, 34); break; 
-            case 31:Battle(golem, 37); break; 
-            case 32:Battle(mimic, 22); break;
+            case 31:Battle(golem, 45); break; 
+            case 32:Battle(mimic, 23); break;
         }
     }
 	
