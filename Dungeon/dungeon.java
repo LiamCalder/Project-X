@@ -224,7 +224,7 @@ public class dungeon {
     
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
-		e.setQuality();
+		e.newEnemy();
 		en.setHealth(h); //set enemy health
 		int w = pl.getWeapon(); //get weapon Id
 		WeaponStats(w); //get weapon stats

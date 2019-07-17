@@ -10,7 +10,6 @@ public abstract class Weapon {
 	protected String qualityN;
 	dungeon d = new dungeon();
 	Player pl = new Player();
-	protected int multiplier = d.level;
 
     public Weapon(String name, double damage, int speed) {
         this.name = name;
@@ -30,7 +29,9 @@ public abstract class Weapon {
 
     public abstract int getDamage();
 	
-	public void setQuality() {
+	public void newEnemy() {
+		
+		protected int multiplier = d.level - 1;
 		Random t = new Random();
 		Random q = new Random();
 		int tier = t.nextInt(d.level)+1;
