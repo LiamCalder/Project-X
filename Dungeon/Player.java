@@ -1,7 +1,7 @@
 public class Player {
     
 	private int hp;
-	public static int wId = 13; //determines starting weapon Id;
+	public static int wId = 2; //determines starting weapon Id: (2) is sword
 	public static String name;
 	public static String qName;
 	public static int damage;

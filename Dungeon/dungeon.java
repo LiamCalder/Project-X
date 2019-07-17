@@ -10,30 +10,30 @@ public class dungeon {
 	static Player pl = new Player();
 	
 	//Melee weapons - speed determines dodge chance
-    static Weapon dagger         = new Melee("Dagger", 5, 6);            
-    static Weapon sword          = new Melee("Sword", 7, 5);             
-	static Weapon mace           = new Melee("Mace", 10, 4);		        
-    static Weapon axe            = new Melee("Axe", 11, 4);		        
-    static Weapon warHammer      = new Melee("War Hammer", 12, 3);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 11, 4);	    
-    static Weapon shank          = new Melee("Shank", 6, 8);		        
-    static Weapon spear          = new Melee("Spear", 8, 6);		        
-    static Weapon wristBlades    = new Melee("Wrist Blades", 7, 9);       
-	static Weapon claymore       = new Melee("Claymore", 14, 3);          
-    static Weapon morningstar    = new Melee("Morningstar", 13, 4);       
-    static Weapon pike           = new Melee("Pike", 11, 8);              
-    static Weapon cutlass        = new Melee("Cutlass", 9, 6);           
-    static Weapon chain          = new Melee("Chain", 12, 6);		        
+    static Weapon dagger         = new Melee("Dagger", 7, 6);            
+    static Weapon sword          = new Melee("Sword", 9, 5);             
+	static Weapon mace           = new Melee("Mace", 12, 4);		        
+    static Weapon axe            = new Melee("Axe", 13, 4);		        
+    static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
+	static Weapon quarterstaff   = new Melee("Quarterstaff", 12, 7);      
+	static Weapon greatsword     = new Melee("Greatsword", 13, 4);	    
+    static Weapon shank          = new Melee("Shank", 8, 8);		        
+    static Weapon spear          = new Melee("Spear", 10, 6);		        
+    static Weapon wristBlades    = new Melee("Wrist Blades", 9, 9);       
+	static Weapon claymore       = new Melee("Claymore", 16, 3);          
+    static Weapon morningstar    = new Melee("Morningstar", 15, 4);       
+    static Weapon pike           = new Melee("Pike", 13, 5);              
+    static Weapon cutlass        = new Melee("Cutlass", 11, 6);           
+    static Weapon chain          = new Melee("Chain", 14, 6);		        
     static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
 	static Weapon warScythe      = new Melee("War Scythe", 14 ,2);        
 			
 	//Ranged weapons - ^ same
-    static Weapon shortbow       = new Ranged("Shortbow", 9, 7);         
-    static Weapon longbow        = new Ranged("Longbow", 12, 5);          
-    static Weapon shurikan       = new Ranged("Shurikan", 7, 8);         
+    static Weapon shortbow       = new Ranged("Shortbow", 11, 7);         
+    static Weapon longbow        = new Ranged("Longbow", 13, 5);          
+    static Weapon shurikan       = new Ranged("Shurikan", 9, 8);         
 	static Weapon crossbow       = new Ranged("Crossbow", 14, 3);
-    static Weapon magicStaff     = new Melee("Magic Staff", 14, 6); 	
+    static Weapon magicStaff     = new Melee("Magic Staff", 15, 6); 	
            
 	//Magic weapons - speed increases chance to hit on top of weapon speed 
     static Weapon flame          = new Magic("Fireball", 12, 7);	        
@@ -224,10 +224,8 @@ public class dungeon {
     
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
-		e.newEnemy();
+		e.newWeapon();
 		en.setHealth(h); //set enemy health
-		int w = pl.getWeapon(); //get weapon Id
-		WeaponStats(w); //get weapon stats
 		Delay(null);
 		System.out.println("  A " + e.getName() + " appears!");
 		Delay(null);
@@ -321,10 +319,10 @@ public class dungeon {
 	}
 	
 	private static void GetStats(Weapon w) {
+		w.newWeapon();
 		pl.setDamage(w.getDamage()); 
 		pl.setSpeed(w.speed);
 		pl.setName(w.name);
-		w.setQuality();
 		w.SendQualityName();
 	}
 	
@@ -499,6 +497,7 @@ public class dungeon {
 					enemyId = EnemyId(enArr);
 					EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
+					Delay(null);
 					System.out.println("  you open the chest to see what's in it");
 					/*gets loot (method or plain rng)*/ break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
