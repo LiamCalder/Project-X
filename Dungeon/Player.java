@@ -7,7 +7,7 @@ public class Player {
 	public static int damage;
 	public static int speed;
 	public static int score;
-	 
+	
 	dungeon d = new dungeon();
 	
     public Player() {

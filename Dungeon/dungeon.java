@@ -3,7 +3,7 @@ import java.util.*;
 
 public class dungeon {
 	//initialize Variables
-	int maxQuality = 1; //highest weapon tier that can be generated. Note enemies are also affected by tiers
+	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
 	
 	//initialise Classes
 	//Player and enemy class
@@ -40,12 +40,13 @@ public class dungeon {
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 10);    
     static Weapon frost          = new Magic("Ice Beam", 14, 4);          
     static Weapon sapping        = new Magic("Drain Speed", 10, 7);       
-    static Weapon aura           = new Magic("Defensive Aura", 10, 10);   
-    static Weapon speed          = new Magic("Swiftness", 10, 10);         
-    static Weapon shift          = new Magic("Dimensional Shift", 10, 10); 
-    static Weapon fireWall       = new Magic("Wall Of Fire", 10, 10);      
+    static Weapon aura           = new Magic("Defensive Aura", 10, 10); //decrease en damage   
+    static Weapon speed          = new Magic("Swiftness", 10, 10); //increase pl speed 
+    static Weapon shift          = new Magic("Dimensional Shift", 10, 10); //increase pl dodge
+    static Weapon fireWall       = new Magic("Wall Of Fire", 10, 10); //damage melee attackers 
 	
-	//Enemies
+	//Enemies - Kept in Weapon class in case you 
+	//want to 'wield' (ie summon) an ally monster
 	static Weapon skeleton         = new Melee("Skeleton", 10, 7);           
     static Weapon spider           = new Melee("Spider", 6, 8);             
     static Weapon troll            = new Melee("Troll", 14, 2);              
@@ -57,7 +58,7 @@ public class dungeon {
     static Weapon outlaw           = new Melee("outlaw", 10, 6);             
     static Weapon caveRat          = new Melee("Cave Rat", 5, 8);           
     static Weapon wraith           = new Melee("Wraith", 13, 5);             
-    static Weapon fanatic          = new Melee("Fantic", 12, 4);             
+    static Weapon fanatic          = new Melee("Fanatic", 12, 4);             
     static Weapon demon            = new Magic("Demon", 13, 5);              
     static Weapon dragon           = new Melee("Dragon", 16, 2);             
     static Weapon orc              = new Melee("Orc", 11, 4);                
@@ -189,6 +190,7 @@ public class dungeon {
     
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
+		level++;
 		System.out.println("  You find a staircase leading deeper into the dungeon");
 		LevelChain(null); //then restart LevelChain
     }
@@ -222,6 +224,7 @@ public class dungeon {
     
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
+		e.setQuality();
 		en.setHealth(h); //set enemy health
 		int w = pl.getWeapon(); //get weapon Id
 		WeaponStats(w); //get weapon stats
@@ -284,8 +287,8 @@ public class dungeon {
     }
 	
 	private static void enDodgeChance(Weapon e, Enemy en) {
-		//dodge chance is speedx4% chace, eg 6x4 = 24% chance
-		//to dodge attack with max 40% (10x4) chance to dodge
+		//dodge chance is speed * X% chance, eg 6x3 = 18% chance
+		//to dodge attack with max 110 * X% (10x3) chance to dodge
 		//to dodge score must be lower than target.
 		Random r = new Random();
 		int target = e.getSpeed() * 4;
@@ -304,7 +307,8 @@ public class dungeon {
 		int target = e.getSpeed() * 4;
 		int score = r.nextInt(100)+1;
 		
-		if (score < target) {
+		System.out.println("");
+		if (score > target) {
 			pl.hit(e);
 		} else {
 			System.out.println("  You dodge the "+e.getName()+"'s attack!");
@@ -320,6 +324,7 @@ public class dungeon {
 		pl.setDamage(w.getDamage()); 
 		pl.setSpeed(w.speed);
 		pl.setName(w.name);
+		w.setQuality();
 		w.SendQualityName();
 	}
 	

@@ -10,28 +10,12 @@ public abstract class Weapon {
 	protected String qualityN;
 	dungeon d = new dungeon();
 	Player pl = new Player();
+	protected int multiplier = d.level;
 
     public Weapon(String name, double damage, int speed) {
         this.name = name;
         this.damage = damage;
 		this.speed = speed;
-		
-		Random t = new Random();
-		Random q = new Random();
-		int tier = t.nextInt(d.maxQuality)+1;
-		int qualityId;
-        
-		switch (tier)
-		{
-			case 1: qualityId = q.nextInt(19)+1;
-					QualityT1(qualityId);
-			case 2: qualityId = q.nextInt(14)+1;
-					QualityT2(qualityId);
-			case 3: qualityId = q.nextInt(15)+1;
-					QualityT3(qualityId);
-			case 4: qualityId = q.nextInt(10)+1;
-					QualityT4(qualityId);
-		}
     }
 	
 	public void SendQualityName() {
@@ -42,11 +26,28 @@ public abstract class Weapon {
 		return name;
 	}
 	
-	public int getSpeed() {
-		return speed;
-	}
+	public abstract int getSpeed();
 
     public abstract int getDamage();
+	
+	public void setQuality() {
+		Random t = new Random();
+		Random q = new Random();
+		int tier = t.nextInt(d.level)+1;
+		int qualityId;
+        
+		switch (tier)
+		{
+			case 1: qualityId = q.nextInt(19)+1;
+					QualityT1(qualityId); break;
+			case 2: qualityId = q.nextInt(14)+1;
+					QualityT2(qualityId); break;
+			case 3: qualityId = q.nextInt(15)+1;
+					QualityT3(qualityId); break;
+			case 4: qualityId = q.nextInt(10)+1;
+					QualityT4(qualityId); break;
+		}
+	}
 	
 	private void QualityT1(int Id)  {
 		//Only negative effects on stats
