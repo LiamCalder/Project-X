@@ -47,39 +47,39 @@ public class dungeon {
 	
 	//Enemies - Kept in Weapon class in case you 
 	//want to 'wield' (ie summon) an ally monster
-	static Weapon skeleton         = new Melee("Skeleton", 10, 7);           
+	static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
     static Weapon spider           = new Melee("Spider", 6, 8);             
-    static Weapon troll            = new Melee("Troll", 14, 2);              
-    static Weapon snake            = new Melee("Snake", 5, 8);              
-    static Weapon necromancer      = new Magic("Necromancer", 12, 5);        
-    static Weapon wizard           = new Magic("Wizard", 13, 5);             
-    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 9, 6);   
-    static Weapon goblin           = new Melee("Goblin", 8, 7);             
-    static Weapon outlaw           = new Melee("outlaw", 10, 6);             
-    static Weapon caveRat          = new Melee("Cave Rat", 5, 8);           
-    static Weapon wraith           = new Melee("Wraith", 13, 5);             
-    static Weapon fanatic          = new Melee("Fanatic", 12, 4);             
-    static Weapon demon            = new Magic("Demon", 13, 5);              
-    static Weapon dragon           = new Melee("Dragon", 16, 2);             
-    static Weapon orc              = new Melee("Orc", 11, 4);                
-    static Weapon vampire          = new Magic("Vampire", 12, 5);            
-    static Weapon leviathan        = new Melee("Leviathan", 14, 3);          
-    static Weapon pixie            = new Magic("Pixie", 6, 8);              
-    static Weapon harpy            = new Melee("Harpy", 7, 7);              
-    static Weapon fallenHero       = new Melee("Fallen Hero", 12, 5);        
-    static Weapon guardian         = new Melee("Guardian", 14, 2);           
-    static Weapon carnPlant        = new Melee("Carnivorous Plant", 9, 4);  
-    static Weapon giant            = new Melee("Giant", 11, 2);              
-    static Weapon looter           = new Melee("Looter", 8, 6);             
-    static Weapon wyrm             = new Melee("Wyrm", 13, 3);               
-    static Weapon cursedSoul       = new Melee("Cursed Soul", 10, 4);        
-    static Weapon fElemental       = new Ranged("Fire Elemental", 12, 5);    
-    static Weapon wElemental       = new Ranged("Water Elemental", 12, 5);   
-    static Weapon eElemental       = new Ranged("Earth Elemental", 12, 5);   
-    static Weapon aElemental       = new Ranged("Air Elemental", 12, 5);     
-    static Weapon basilisk         = new Melee("Basilisk", 14, 3);           
-    static Weapon golem            = new Melee("Rock Golem", 13, 2);         
-    static Weapon mimic            = new Melee("Mimic", 11, 4);
+    static Weapon troll            = new Melee("Troll", 11, 2);              
+    static Weapon snake            = new Melee("Snake", 4, 8);              
+    static Weapon necromancer      = new Magic("Necromancer", 10, 5);        
+    static Weapon wizard           = new Magic("Wizard", 11, 5);             
+    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 7, 6);   
+    static Weapon goblin           = new Melee("Goblin", 6, 7);             
+    static Weapon outlaw           = new Melee("outlaw", 8, 6);             
+    static Weapon caveRat          = new Melee("Cave Rat", 4, 8);           
+    static Weapon wraith           = new Melee("Wraith", 10, 5);             
+    static Weapon fanatic          = new Melee("Fanatic", 9, 4);             
+    static Weapon demon            = new Magic("Demon", 11, 5);              
+    static Weapon dragon           = new Melee("Dragon", 12, 2);             
+    static Weapon orc              = new Melee("Orc", 9, 4);                
+    static Weapon vampire          = new Magic("Vampire", 9, 5);            
+    static Weapon leviathan        = new Melee("Leviathan", 11, 3);          
+    static Weapon pixie            = new Magic("Pixie", 4, 8);              
+    static Weapon harpy            = new Melee("Harpy", 5, 7);              
+    static Weapon fallenHero       = new Melee("Fallen Hero", 9, 5);        
+    static Weapon guardian         = new Melee("Guardian", 11, 2);           
+    static Weapon carnPlant        = new Melee("Carnivorous Plant", 7, 4);  
+    static Weapon giant            = new Melee("Giant", 9, 2);              
+    static Weapon looter           = new Melee("Looter", 6, 6);             
+    static Weapon wyrm             = new Melee("Wyrm", 10, 3);               
+    static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 4);        
+    static Weapon fElemental       = new Ranged("Fire Elemental", 9, 5);    
+    static Weapon wElemental       = new Ranged("Water Elemental", 9, 5);   
+    static Weapon eElemental       = new Ranged("Earth Elemental", 9, 5);   
+    static Weapon aElemental       = new Ranged("Air Elemental", 9, 5);     
+    static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
+    static Weapon golem            = new Melee("Rock Golem", 10, 2);         
+    static Weapon mimic            = new Melee("Mimic", 9, 4);
 	
     public static void main(String[] args) {
         //set up beginning of game
