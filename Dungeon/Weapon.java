@@ -38,8 +38,7 @@ public abstract class Weapon {
 		int tier = t.nextInt(d.level)+1;
 		int qualityId;
         
-		switch (tier)
-		{
+		switch (tier) {
 			case 1: qualityId = q.nextInt(19)+1;
 					QualityT1(qualityId); break;
 			case 2: qualityId = q.nextInt(14)+1;
@@ -76,11 +75,9 @@ public abstract class Weapon {
 		}
     }
     
-    private void QualityT2(int Id) 
-    {
+    private void QualityT2(int Id) {
         //Mixed effects on stats or small buff
-        switch (Id)
-        {
+        switch (Id) {
             case 1: qualityD = 1; qualityS = 1; qualityN = "Light "; break;
             case 2: qualityD = 1; qualityS = 1; qualityN = "Heavy "; break;
             case 3: qualityD = 1; qualityS = 1; qualityN = "Dense "; break;

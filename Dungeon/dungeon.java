@@ -4,7 +4,7 @@ import java.util.*;
 public class dungeon {
 	//initialize Variables
 	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
-	
+	static double healthMult = 1.0; //enemy health = base x this
 	//initialise Classes
 	//Player and enemy class
 	static Player pl = new Player();
@@ -191,6 +191,7 @@ public class dungeon {
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
 		level++;
+		healthMult += 0.2;
 		System.out.println("  You find a staircase leading deeper into the dungeon");
 		LevelChain(null); //then restart LevelChain
     }
@@ -209,7 +210,8 @@ public class dungeon {
     private static int RoomId(int roomId) { //room Id list
         Random r = new Random();
         roomId = r.nextInt(31)+1; //update with new room cases
-        //change max random number to change shop spawn chance (E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
+        //change max random number to change shop spawn chance 
+		//(E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
         if (roomId > 25) {
             roomId = 26; //give shops one Id
         }
@@ -225,7 +227,7 @@ public class dungeon {
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
 		e.newWeapon();
-		en.setHealth(h); //set enemy health
+		en.setHealth((int) Math.round(h*healthMult)); //set enemy health
 		Delay(null);
 		System.out.println("  A " + e.getName() + " appears!");
 		Delay(null);
@@ -305,7 +307,6 @@ public class dungeon {
 		int target = e.getSpeed() * 4;
 		int score = r.nextInt(100)+1;
 		
-		System.out.println("");
 		if (score > target) {
 			pl.hit(e);
 		} else {
@@ -316,6 +317,12 @@ public class dungeon {
 	private static void Shop(String[] args) {
 		System.out.println("  Shop Stuff");
 		Delay(null);
+	}
+	
+	private static void Chest(String[] args) {
+		Delay(null);
+		System.out.println("  you open the chest to see what's in it");
+		Delay(null);	
 	}
 	
 	private static void GetStats(Weapon w) {
@@ -371,39 +378,39 @@ public class dungeon {
     private static void EnemyGen(int Id) {//enemy Id list
         switch (Id) {
 			     //Battle(Enemy base stats, skeleton health)
-            case 0:Battle(skeleton, 20); break;
-            case 1:Battle(spider, 15); break;
-            case 2:Battle(troll, 40); break;      
-            case 3:Battle(snake, 12); break; 			
-            case 4:Battle(necromancer, 25); break;  			
-            case 5:Battle(wizard, 23); break;  
-            case 6:Battle(skeletonArcher, 18); break;  
-            case 7:Battle(goblin, 22); break;  
-            case 8:Battle(outlaw, 27); break;  
-            case 9:Battle(caveRat, 14); break;  
-            case 10:Battle(wraith, 26); break;  
-            case 11:Battle(fanatic, 16); break;  
-            case 12:Battle(demon, 30); break;  
-            case 13:Battle(dragon, 50); break;  
-            case 14:Battle(orc, 25); break;  
-            case 15:Battle(vampire, 21); break;  
-            case 16:Battle(leviathan, 45); break; 
-            case 17:Battle(pixie, 10); break; 
-            case 18:Battle(harpy, 17); break; 
-            case 19:Battle(fallenHero, 29); break; 
-            case 20:Battle(guardian, 25); break; 
-            case 21:Battle(carnPlant, 19); break; 
-            case 22:Battle(giant, 32); break; 
-            case 23:Battle(looter, 20); break; 
-            case 24:Battle(wyrm, 28); break; 
-            case 25:Battle(cursedSoul, 23); break; 
-            case 26:Battle(fElemental, 18); break; 
-            case 27:Battle(wElemental, 18); break; 
-            case 28:Battle(eElemental, 18); break; 
-            case 29:Battle(aElemental, 18); break; 
-            case 30:Battle(basilisk, 34); break; 
-            case 31:Battle(golem, 37); break; 
-            case 32:Battle(mimic, 22); break;
+            case 0:Battle(skeleton, 10); break;
+            case 1:Battle(spider, 8); break;
+            case 2:Battle(troll, 20); break;      
+            case 3:Battle(snake, 7); break; 			
+            case 4:Battle(necromancer, 14); break;  			
+            case 5:Battle(wizard, 13); break;  
+            case 6:Battle(skeletonArcher, 12); break;  
+            case 7:Battle(goblin, 10); break;  
+            case 8:Battle(outlaw, 15); break;  
+            case 9:Battle(caveRat, 7); break;  
+            case 10:Battle(wraith, 15); break;  
+            case 11:Battle(fanatic, 13); break;  
+            case 12:Battle(demon, 16); break;  
+            case 13:Battle(dragon, 23); break;  
+            case 14:Battle(orc, 17); break;  
+            case 15:Battle(vampire, 14); break;  
+            case 16:Battle(leviathan, 22); break; 
+            case 17:Battle(pixie, 9); break; 
+            case 18:Battle(harpy, 11); break; 
+            case 19:Battle(fallenHero, 16); break; 
+            case 20:Battle(guardian, 18); break; 
+            case 21:Battle(carnPlant, 12); break; 
+            case 22:Battle(giant, 19); break; 
+            case 23:Battle(looter, 14); break; 
+            case 24:Battle(wyrm, 20); break; 
+            case 25:Battle(cursedSoul, 18); break; 
+            case 26:Battle(fElemental, 16); break; 
+            case 27:Battle(wElemental, 16); break; 
+            case 28:Battle(eElemental, 16); break; 
+            case 29:Battle(aElemental, 16); break; 
+            case 30:Battle(basilisk, 21); break; 
+            case 31:Battle(golem, 20); break; 
+            case 32:Battle(mimic, 13); break;
         }
     }
 	
@@ -497,9 +504,7 @@ public class dungeon {
 					enemyId = EnemyId(enArr);
 					EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
-					Delay(null);
-					System.out.println("  you open the chest to see what's in it");
-					/*gets loot (method or plain rng)*/ break; 
+					Chest(null); break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
 					enArr = new int[]{32};
 					enemyId = EnemyId(enArr);
