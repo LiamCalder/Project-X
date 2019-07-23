@@ -51,7 +51,7 @@ public abstract class Weapon {
 	}
 	
 	private void QualityT1(int Id)  {
-		//Only negative effects on stats
+		//Only negative effects on stats (0 < quality < 1)
 		switch (Id) {
 			case 1: qualityD = 1; qualityS = 1; qualityN = "Basic "; break;
 			case 2: qualityD = 1; qualityS = 1; qualityN = "Flimsy "; break;
@@ -96,7 +96,7 @@ public abstract class Weapon {
     }
     
      private void QualityT3(int Id) {
-        //good effects of stats
+        //good effects of stats (1 < quality)
         switch (Id) {
             case 1: qualityD = 1; qualityS = 1; qualityN = "Enhanced "; break;
             case 2: qualityD = 1; qualityS = 1; qualityN = "Unnaturally Fast "; break;
@@ -117,7 +117,7 @@ public abstract class Weapon {
     }
     
     private void QualityT4(int Id) {
-        //Special stat boosts
+        //Special stat boosts (need coding)
         switch (Id) {
             case 1:; //Flaming (cont. burn damage)
             break;

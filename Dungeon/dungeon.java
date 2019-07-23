@@ -254,6 +254,7 @@ public class dungeon {
 			
 			System.out.print("  ");
 			String input = s.nextLine();
+			//String input = "w"; speed-run melee attacks
 			if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
 				enDodgeChance(e, en);
 				if (en.isDead == true) {
@@ -288,7 +289,7 @@ public class dungeon {
 	
 	private static void enDodgeChance(Weapon e, Enemy en) {
 		//dodge chance is speed * X% chance, eg 6x3 = 18% chance
-		//to dodge attack with max 110 * X% (10x3) chance to dodge
+		//to dodge attack with max 10 * X% (10x4) chance to dodge
 		//to dodge score must be lower than target.
 		Random r = new Random();
 		int target = e.getSpeed() * 4;

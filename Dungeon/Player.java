@@ -1,5 +1,5 @@
 public class Player {
-    
+    dungeon d = new dungeon();
 	private int hp;
 	public static int wId = 2; //determines starting weapon Id: (2) is sword
 	public static String name;
@@ -7,12 +7,37 @@ public class Player {
 	public static int damage;
 	public static int speed;
 	public static int score;
-	
-	dungeon d = new dungeon();
+	public static int mana;
+	public static int hPotions;
+	public static int mPotions;
 	
     public Player() {
         hp = 100;
+		mana = 100;
+		hPotions = 0;
+		mPotions = 0;
     }
+	
+	public void setMana(int sm) {
+		mana = sm;
+	}
+	public int getMana() {
+		return mana;
+	}
+	
+	public void setHPotions(int shp) {
+		hPotions = shp;
+	}
+	public int getHPotions() {
+		return hPotions;
+	}
+	
+	public void setMPotions(int smp) {
+		mPotions = smp;
+	}
+	public int getMPotions() {
+		return mPotions;
+	}
 	
 	public void addScore(int ssc) {
 		score += ssc;
