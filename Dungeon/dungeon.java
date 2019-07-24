@@ -24,7 +24,7 @@ public class dungeon {
     static Weapon shank          = new Melee("Shank", 8, 8);		        
     static Weapon spear          = new Melee("Spear", 10, 6);		        
     static Weapon wristBlades    = new Melee("Wrist Blades", 9, 9);       
-	static Weapon claymore       = new Melee("Claymore", 16, 3);          
+	static Weapon battleAxe       = new Melee("Battle Axe", 16, 3);          
     static Weapon morningstar    = new Melee("Morningstar", 15, 4);       
     static Weapon pike           = new Melee("Pike", 13, 5);              
     static Weapon cutlass        = new Melee("Cutlass", 11, 6);           
@@ -402,7 +402,7 @@ public class dungeon {
             case 8: GetStats(shank); break;
             case 9: GetStats(spear); break;
             case 10:GetStats(wristBlades); break;
-            case 11:GetStats(claymore); break;
+            case 11:GetStats(battleAxe); break;
 			case 12:GetStats(morningstar); break;
             case 13:GetStats(pike); break;
             case 14:GetStats(cutlass); break;
