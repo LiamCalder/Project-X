@@ -1,15 +1,15 @@
 public class Player {
     dungeon d = new dungeon();
 	private int hp;
-	private static int wId = 2; //determines starting weapon Id: (2) is sword
-	private static String name;
-	private static String qName;
-	private static int damage;
-	private static int speed;
-	private static int score;
-	private static int mana;
-	private static int hPotions;
-	private static int mPotions;
+	private int wId = 2; //determines starting weapon Id: (2) is sword
+	private String name;
+	private String qName;
+	private int damage;
+	private int speed;
+	private int score;
+	private int mana;
+	private int hPotions;
+	private int mPotions;
 	
     public Player() {
         hp = 100;
