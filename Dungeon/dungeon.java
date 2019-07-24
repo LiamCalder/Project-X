@@ -5,6 +5,10 @@ public class dungeon {
 	//initialize Variables
 	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
 	static double healthMult = 1.0; //enemy health = base x this
+	static int potionHeal = 60; //potion health regen
+	static int potionMana = 60; //mana health regen
+	static int hPotionCost = 10;
+	static int mPotionCost = 10;
 	//initialise Classes
 	//Player and enemy class
 	static Player pl = new Player();
@@ -39,7 +43,7 @@ public class dungeon {
     static Weapon flame          = new Magic("Fireball", 12, 7);	        
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 10);    
     static Weapon frost          = new Magic("Ice Beam", 14, 4);          
-    static Weapon sapping        = new Magic("Drain Speed", 10, 7);       
+    static Weapon sapping        = new Magic("Drain Speed", 10, 7); //decrease en speed  
     static Weapon aura           = new Magic("Defensive Aura", 10, 10); //decrease en damage   
     static Weapon speed          = new Magic("Swiftness", 10, 10); //increase pl speed 
     static Weapon shift          = new Magic("Dimensional Shift", 10, 10); //increase pl dodge
@@ -209,7 +213,7 @@ public class dungeon {
 
     private static int RoomId(int roomId) { //room Id list
         Random r = new Random();
-        roomId = r.nextInt(31)+1; //update with new room cases
+        roomId = r.nextInt(51)+1; //update with new room cases
         //change max random number to change shop spawn chance 
 		//(E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
         if (roomId > 25) {
@@ -225,7 +229,11 @@ public class dungeon {
     }
     
 	private static void Battle(Weapon e, int h) {
+		System.out.println(pl.getHPotions());
+		System.out.println(pl.getHealth());
 		Enemy en = new Enemy();
+		System.out.println(pl.getHPotions());
+		System.out.println(pl.getHealth());
 		e.newWeapon();
 		en.setHealth((int) Math.round(h*healthMult)); //set enemy health
 		Delay(null);
@@ -270,14 +278,27 @@ public class dungeon {
 				pl.hit(e);
 			}
 			else if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
-				//use health potion if availiable
-				Delay(null);
-				pl.hit(e);
+				System.out.println(pl.getHPotions());
+				if (pl.getHPotions() > 0) {
+					pl.setHealth(potionHeal);
+					pl.setHPotions(-1);
+					Delay(null);
+					plDodgeChance(e);
+				} else {
+					System.out.println("");
+					System.out.println("  You don't have any more health potions!");
+				}
+				
 			}
 			else if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
-				//use mana potion if availiable
-				Delay(null);
-				pl.hit(e);
+				if (pl.getMPotions() > 0) {
+					pl.setMana(potionMana);
+					Delay(null);
+					plDodgeChance(e);
+				} else {
+					System.out.println("");
+					System.out.println("  You don't have any more mana potions!");
+				}
 			}
 			else {
 				System.out.println("  Not a valid option. Enter '?' for help");
@@ -316,7 +337,39 @@ public class dungeon {
 	}
 	
 	private static void Shop(String[] args) {
-		System.out.println("  Shop Stuff");
+		Scanner s = new Scanner(System.in);
+		String input = "";
+		System.out.println("  What Do you want to buy?");
+		System.out.println("  ========================");
+		System.out.println("  [Potions][Weapons][Leave]");
+		System.out.print("  ");
+		input = s.nextLine();
+		System.out.println("");
+		if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
+			System.out.println("  What Do you want to buy?");
+			System.out.println("  ========================");
+			System.out.println("  [Health:"+hPotionCost+"][Mana:"+mPotionCost+"]");
+			System.out.print("  ");
+			input = s.nextLine();
+			System.out.println("");
+			if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
+				pl.setHPotions(1);
+				System.out.println("  You purchased a health potion");
+				System.out.println("  You have "+pl.getHPotions()+" health potions");
+			}
+			if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
+				pl.setMPotions(1);
+				System.out.println("  You purchased a mana potion");
+				System.out.println("  You have "+pl.getMPotions()+" mana potions");
+			}
+		}
+		if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
+			System.out.println("  Out of Stock");
+		}
+		if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
+			System.out.print("  The shopkeeper wishes you luck");
+			
+		}
 		Delay(null);
 	}
 	
@@ -550,6 +603,8 @@ public class dungeon {
             case 9:; //Mithril Hamaxe
             break;
             case 10:; //Fists of Fury
+			break;
+			case 11:; //Shadow Daggers
         }
     }
 }
