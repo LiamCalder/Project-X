@@ -1,6 +1,6 @@
 @echo off
 title Dungeon
-javac dungeon.java
-java dungeon
+javac Dungeon.java
+java Dungeon
 timeout /t 1 /nobreak
 pause

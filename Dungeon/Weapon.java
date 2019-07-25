@@ -8,7 +8,7 @@ public abstract class Weapon {
 	protected double qualityD;
 	protected double qualityS;
 	protected String qualityN;
-	dungeon d = new dungeon();
+	Dungeon d = new Dungeon();
 	Player pl = new Player();
 	protected int multiplier;
 
@@ -131,13 +131,13 @@ public abstract class Weapon {
             break;
             case 6:; //Enchanted (more damage to magical enemies)
             break;
-            case 7:; //Deadly (more damage to lving enemies)
+            case 7:; //Deadly (more damage to living enemies)
             break;
             case 8:; //Holy (more damage to unholy monsters)
             break;
-            case 9:; //Demonic (more damage to holy monsters)
+            case 9:; //Hunting (more damage to animal monsters)
             break;
-            case 10:; //Perfect (more damage) - think of something
+            case 10:; //Perfect (better than 'powerful' stats)
         }
     }
 }

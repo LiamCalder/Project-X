@@ -1,12 +1,13 @@
 public class Player {
-    dungeon d = new dungeon();
+    Dungeon d = new Dungeon();
 	private int hp;
-	private int wId = 2; //determines starting weapon Id: (2) is sword
-	private String name;
-	private String qName;
-	private int damage;
-	private int speed;
+	static private int wId = 2; //determines starting weapon Id: (2) is sword
+	static private String name;
+	static private String qName;
+	static private int damage;
+	static private int speed;
 	private int score;
+	private int cash;
 	private int mana;
 	private int hPotions;
 	private int mPotions;
@@ -16,13 +17,24 @@ public class Player {
 		mana = 100;
 		hPotions = 0;
 		mPotions = 0;
+		cash = 0;
     }
 	
 	public void setMana(int sm) {
 		mana = sm;
+		if (mana > 100) {
+			mana = 100;
+		}
 	}
 	public int getMana() {
 		return mana;
+	}
+	
+	public void setCash(int sc) {
+		cash += sc;
+	}
+	public int getCash() {
+		return cash;
 	}
 	
 	public void setHPotions(int shp) {
