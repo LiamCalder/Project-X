@@ -9,8 +9,10 @@ public class Dungeon {
 	static int potionMana = 60; //mana health regen
 	static int hPotionCost = 10;
 	static int mPotionCost = 10;
+	static int weaponCost = 10;
 	static boolean isChest = false;
 	static boolean changeW = true;
+	static boolean shop = false;
 	//initialise Classes
 	//Player and enemy class
 	static Player pl = new Player();
@@ -351,7 +353,7 @@ public class Dungeon {
 				System.out.println("");
 			}
 				
-			else if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
+			if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
 				
 				if (pl.getCash() > hPotionCost) {
 					pl.setHPotions(1);
@@ -364,7 +366,7 @@ public class Dungeon {
 				}
 			}	
 			
-			else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
+			if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
 				if (pl.getCash() > mPotionCost) {
 					pl.setMPotions(1);
 					pl.setCash(-mPotionCost);
@@ -376,15 +378,20 @@ public class Dungeon {
 				}
 			}
 			
-			else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
-				System.out.println("  Out of Stock");
+			if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
+				shop = true;
+				Random r = new Random();
+				int weapon = r.nextInt(23)+1; //not including spells atm
+				WeaponStats(weapon); 
+				shop = false;
 			}
 			
-			else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
+			if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
 				System.out.println("  The shopkeeper wishes you luck");
 				
 			} else {
-				System.out.println("  Not a valid option. Enter '?' for help");
+				//System.out.println("  Not a valid option. Enter '?' for help");
+				//commented out because of dodgy else if logic
 			}
 			Delay(null);
 		}
@@ -415,7 +422,6 @@ public class Dungeon {
 	}
 	
 	private static void SetStats(Weapon w) {
-		w.newWeapon();
 		pl.setDamage(w.getDamage()); 
 		pl.setSpeed(w.speed);
 		pl.setName(w.name);
@@ -426,7 +432,41 @@ public class Dungeon {
 		Scanner s = new Scanner(System.in);
 		String input = "";
 		if (changeW == true) {
+			w.newWeapon();
 			SetStats(w);
+		} else if (shop == true) {
+			w.newWeapon();
+			System.out.println("  Do you want to buy this weapon?");
+			System.out.println("  ===============================");
+			System.out.println("  Cost: "+weaponCost);
+			System.out.println("");
+			System.out.println("  Current Weapon:");
+			System.out.println("  Name: "+pl.getName());
+			System.out.println("  Quality: "+pl.getQName());
+			System.out.println("  Damage: "+pl.getDamage()); 
+			System.out.println("  Speed: "+pl.getSpeed());
+			System.out.println("");
+			System.out.println("  New Weapon:");
+			System.out.println("  Name: "+w.name);
+			System.out.println("  Quality: "+w.qualityN);
+			System.out.println("  Damage: "+w.getDamage()); 
+			System.out.println("  Speed: "+w.getSpeed());
+			System.out.println("");
+			System.out.print("  ");
+			input = s.nextLine();
+			System.out.println("");
+			
+			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
+					System.out.println("  You purchase the weapon");
+					SetStats(w);
+					
+				}
+				if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
+					System.out.println("  You keep your current weapon");
+				} else {
+					System.out.println("  Not a valid option. Enter '?' for help");
+				}
+				System.out.println("");
 		} else {
 			while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
 				w.newWeapon();
