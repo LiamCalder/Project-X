@@ -12,6 +12,7 @@ public class Dungeon {
 	static int weaponCost = 10;
 	static boolean isChest = false;
 	static boolean changeW = true;
+	static boolean wGen = false;
 	static boolean shop = false;
 	//initialise Classes
 	//Player and enemy class
@@ -270,7 +271,6 @@ public class Dungeon {
 				pl.hit(e);
 			}
 			else if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
-				System.out.println(pl.getHPotions());
 				if (pl.getHPotions() > 0) {
 					System.out.println("  You feel your body being repaired");
 					pl.setHealth(potionHeal);
@@ -334,6 +334,9 @@ public class Dungeon {
 		Scanner s = new Scanner(System.in);
 		String input = "";
 		String subInput = "";
+		Random r = new Random();
+		int weapon = r.nextInt(23)+1; //not including spells atm
+		wGen = true;
 		
 		while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
 			System.out.println("  What Do you want to buy?");
@@ -380,9 +383,8 @@ public class Dungeon {
 			
 			if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
 				shop = true;
-				Random r = new Random();
-				int weapon = r.nextInt(23)+1; //not including spells atm
-				WeaponStats(weapon); 
+				WeaponStats(weapon);
+				wGen = false;
 				shop = false;
 			}
 			
@@ -435,7 +437,9 @@ public class Dungeon {
 			w.newWeapon();
 			SetStats(w);
 		} else if (shop == true) {
-			w.newWeapon();
+			if (wGen == true) {
+				w.newWeapon();
+			}
 			System.out.println("  Do you want to buy this weapon?");
 			System.out.println("  ===============================");
 			System.out.println("  Cost: "+weaponCost);
