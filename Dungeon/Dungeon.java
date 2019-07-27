@@ -179,7 +179,7 @@ public class Dungeon {
 		System.out.println("  option OR o. Case does not");
 		System.out.println("  matter. When the marker is");
 		System.out.println("_ <- there, it is a pause and");
-		System.out.println("  is continued by pressing enter");
+		System.out.println("  is continued by pressing enter.");
 		System.out.println("  several options can also be");
 		System.out.println("  accessed here, like quit and help (?)");
         Delay(null);
@@ -208,7 +208,7 @@ public class Dungeon {
     public static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
-        if (delay.equalsIgnoreCase("?")) {
+if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
             Help(null);
         }
 		if (delay.equalsIgnoreCase("quit")) {
@@ -275,6 +275,7 @@ public class Dungeon {
 					System.out.println("  You feel your body being repaired");
 					pl.setHealth(potionHeal);
 					pl.setHPotions(-1);
+					System.out.println("  You have "+pl.getHPotions()+" health potions");
 					Delay(null);
 					plDodgeChance(e);
 				} else {
@@ -287,14 +288,15 @@ public class Dungeon {
 				if (pl.getMPotions() > 0) {
 					System.out.println("  Your magik is restored");
 					pl.setMana(potionMana);
+					pl.setMPotions(-1);
+					System.out.println("  You have "+pl.getHPotions()+" health potions");
 					Delay(null);
 					plDodgeChance(e);
 				} else {
 					System.out.println("");
 					System.out.println("  You don't have any more mana potions!");
 				}
-			}
-			else {
+			} else {
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
 			
@@ -350,50 +352,51 @@ public class Dungeon {
 				System.out.println("  What Do you want to buy?");
 				System.out.println("  ========================");
 				System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]");
-				System.out.println("  Your balance: "+pl.getCash());
+				System.out.println("  Balance: "+pl.getCash());
 				System.out.print("  ");
 				subInput = s.nextLine();
 				System.out.println("");
-			}
 				
-			if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
-				
-				if (pl.getCash() > hPotionCost) {
-					pl.setHPotions(1);
-					pl.setCash(-hPotionCost);
-					hPotionCost = (int) Math.round(hPotionCost * 1.5);
-					System.out.println("  You purchased a health potion");
-					System.out.println("  You have "+pl.getHPotions()+" health potions");
-				} else {
-					System.out.println("  You don't have enough money!");
+				if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
+					if (pl.getCash() > hPotionCost) {
+						pl.setHPotions(1);
+						pl.setCash(-hPotionCost);
+						hPotionCost = (int) Math.round(hPotionCost * 1.5);
+						System.out.println("  You purchased a health potion");
+						System.out.println("  You have "+pl.getHPotions()+" health potions");
+					}
+					else {
+						System.out.println("  You don't have enough money!");
+					}					
 				}
-			}	
-			
-			if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
-				if (pl.getCash() > mPotionCost) {
-					pl.setMPotions(1);
-					pl.setCash(-mPotionCost);
-					mPotionCost = (int) Math.round(mPotionCost * 1.5);
-					System.out.println("  You purchased a health potion");
-					System.out.println("  You have "+pl.getMPotions()+" health potions");
-				} else {
-					System.out.println("  You don't have enough money!");
+				else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
+					if (pl.getCash() > mPotionCost) {
+						pl.setMPotions(1);
+						pl.setCash(-mPotionCost);
+						mPotionCost = (int) Math.round(mPotionCost * 1.5);
+						System.out.println("  You purchased a health potion");
+						System.out.println("  You have "+pl.getMPotions()+" health potions");
+					} 
+					else {
+						System.out.println("  You don't have enough money!");
+					}
+				}
+				else {
+						System.out.println("  Not a valid option. Enter '?' for help");
 				}
 			}
-			
-			if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
+			else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
 				shop = true;
 				WeaponStats(weapon);
 				wGen = false;
 				shop = false;
 			}
-			
-			if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
+			else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
 				System.out.println("  The shopkeeper wishes you luck");
 				
-			} else {
-				//System.out.println("  Not a valid option. Enter '?' for help");
-				//commented out because of dodgy else if logic
+			} 
+			else {
+				System.out.println("  Not a valid option. Enter '?' for help");
 			}
 			Delay(null);
 		}
@@ -436,13 +439,11 @@ public class Dungeon {
 		if (changeW == true) {
 			w.newWeapon();
 			SetStats(w);
-		} else if (shop == true) {
+		} 
+		else if (shop == true) {
 			if (wGen == true) {
 				w.newWeapon();
 			}
-			System.out.println("  Do you want to buy this weapon?");
-			System.out.println("  ===============================");
-			System.out.println("  Cost: "+weaponCost);
 			System.out.println("");
 			System.out.println("  Current Weapon:");
 			System.out.println("  Name: "+pl.getName());
@@ -456,22 +457,27 @@ public class Dungeon {
 			System.out.println("  Damage: "+w.getDamage()); 
 			System.out.println("  Speed: "+w.getSpeed());
 			System.out.println("");
+			System.out.println("  Do you want to buy this weapon?");
+			System.out.println("  ===============================");
+			System.out.println("  Cost: "+weaponCost);
+			System.out.println("  Balance: "+pl.getCash());
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
 			
-			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
+			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y") && weaponCost < pl.getCash()) {
 					System.out.println("  You purchase the weapon");
+					pl.setCash(-weaponCost);
 					SetStats(w);
-					
-				}
-				if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
-					System.out.println("  You keep your current weapon");
-				} else {
-					System.out.println("  Not a valid option. Enter '?' for help");
-				}
-				System.out.println("");
-		} else {
+			}
+			else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
+				System.out.println("  You keep your current weapon");
+			} else {
+				System.out.println("  Not a valid option. Enter '?' for help");
+			}
+			System.out.println("");
+		} 
+		else {
 			while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
 				w.newWeapon();
 				System.out.println("");
@@ -498,7 +504,7 @@ public class Dungeon {
 					System.out.println("  You change your weapon");
 					SetStats(w);
 				}
-				if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
+				else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
 					System.out.println("  You keep your current weapon");
 				} else {
 					System.out.println("  Not a valid option. Enter '?' for help");
