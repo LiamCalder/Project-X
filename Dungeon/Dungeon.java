@@ -9,7 +9,7 @@ public class Dungeon {
 	static int potionMana = 60; //mana health regen
 	static int hPotionCost = 10;
 	static int mPotionCost = 10;
-	static int weaponCost = 10;
+	static int weaponCost;
 	static boolean isChest = false;
 	static boolean changeW = true;
 	static boolean wGen = false;
@@ -208,7 +208,7 @@ public class Dungeon {
     public static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
-if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
+		if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
             Help(null);
         }
 		if (delay.equalsIgnoreCase("quit")) {
