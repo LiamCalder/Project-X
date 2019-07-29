@@ -94,15 +94,15 @@ public class Dungeon {
         //set up beginning of game
 		Scanner s = new Scanner(System.in);
 		int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
-		WeaponStats(weapon);
+		WeaponStatsT1(weapon);
 		changeW = false;
-        System.out.println("");
-        System.out.println("  Do you want to enter The Dungeon?");
-        System.out.println("  =================================");
-        System.out.println("  [Start] [Quit] [Help] [Controls]");
         String input = "";
         while (!input.equalsIgnoreCase("start")) {
             //option select
+			System.out.println("");
+			System.out.println("  Do you want to enter The Dungeon?");
+			System.out.println("  =================================");
+			System.out.println("  [Start] [Quit] [Help] [Controls]");
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
@@ -113,17 +113,9 @@ public class Dungeon {
             }
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
-                System.out.println("");
-                System.out.println("  Do you want to enter The Dungeon?");
-                System.out.println("  =================================");
-                System.out.println("  [Start] [Quit] [Help] [Controls]");
             }
             else {
                 Help(null);
-                System.out.println("");
-                System.out.println("  Do you want to enter The Dungeon?");
-                System.out.println("  =================================");
-                System.out.println("  [Start] [Quit] [Help] [Controls]");
             }
         }
         
@@ -245,9 +237,11 @@ public class Dungeon {
 			Scanner s = new Scanner(System.in);
 			System.out.println("  What will you do?");
 			System.out.println("  =================");
-			System.out.println("  [Weapon] | [Spell]");
-			System.out.println("  - - - - - - - - -");
-			System.out.println("  [Health] | [Mana]");
+			System.out.println("  [Weapon]: Enemy health "+en.getHealth()+" -> "+(en.getHealth()-pl.getDamage()));
+			System.out.println("  [Spell]");
+			System.out.println("  [Heal]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
+			System.out.println("  [Mana]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
+			
 			
 			System.out.print("  ");
 			String input = s.nextLine();
@@ -270,7 +264,7 @@ public class Dungeon {
 				Delay(null);
 				pl.hit(e);
 			}
-			else if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
+			else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
 				if (pl.getHPotions() > 0) {
 					System.out.println("  You feel your body being repaired");
 					pl.setHealth(potionHeal);
@@ -364,8 +358,7 @@ public class Dungeon {
 						hPotionCost = (int) Math.round(hPotionCost * 1.5);
 						System.out.println("  You purchased a health potion");
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
-					}
-					else {
+					} else {
 						System.out.println("  You don't have enough money!");
 					}					
 				}
@@ -376,26 +369,23 @@ public class Dungeon {
 						mPotionCost = (int) Math.round(mPotionCost * 1.5);
 						System.out.println("  You purchased a health potion");
 						System.out.println("  You have "+pl.getMPotions()+" health potions");
-					} 
-					else {
+					} else {
 						System.out.println("  You don't have enough money!");
 					}
-				}
-				else {
+				} else {
 						System.out.println("  Not a valid option. Enter '?' for help");
 				}
 			}
 			else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
 				shop = true;
-				WeaponStats(weapon);
+				WeaponStatsT1(weapon);
 				wGen = false;
 				shop = false;
 			}
 			else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
 				System.out.println("  The shopkeeper wishes you luck");
 				
-			} 
-			else {
+			} else {
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
 			Delay(null);
@@ -410,7 +400,7 @@ public class Dungeon {
 			System.out.println("  You find a weapon!");
 			Delay(null);
 			weapon = r.nextInt(23)+1; //not including spells atm
-			WeaponStats(weapon);
+			WeaponStatsT1(weapon);
 		} else {
 			int loot = (r.nextInt(11)+5) * level;
 			if (isChest == true) {
@@ -465,10 +455,14 @@ public class Dungeon {
 			input = s.nextLine();
 			System.out.println("");
 			
-			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y") && weaponCost < pl.getCash()) {
+			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
+				if (pl.getCash() > weaponCost) {
 					System.out.println("  You purchase the weapon");
 					pl.setCash(-weaponCost);
 					SetStats(w);
+				} else {
+					System.out.println("  You son't have enough money!");
+				}
 			}
 			else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
 				System.out.println("  You keep your current weapon");
@@ -514,7 +508,91 @@ public class Dungeon {
 		}
 	}
 	
-	private static void WeaponStats(int Id) {
+	private static void WeaponStatsT1(int Id) {
+        //weapon list
+        //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
+		switch (Id) {
+			//Melee weapons
+            case 1: GetStats(dagger); break;
+            case 2: GetStats(sword); break;
+			case 3: GetStats(mace); break;
+            case 4: GetStats(axe); break;
+            case 5: GetStats(warHammer); break;
+			case 6: GetStats(quarterstaff); break;
+			case 7: GetStats(greatsword); break;
+            case 8: GetStats(shank); break;
+            case 9: GetStats(spear); break;
+            case 10:GetStats(wristBlades); break;
+            case 11:GetStats(battleAxe); break;
+			case 12:GetStats(morningstar); break;
+            case 13:GetStats(pike); break;
+            case 14:GetStats(cutlass); break;
+            case 15:GetStats(chain); break;
+            case 16:GetStats(ballChain); break;
+			case 17:GetStats(warScythe); break;
+            
+			//Ranged weapons
+            case 19:GetStats(shortbow); break;
+            case 20:GetStats(longbow); break;
+            case 21:GetStats(shurikan); break;
+			case 22:GetStats(crossbow); break;
+			case 23:GetStats(magicStaff); break;
+           
+		    //Magic weapons
+            case 24:GetStats(flame); break;
+            case 25:GetStats(lightning); break;
+            case 26:GetStats(frost); break;
+            case 27:GetStats(sapping); break;
+            case 28:GetStats(aura); break;
+            case 29:GetStats(speed); break;
+            case 30:GetStats(shift); break;
+            case 31:GetStats(fireWall); break;
+        }
+    }
+	
+	private static void WeaponStatsT2(int Id) {
+        //weapon list
+        //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
+		switch (Id) {
+			//Melee weapons
+            case 1: GetStats(dagger); break;
+            case 2: GetStats(sword); break;
+			case 3: GetStats(mace); break;
+            case 4: GetStats(axe); break;
+            case 5: GetStats(warHammer); break;
+			case 6: GetStats(quarterstaff); break;
+			case 7: GetStats(greatsword); break;
+            case 8: GetStats(shank); break;
+            case 9: GetStats(spear); break;
+            case 10:GetStats(wristBlades); break;
+            case 11:GetStats(battleAxe); break;
+			case 12:GetStats(morningstar); break;
+            case 13:GetStats(pike); break;
+            case 14:GetStats(cutlass); break;
+            case 15:GetStats(chain); break;
+            case 16:GetStats(ballChain); break;
+			case 17:GetStats(warScythe); break;
+            
+			//Ranged weapons
+            case 19:GetStats(shortbow); break;
+            case 20:GetStats(longbow); break;
+            case 21:GetStats(shurikan); break;
+			case 22:GetStats(crossbow); break;
+			case 23:GetStats(magicStaff); break;
+           
+		    //Magic weapons
+            case 24:GetStats(flame); break;
+            case 25:GetStats(lightning); break;
+            case 26:GetStats(frost); break;
+            case 27:GetStats(sapping); break;
+            case 28:GetStats(aura); break;
+            case 29:GetStats(speed); break;
+            case 30:GetStats(shift); break;
+            case 31:GetStats(fireWall); break;
+        }
+    }
+	
+	private static void WeaponStatsT3(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
