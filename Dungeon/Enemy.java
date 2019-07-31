@@ -2,7 +2,6 @@ public class Enemy {
     private int hp;
 	public boolean isDead = false;
 	Player pl = new Player();
-	Dungeon d = new Dungeon();
 
     public void setHealth(int h) {
 		hp = h;

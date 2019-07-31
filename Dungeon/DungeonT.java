@@ -1,7 +1,7 @@
 import java.util.*;
 //import javax.swing.*;
 
-public class Dungeon {
+public class DungeonT {
 	//initialize Variables
 	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
 	static double healthMult = 1.0; //enemy health = base x this
@@ -10,7 +10,6 @@ public class Dungeon {
 	static int hPotionCost = 10;
 	static int mPotionCost = 10;
 	static int weaponCost;
-	static int enId;
 	static boolean isChest = false;
 	static boolean changeW = true;
 	static boolean wGen = false;
@@ -98,13 +97,23 @@ public class Dungeon {
 		WeaponStatsT1(weapon);
 		changeW = false;
         String input = "";
+		System.out.println("");
+		System.out.println("  Welcome. You are a noble warrior on a quests to succeed where ");
+		System.out.println("  many have failed: to conquer the infamous Dungeon. But there");
+		System.out.println("  are many perils and evils in the Dungeon, and terrifying enemies");
+		System.out.println("  dwell here, from cunning goblins to fearsome dragons. The only help");
+		System.out.println("  you have is from a magical shop that travels through Dungeon, and");
+		System.out.println("  even then; only for a price. Once you enter there is no going back.");
+		System.out.println("  Good luck.");
         while (!input.equalsIgnoreCase("start")) {
             //option select
 			System.out.println("");
-			System.out.println("      Do you want to enter The Dungeon?");
-			System.out.println("  ===========================================");
-			System.out.println("  [Start] [Quit] [Help] [Controls] [Tutorial]");
+			System.out.println("  Do you want to enter The Dungeon?");
+			System.out.println("  =================================");
+			System.out.println("  [Start] [Quit] [Help] [Controls]");
             System.out.print("  ");
+			System.out.print("    Type 'h' or 'help' for instructions on how to play.");
+			System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
                 LevelChain(null);//level method
@@ -168,13 +177,17 @@ public class Dungeon {
     
     private static void Help(String[] args) {
         System.out.println("");
-        System.out.println("  To select [Option], type");
-		System.out.println("  option OR o. Case does not");
-		System.out.println("  matter. When the marker is");
-		System.out.println("_ <- there, it is a pause and");
-		System.out.println("  is continued by pressing enter.");
-		System.out.println("  several options can also be");
-		System.out.println("  accessed here, like quit and help (?)");
+        System.out.println("  When you need to make a choice, your options appear in");
+		System.out.println("  square brackets under a double line, like this:");
+		System.out.println("");
+		System.out.println("  ===================");
+		System.out.println("  [Option1] [Option2]");
+		System.out.println("");
+		System.out.println("  The game will then pause and wait for input. To choose an");
+		System.out.println("  option, just type the first letter (o) or the whole option");
+		System.out.println("  name (option1). Then press enter and the option is selected.");
+		System.out.println("  when the game pauses without this input prompt, simply press");
+		System.out.println("  enter and the game will continue.");
         Delay(null);
     }
     
@@ -204,12 +217,8 @@ public class Dungeon {
 		if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
             Help(null);
         }
-		if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
+		if (delay.equalsIgnoreCase("quit")) {
 			System.exit(1);
-		}
-		if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
-			System.out.println("  enId in Delay() is "+enId);
-			Examine(enId);
 		}
     }
 
@@ -224,6 +233,12 @@ public class Dungeon {
         return roomId; //pass RoomId back to Caller
     }
     
+    private static int EnemyId(int[] enArr) {
+        Random r = new Random();
+        int Id = r.nextInt(enArr.length);
+        return enArr[Id];
+    }
+    
 	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
 		e.newWeapon();
@@ -234,9 +249,12 @@ public class Dungeon {
 		
 		while (en.getHealth() > 0) {
 			Scanner s = new Scanner(System.in);
-			System.out.println("           What will you do?");
-			System.out.println("  ====================================");
-			System.out.println("  [Weapon] [Spell] [Heal("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")]");
+			System.out.println("  What will you do?");
+			System.out.println("  =================");
+			System.out.println("  [Weapon]: Enemy health "+en.getHealth()+" -> "+(en.getHealth()-pl.getDamage()));
+			System.out.println("  [Spell]");
+			System.out.println("  [Heal]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
+			System.out.println("  [Mana]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
 			
 			
 			System.out.print("  ");
@@ -331,9 +349,9 @@ public class Dungeon {
 		wGen = true;
 		
 		while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
-			System.out.println("   What Do you want to buy?");
-			System.out.println("  ===========================");
-			System.out.println("  [Potions] [Weapons] [Leave]");
+			System.out.println("  What Do you want to buy?");
+			System.out.println("  ========================");
+			System.out.println("  [Potions][Weapons][Leave]");
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
@@ -443,12 +461,10 @@ public class Dungeon {
 			System.out.println("  Damage: "+w.getDamage()); 
 			System.out.println("  Speed: "+w.getSpeed());
 			System.out.println("");
-			System.out.println("  Cost: "+weaponCost);
-			System.out.println("  Balance: "+pl.getCash());
-			System.out.println("");
 			System.out.println("  Do you want to buy this weapon?");
 			System.out.println("  ===============================");
-			System.out.println("  ");
+			System.out.println("  Cost: "+weaponCost);
+			System.out.println("  Balance: "+pl.getCash());
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
@@ -671,60 +687,17 @@ public class Dungeon {
         }
     }
 	
-	private static int EnemyId(int[] enArr) {
-        Random r = new Random();
-        int Id = r.nextInt(enArr.length);
-		enId = Id;
-        return enArr[Id];
-    }
-	
-	public static void Examine(int Id) {
-		switch (Id) {
-			case 1:System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones."); break;
-			case 2:System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");  break;
-			case 3:System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction."); break;
-			case 4:System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
-			case 5:System.out.print  ("  Necromancers are the most despicable of all the Magi, performing the darkest magics on the deceased to ");
-				   System.out.println("  bend into their undying slaves."); break;
-			case 6:System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon"); break;
-			case 7:System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow"); break;
-			case 8:System.out.println("  Perhaps the most infamous of foes, the goblin "); break;
-			//... on and on it goes.
-			default:System.out.println("Congrats! this enemy doesn't exist"); break;
-		}
-	}
-	/*
- *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
- *Spider:            
- *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
- *Snake:             The snake is said to be a pure master of dodging, but is easily damaged due to it's thin build
- *Necromancer:       The necromancer is a quite a deadly opponent, but is hindered by it's laziness.
- *Wizard:            The wizard casts the most dangerous of attacks, which makes up for it's old age
- *Skeleton Archer:   With moderately striking damage and speed, the skeleton archer makes a worthy opponent
- *Goblin:            The goblin appears small and easily hurt, but it isn't the slowest or tamest foe
- *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
- *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
- *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
- *Fanatic:           The fanatic has a devastating blow, but doesn't seem to have fast reflexes
- *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
- *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
- *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
- *Vampire:           The vampire's fangs are no doubt lethal, but it's speed is far from impressive
- *Leviathan:         The colossal leviathan can't swerve very well, but is no doubt one of the biggest threats in the dungeon
- *Pixie:             The pixie isn't the most harmful enemy, but can whizz past your attacks with ease
- *Harpy:             Not a very hard-hitting contender, but can certainly hold it's ground with it's agility
- *Fallen hero:       A master of his art, the fallen hero is malignant contestant, although the hero still hasn't aced ducking
- *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
- *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
- *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
- */
 	private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;
         
         switch(Id) {
+            case -1:System.out.println("  This should not appear. if it does, roomId wasn't called"); 
+					enArr = new int[]{-1}; //numbers in curly brackets reperesents possible enemy spawns in room via Id#
+					enemyId = EnemyId(enArr);
+					EnemyGen(enemyId); break;
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
-					enArr = new int[]{0,4,6,19,23,25};//possible enemy by Id
+					enArr = new int[]{0,4,6,19,23,25};
 					enemyId = EnemyId(enArr);
 					EnemyGen(enemyId); break;
             case 2: System.out.println("  You find yourself in a massive cavern"); 
@@ -855,3 +828,29 @@ public class Dungeon {
         }
     }
 }
+
+/*
+ *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
+ *Spider:            The spider does not seem to be hard to kill, but it's nimble nature might get in the way.
+ *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
+ *Snake:             The snake is said to be a pure master of dodging, but is easily damaged due to it's thin build
+ *Necromancer:       The necromancer is a quite a deadly opponent, but is hindered by it's laziness.
+ *Wizard:            The wizard casts the most dangerous of attacks, which makes up for it's old age
+ *Skeleton Archer:   With moderately striking damage and speed, the skeleton archer makes a worthy opponent
+ *Goblin:            The goblin appears small and easily hurt, but it isn't the slowest or tamest foe
+ *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
+ *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
+ *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
+ *Fanatic:           The fanatic has a devastating blow, but doesn't seem to have fast reflexes
+ *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
+ *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
+ *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
+ *Vampire:           The vampire's fangs are no doubt lethal, but it's speed is far from impressive
+ *Leviathan:         The colossal leviathan can't swerve very well, but is no doubt one of the biggest threats in the dungeon
+ *Pixie:             The pixie isn't the most harmful enemy, but can whizz past your attacks with ease
+ *Harpy:             Not a very hard-hitting contender, but can certainly hold it's ground with it's agility
+ *Fallen hero:       A master of his art, the fallen hero is malignant contestant, although the hero still hasn't aced ducking
+ *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
+ *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
+ *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
+ */
