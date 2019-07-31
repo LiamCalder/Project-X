@@ -1,22 +1,26 @@
 import java.util.*;
+import java.io.*;
 //import javax.swing.*;
 
 public class DungeonT {
 	//initialize Variables
 	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
+	static String mode = "tutorial";
 	static double healthMult = 1.0; //enemy health = base x this
 	static int potionHeal = 60; //potion health regen
 	static int potionMana = 60; //mana health regen
 	static int hPotionCost = 10;
 	static int mPotionCost = 10;
 	static int weaponCost;
+	static int enId;
 	static boolean isChest = false;
 	static boolean changeW = true;
 	static boolean wGen = false;
 	static boolean shop = false;
+	
 	//initialise Classes
-	//Player and enemy class
 	static Player pl = new Player();
+	static Dungeon d = new Dungeon();
 	
 	//Melee weapons - speed determines dodge chance
     static Weapon dagger         = new Melee("Dagger", 7, 6);            
@@ -98,21 +102,21 @@ public class DungeonT {
 		changeW = false;
         String input = "";
 		System.out.println("");
-		System.out.println("  Welcome. You are a noble warrior on a quests to succeed where ");
+		System.out.println("  Welcome. You are a noble warrior on a quest to succeed where ");
 		System.out.println("  many have failed: to conquer the infamous Dungeon. But there");
 		System.out.println("  are many perils and evils in the Dungeon, and terrifying enemies");
 		System.out.println("  dwell here, from cunning goblins to fearsome dragons. The only help");
-		System.out.println("  you have is from a magical shop that travels through Dungeon, and");
+		System.out.println("  you have is from a magical shop that travels through the Dungeon, and");
 		System.out.println("  even then; only for a price. Once you enter there is no going back.");
 		System.out.println("  Good luck.");
         while (!input.equalsIgnoreCase("start")) {
             //option select
 			System.out.println("");
-			System.out.println("  Do you want to enter The Dungeon?");
-			System.out.println("  =================================");
-			System.out.println("  [Start] [Quit] [Help] [Controls]");
-            System.out.print("  ");
-			System.out.print("    Type 'h' or 'help' for instructions on how to play.");
+			System.out.println("      Do you want to enter The Dungeon?");
+			System.out.println("  ============================================");
+			System.out.println("  [Start] [Quit] [Help] [Controls] [Realistic]");
+            System.out.println("");
+			System.out.println("  Type 'h' or 'help' for instructions on how to play.");
 			System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
@@ -124,11 +128,28 @@ public class DungeonT {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
             }
+			else if (input.equalsIgnoreCase("realistic") || input.equalsIgnoreCase("r")) {
+                try {  
+				FileWriter fw = new FileWriter("Save.txt");
+				fw.write(mode);    
+				fw.close();    
+				} 
+				catch(Exception e){
+					System.out.println(e);
+				}    
+				System.out.println("");
+				System.out.println("  Mode changed to Realistic");
+
+				d.main(null);
+				System.exit(1);
+            }
+			else if (input.equalsIgnoreCase("save")) {
+                Save(null);
+            }
             else {
                 Help(null);
             }
-        }
-        
+        } 
     }
     
     private static void LevelChain(String[] args) {
@@ -184,8 +205,8 @@ public class DungeonT {
 		System.out.println("  [Option1] [Option2]");
 		System.out.println("");
 		System.out.println("  The game will then pause and wait for input. To choose an");
-		System.out.println("  option, just type the first letter (o) or the whole option");
-		System.out.println("  name (option1). Then press enter and the option is selected.");
+		System.out.println("  option, just type the first letter 'o or the whole option");
+		System.out.println("  name 'option1'. Then press enter and the option is selected.");
 		System.out.println("  when the game pauses without this input prompt, simply press");
 		System.out.println("  enter and the game will continue.");
         Delay(null);
@@ -193,15 +214,52 @@ public class DungeonT {
     
     private static void Controls(String[] args) {
         System.out.println("");
-        System.out.println("  To select option: type whatever's in [here]");
-        System.out.println("  i = inventory");
-        System.out.println("  m = map");
-        System.out.println("  s = stats");
+		System.out.println("  These are the commands you can enter");
+		System.out.println("  during a pause. Remember, they cannot");
+		System.out.println("  be used during an input prompt.");
+		System.out.println("");
+		System.out.println("  KEYBINDINGS           FUNCTION");
+        System.out.println("  'quit' or 'q'..........save and quit the game");
+        System.out.println("  'help' or 'h' or '?'...bring up help menu");
+        System.out.println("  'examine' or 'e'.......examine enemy");
         System.out.println("");
-        System.out.println("  note: nothing works at this stage of the program");
-        System.out.println("  They may or may not be implemented later on");
         Delay(null);
     }
+	
+	private static void Save(String[] args) {
+		System.out.println("");
+		System.out.println("  Saving...");
+		try {
+			FileWriter fw1 = new FileWriter("Save.txt");
+			PrintWriter pw1 = new PrintWriter(fw1);
+			
+			pw1.printf("%s" + "%n", mode);
+			
+			FileWriter fw = new FileWriter("Save.txt", true);
+			PrintWriter pw = new PrintWriter(fw);
+			
+			pw.printf("%s" + "%n", level);							pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", Double.toString(healthMult));   	pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", hPotionCost);  					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", mPotionCost);  					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", enId);							pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getHealth());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getWeapon());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getName());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getQName());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getDamage());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getSpeed());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getScore());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getCash());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getMana());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getHPotions());				pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getMPotions());				pw.printf("%s" + "%n", ",");
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		} 
+		System.out.println("  File Saved");
+	}
     
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
@@ -274,9 +332,8 @@ public class DungeonT {
 				plDodgeChance(e);
 			}
 			else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
-				//attack with spell stats
+				System.out.println("  You don't know any spells!");
 				Delay(null);
-				pl.hit(e);
 			}
 			else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
 				if (pl.getHPotions() > 0) {

@@ -1,9 +1,11 @@
 import java.util.*;
+import java.io.*;
 //import javax.swing.*;
 
 public class Dungeon {
 	//initialize Variables
 	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
+	static String mode = "realistic";
 	static double healthMult = 1.0; //enemy health = base x this
 	static int potionHeal = 60; //potion health regen
 	static int potionMana = 60; //mana health regen
@@ -15,9 +17,10 @@ public class Dungeon {
 	static boolean changeW = true;
 	static boolean wGen = false;
 	static boolean shop = false;
+	
 	//initialise Classes
-	//Player and enemy class
 	static Player pl = new Player();
+	static DungeonT dt = new DungeonT();
 	
 	//Melee weapons - speed determines dodge chance
     static Weapon dagger         = new Melee("Dagger", 7, 6);            
@@ -115,6 +118,20 @@ public class Dungeon {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
             }
+			else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
+                try {
+					FileWriter fw = new FileWriter("Save.txt");
+					fw.write(mode);    
+					fw.close();    
+				} 
+				catch(Exception e){
+					System.out.println(e);
+				}    
+				dt.main(null);
+				System.exit(1);
+				System.out.println("");
+				System.out.println("  Mode changed to Tutorial");
+            }
             else {
                 Help(null);
             }
@@ -168,25 +185,27 @@ public class Dungeon {
     
     private static void Help(String[] args) {
         System.out.println("");
-        System.out.println("  To select [Option], type");
-		System.out.println("  option OR o. Case does not");
-		System.out.println("  matter. When the marker is");
-		System.out.println("_ <- there, it is a pause and");
-		System.out.println("  is continued by pressing enter.");
-		System.out.println("  several options can also be");
-		System.out.println("  accessed here, like quit and help (?)");
+        System.out.println("  When you need to make a choice, your options appear in");
+		System.out.println("  square brackets under a double line, like this:");
+		System.out.println("");
+		System.out.println("  ===================");
+		System.out.println("  [Option1] [Option2]");
+		System.out.println("");
+		System.out.println("  The game will then pause and wait for input. To choose an");
+		System.out.println("  option, just type the first letter 'o' or the whole option");
+		System.out.println("  name 'option1'. Then press enter and the option is selected.");
+		System.out.println("  when the game pauses without this input prompt, simply press");
+		System.out.println("  enter and the game will continue.");
         Delay(null);
     }
     
     private static void Controls(String[] args) {
         System.out.println("");
-        System.out.println("  To select option: type whatever's in [here]");
-        System.out.println("  i = inventory");
-        System.out.println("  m = map");
-        System.out.println("  s = stats");
+		System.out.println("  KEYBINDINGS           FUNCTION");
+        System.out.println("  'quit' or 'q'..........save and quit the game");
+        System.out.println("  'help' or 'h' or '?'...bring up help menu");
+        System.out.println("  'examine' or 'e'.......examine enemy");
         System.out.println("");
-        System.out.println("  note: nothing works at this stage of the program");
-        System.out.println("  They may or may not be implemented later on");
         Delay(null);
     }
     
@@ -201,7 +220,7 @@ public class Dungeon {
     public static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
-		if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
+		if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") || delay.equalsIgnoreCase("h")) {
             Help(null);
         }
 		if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
@@ -448,7 +467,7 @@ public class Dungeon {
 			System.out.println("");
 			System.out.println("  Do you want to buy this weapon?");
 			System.out.println("  ===============================");
-			System.out.println("  ");
+			System.out.println("        [Yes]        [No]");
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
