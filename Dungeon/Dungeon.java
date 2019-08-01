@@ -127,10 +127,14 @@ public class Dungeon {
 				catch(Exception e){
 					System.out.println(e);
 				}    
-				dt.main(null);
-				System.exit(1);
 				System.out.println("");
 				System.out.println("  Mode changed to Tutorial");
+				
+				dt.main(null);
+				System.exit(1);
+            }
+            else if (input.equalsIgnoreCase("save")) {
+                Save(null);
             }
             else {
                 Help(null);
@@ -209,6 +213,41 @@ public class Dungeon {
         Delay(null);
     }
     
+    private static void Save(String[] args) {
+		System.out.println("");
+		System.out.println("  Saving...");
+		try {
+			FileWriter fw1 = new FileWriter("Save.txt");
+			PrintWriter pw1 = new PrintWriter(fw1);
+			
+			pw1.printf("%s" + "%n", mode);
+			
+			FileWriter fw = new FileWriter("Save.txt", true);
+			PrintWriter pw = new PrintWriter(fw);
+			
+			pw.printf("%s" + "%n", level);							pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", Double.toString(healthMult));   	pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", hPotionCost);  					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", mPotionCost);  					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", enId);							pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getHealth());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getWeapon());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getName());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getQName());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getDamage());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getSpeed());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getScore());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getCash());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getMana());					pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getHPotions());				pw.printf("%s" + "%n", ",");
+			pw.printf("%s" + "%n", pl.getMPotions());				pw.printf("%s" + "%n", ",");
+		}
+		catch(Exception e) {
+			System.out.println(e);
+		} 
+		System.out.println("  File Saved");
+	}
+    
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
 		level++;
@@ -275,9 +314,8 @@ public class Dungeon {
 				plDodgeChance(e);
 			}
 			else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
-				//attack with spell stats
+				System.out.println("  You don't know any spells!");
 				Delay(null);
-				pl.hit(e);
 			}
 			else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
 				if (pl.getHPotions() > 0) {
@@ -712,6 +750,7 @@ public class Dungeon {
 			default:System.out.println("Congrats! this enemy doesn't exist"); break;
 		}
 	}
+	
 	/*
  *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
  *Spider:            
@@ -737,6 +776,7 @@ public class Dungeon {
  *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
  *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
  */
+
 	private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;

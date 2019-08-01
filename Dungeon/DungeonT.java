@@ -278,6 +278,10 @@ public class DungeonT {
 		if (delay.equalsIgnoreCase("quit")) {
 			System.exit(1);
 		}
+		if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
+			System.out.println("  enId in Delay() is "+enId);
+			Examine(enId);
+		}
     }
 
     private static int RoomId(int roomId) { //room Id list
@@ -290,14 +294,8 @@ public class DungeonT {
         }
         return roomId; //pass RoomId back to Caller
     }
-    
-    private static int EnemyId(int[] enArr) {
-        Random r = new Random();
-        int Id = r.nextInt(enArr.length);
-        return enArr[Id];
-    }
-    
-	private static void Battle(Weapon e, int h) {
+   
+   	private static void Battle(Weapon e, int h) {
 		Enemy en = new Enemy();
 		e.newWeapon();
 		en.setHealth((int) Math.round(h*healthMult)); //set enemy health
@@ -311,8 +309,8 @@ public class DungeonT {
 			System.out.println("  =================");
 			System.out.println("  [Weapon]: Enemy health "+en.getHealth()+" -> "+(en.getHealth()-pl.getDamage()));
 			System.out.println("  [Spell]");
-			System.out.println("  [Heal]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
-			System.out.println("  [Mana]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
+			System.out.println("  [Heal("+pl.getHPotions()+")]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
+			System.out.println("  [Mana("+pl.getMPotions()+")]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
 			
 			
 			System.out.print("  ");
@@ -518,10 +516,12 @@ public class DungeonT {
 			System.out.println("  Damage: "+w.getDamage()); 
 			System.out.println("  Speed: "+w.getSpeed());
 			System.out.println("");
-			System.out.println("  Do you want to buy this weapon?");
-			System.out.println("  ===============================");
 			System.out.println("  Cost: "+weaponCost);
 			System.out.println("  Balance: "+pl.getCash());
+			System.out.println("");
+			System.out.println("  Do you want to buy this weapon?");
+			System.out.println("  ===============================");
+			System.out.println("        [Yes]        [No]");
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
@@ -744,6 +744,54 @@ public class DungeonT {
         }
     }
 	
+    private static int EnemyId(int[] enArr) {
+        Random r = new Random();
+        int Id = r.nextInt(enArr.length);
+        return enArr[Id];
+    }
+    
+    public static void Examine(int Id) {
+		switch (Id) {
+			case 1:System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones."); break;
+			case 2:System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");  break;
+			case 3:System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction."); break;
+			case 4:System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
+			case 5:System.out.print  ("  Necromancers are the most despicable of all the Magi, performing the darkest magics on the deceased to ");
+				   System.out.println("  bend into their undying slaves."); break;
+			case 6:System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon"); break;
+			case 7:System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow"); break;
+			case 8:System.out.println("  Perhaps the most infamous of foes, the goblin "); break;
+			//... on and on it goes.
+			default:System.out.println("Congrats! this enemy doesn't exist"); break;
+		}
+	}
+    
+	/*
+ *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
+ *Spider:            The spider does not seem to be hard to kill, but it's nimble nature might get in the way.
+ *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
+ *Snake:             The snake is said to be a pure master of dodging, but is easily damaged due to it's thin build
+ *Necromancer:       The necromancer is a quite a deadly opponent, but is hindered by it's laziness.
+ *Wizard:            The wizard casts the most dangerous of attacks, which makes up for it's old age
+ *Skeleton Archer:   With moderately striking damage and speed, the skeleton archer makes a worthy opponent
+ *Goblin:            The goblin appears small and easily hurt, but it isn't the slowest or tamest foe
+ *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
+ *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
+ *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
+ *Fanatic:           The fanatic has a devastating blow, but doesn't seem to have fast reflexes
+ *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
+ *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
+ *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
+ *Vampire:           The vampire's fangs are no doubt lethal, but it's speed is far from impressive
+ *Leviathan:         The colossal leviathan can't swerve very well, but is no doubt one of the biggest threats in the dungeon
+ *Pixie:             The pixie isn't the most harmful enemy, but can whizz past your attacks with ease
+ *Harpy:             Not a very hard-hitting contender, but can certainly hold it's ground with it's agility
+ *Fallen hero:       A master of his art, the fallen hero is malignant contestant, although the hero still hasn't aced ducking
+ *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
+ *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
+ *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
+ */
+	
 	private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;
@@ -885,29 +933,3 @@ public class DungeonT {
         }
     }
 }
-
-/*
- *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
- *Spider:            The spider does not seem to be hard to kill, but it's nimble nature might get in the way.
- *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
- *Snake:             The snake is said to be a pure master of dodging, but is easily damaged due to it's thin build
- *Necromancer:       The necromancer is a quite a deadly opponent, but is hindered by it's laziness.
- *Wizard:            The wizard casts the most dangerous of attacks, which makes up for it's old age
- *Skeleton Archer:   With moderately striking damage and speed, the skeleton archer makes a worthy opponent
- *Goblin:            The goblin appears small and easily hurt, but it isn't the slowest or tamest foe
- *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
- *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
- *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
- *Fanatic:           The fanatic has a devastating blow, but doesn't seem to have fast reflexes
- *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
- *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
- *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
- *Vampire:           The vampire's fangs are no doubt lethal, but it's speed is far from impressive
- *Leviathan:         The colossal leviathan can't swerve very well, but is no doubt one of the biggest threats in the dungeon
- *Pixie:             The pixie isn't the most harmful enemy, but can whizz past your attacks with ease
- *Harpy:             Not a very hard-hitting contender, but can certainly hold it's ground with it's agility
- *Fallen hero:       A master of his art, the fallen hero is malignant contestant, although the hero still hasn't aced ducking
- *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
- *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
- *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
- */
