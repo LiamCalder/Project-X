@@ -31,7 +31,6 @@ public abstract class Weapon {
     public abstract int getDamage();
 	
 	public void newWeapon() {
-		
 		multiplier = d.level - 1;
 		Random t = new Random();
 		Random q = new Random();

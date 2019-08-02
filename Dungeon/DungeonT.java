@@ -3,53 +3,59 @@ import java.io.*;
 //import javax.swing.*;
 
 public class DungeonT {
-	//initialize Variables
-	static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
-	static String mode = "tutorial";
-	static double healthMult = 1.0; //enemy health = base x this
-	static int potionHeal = 60; //potion health regen
-	static int potionMana = 60; //mana health regen
-	static int hPotionCost = 10;
-	static int mPotionCost = 10;
-	static int weaponCost;
-	static int enId;
-	static boolean isChest = false;
-	static boolean changeW = true;
-	static boolean wGen = false;
-	static boolean shop = false;
-	
-	//initialise Classes
-	static Player pl = new Player();
-	static Dungeon d = new Dungeon();
-	
-	//Melee weapons - speed determines dodge chance
+    //initialize Variables
+    static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
+    static String mode = "tutorial";
+    static double healthMult = 1.0; //enemy health = base x this
+    static int potionHeal = 60; //potion health regen
+    static int potionMana = 60; //mana health regen
+    static int hPotionCost = 10;
+    static int mPotionCost = 10;
+    static int weaponCost;
+    static int enId;
+    static boolean isChest = false;
+    static boolean changeW = true;
+    static boolean wGen = false;
+    static boolean shop = false;
+    
+    //initialise Classes
+    static Player pl = new Player();
+    static Dungeon d = new Dungeon();
+    
+    //Melee weapons - speed determines dodge chance
     static Weapon dagger         = new Melee("Dagger", 7, 6);            
     static Weapon sword          = new Melee("Sword", 9, 5);             
-	static Weapon mace           = new Melee("Mace", 12, 4);		        
-    static Weapon axe            = new Melee("Axe", 13, 4);		        
+    static Weapon mace           = new Melee("Mace", 12, 4);                
+    static Weapon axe            = new Melee("Axe", 13, 4);             
     static Weapon warHammer      = new Melee("War Hammer", 14, 3);        
-	static Weapon quarterstaff   = new Melee("Quarterstaff", 12, 7);      
-	static Weapon greatsword     = new Melee("Greatsword", 13, 4);	    
-    static Weapon shank          = new Melee("Shank", 8, 8);		        
-    static Weapon spear          = new Melee("Spear", 10, 6);		        
+    static Weapon quarterstaff   = new Melee("Quarterstaff", 12, 7);      
+    static Weapon greatsword     = new Melee("Greatsword", 13, 4);      
+    static Weapon shank          = new Melee("Shank", 8, 8);                
+    static Weapon spear          = new Melee("Spear", 10, 6);               
     static Weapon wristBlades    = new Melee("Wrist Blades", 9, 9);       
-	static Weapon battleAxe       = new Melee("Battle Axe", 16, 3);          
+    static Weapon battleAxe       = new Melee("Battle Axe", 16, 3);          
     static Weapon morningstar    = new Melee("Morningstar", 15, 4);       
     static Weapon pike           = new Melee("Pike", 13, 5);              
     static Weapon cutlass        = new Melee("Cutlass", 11, 6);           
-    static Weapon chain          = new Melee("Chain", 14, 6);		        
-    static Weapon ballChain      = new Melee("Ball and Chain", 16, 1);      
-	static Weapon warScythe      = new Melee("War Scythe", 14 ,2);        
-			
-	//Ranged weapons - ^ same
+    static Weapon flail          = new Melee("Flail", 14, 6);                
+    static Weapon club           = new Melee("Club", 16, 1);      
+    static Weapon warScythe      = new Melee("War Scythe", 14 ,2);        
+            
+    //Ranged weapons - ^ same
     static Weapon shortbow       = new Ranged("Shortbow", 11, 7);         
     static Weapon longbow        = new Ranged("Longbow", 13, 5);          
     static Weapon shurikan       = new Ranged("Shurikan", 9, 8);         
-	static Weapon crossbow       = new Ranged("Crossbow", 14, 3);
-    static Weapon magicStaff     = new Melee("Magic Staff", 15, 6); 	
+    static Weapon crossbow       = new Ranged("Crossbow", 14, 3);
+    static Weapon magicStaff     = new Melee("Magic Staff", 15, 6);
+    static Weapon sling          = new Ranged("Sling", 11, 7);
+    static Weapon tomahawk       = new Ranged("Tomahawk", 11, 7);
+    static Weapon dartGun        = new Ranged("Dart Gun", 11, 7);
+    static Weapon compoundBow    = new Ranged("Compound Bow", 11, 7);
+    static Weapon rCrossbow      = new Ranged("Repeating Crossbow", 11, 7);
+    static Weapon javelin        = new Ranged("Javelin", 11, 7);
            
-	//Magic weapons - speed increases chance to hit on top of weapon speed 
-    static Weapon flame          = new Magic("Fireball", 12, 7);	        
+    //Magic weapons - speed increases chance to hit on top of weapon speed 
+    static Weapon flame          = new Magic("Fireball", 12, 7);            
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 10);    
     static Weapon frost          = new Magic("Ice Beam", 14, 4);          
     static Weapon sapping        = new Magic("Drain Speed", 10, 7); //decrease en speed  
@@ -57,10 +63,10 @@ public class DungeonT {
     static Weapon speed          = new Magic("Swiftness", 10, 10); //increase pl speed 
     static Weapon shift          = new Magic("Dimensional Shift", 10, 10); //increase pl dodge
     static Weapon fireWall       = new Magic("Wall Of Fire", 10, 10); //damage melee attackers 
-	
-	//Enemies - Kept in Weapon class in case you 
-	//want to 'wield' (ie summon) an ally monster
-	static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
+    
+    //Enemies - Kept in Weapon class in case you 
+    //want to 'wield' (ie summon) an ally monster
+    static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
     static Weapon spider           = new Melee("Spider", 6, 8);             
     static Weapon troll            = new Melee("Troll", 11, 2);              
     static Weapon snake            = new Melee("Snake", 4, 8);              
@@ -93,31 +99,31 @@ public class DungeonT {
     static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
     static Weapon golem            = new Melee("Rock Golem", 10, 2);         
     static Weapon mimic            = new Melee("Mimic", 9, 4);
-	
+    
     public static void main(String[] args) {
         //set up beginning of game
-		Scanner s = new Scanner(System.in);
-		int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
-		WeaponStatsT1(weapon);
-		changeW = false;
+        Scanner s = new Scanner(System.in);
+        int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
+        WeaponTier(null);
+        changeW = false;
         String input = "";
-		System.out.println("");
-		System.out.println("  Welcome. You are a noble warrior on a quest to succeed where ");
-		System.out.println("  many have failed: to conquer the infamous Dungeon. But there");
-		System.out.println("  are many perils and evils in the Dungeon, and terrifying enemies");
-		System.out.println("  dwell here, from cunning goblins to fearsome dragons. The only help");
-		System.out.println("  you have is from a magical shop that travels through the Dungeon, and");
-		System.out.println("  even then; only for a price. Once you enter there is no going back.");
-		System.out.println("  Good luck.");
+        System.out.println("");
+        System.out.println("  Welcome. You are a noble warrior on a quest to succeed where ");
+        System.out.println("  many have failed: to conquer the infamous Dungeon. But there");
+        System.out.println("  are many perils and evils in the Dungeon, and terrifying enemies");
+        System.out.println("  dwell here, from cunning goblins to fearsome dragons. The only help");
+        System.out.println("  you have is from a magical shop that travels through the Dungeon, and");
+        System.out.println("  even then; only for a price. Once you enter there is no going back.");
+        System.out.println("  Good luck.");
         while (!input.equalsIgnoreCase("start")) {
             //option select
-			System.out.println("");
-			System.out.println("      Do you want to enter The Dungeon?");
-			System.out.println("  ============================================");
-			System.out.println("  [Start] [Quit] [Help] [Controls] [Realistic]");
             System.out.println("");
-			System.out.println("  Type 'h' or 'help' for instructions on how to play.");
-			System.out.print("  ");
+            System.out.println("      Do you want to enter The Dungeon?");
+            System.out.println("  ============================================");
+            System.out.println("  [Start] [Quit] [Help] [Controls] [Realistic]");
+            System.out.println("");
+            System.out.println("  Type 'h' or 'help' for instructions on how to play.");
+            System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
                 LevelChain(null);//level method
@@ -128,22 +134,22 @@ public class DungeonT {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
             }
-			else if (input.equalsIgnoreCase("realistic") || input.equalsIgnoreCase("r")) {
+            else if (input.equalsIgnoreCase("realistic") || input.equalsIgnoreCase("r")) {
                 try {  
-				FileWriter fw = new FileWriter("Save.txt");
-				fw.write(mode);    
-				fw.close();    
-				} 
-				catch(Exception e){
-					System.out.println(e);
-				}    
-				System.out.println("");
-				System.out.println("  Mode changed to Realistic");
+                FileWriter fw = new FileWriter("Save.txt");
+                fw.write(mode);    
+                fw.close();    
+                } 
+                catch(Exception e){
+                    System.out.println(e);
+                }    
+                System.out.println("");
+                System.out.println("  Mode changed to Realistic");
 
-				d.main(null);
-				System.exit(1);
+                d.main(null);
+                System.exit(1);
             }
-			else if (input.equalsIgnoreCase("save")) {
+            else if (input.equalsIgnoreCase("save")) {
                 Save(null);
             }
             else {
@@ -173,8 +179,8 @@ public class DungeonT {
                 RoomGen(roomId);
             }
         }
-		
-		NextLevel(null);
+        
+        NextLevel(null);
         
         //outputs to JFrame instead of console
         /*JFrame f = new JFrame("ASCII");
@@ -199,520 +205,476 @@ public class DungeonT {
     private static void Help(String[] args) {
         System.out.println("");
         System.out.println("  When you need to make a choice, your options appear in");
-		System.out.println("  square brackets under a double line, like this:");
-		System.out.println("");
-		System.out.println("  ===================");
-		System.out.println("  [Option1] [Option2]");
-		System.out.println("");
-		System.out.println("  The game will then pause and wait for input. To choose an");
-		System.out.println("  option, just type the first letter 'o or the whole option");
-		System.out.println("  name 'option1'. Then press enter and the option is selected.");
-		System.out.println("  when the game pauses without this input prompt, simply press");
-		System.out.println("  enter and the game will continue.");
+        System.out.println("  square brackets under a double line, like this:");
+        System.out.println("");
+        System.out.println("  ===================");
+        System.out.println("  [Option1] [Option2]");
+        System.out.println("");
+        System.out.println("  The game will then pause and wait for input. To choose an");
+        System.out.println("  option, just type the first letter 'o or the whole option");
+        System.out.println("  name 'option1'. Then press enter and the option is selected.");
+        System.out.println("  when the game pauses without this input prompt, simply press");
+        System.out.println("  enter and the game will continue.");
         Delay(null);
     }
     
     private static void Controls(String[] args) {
         System.out.println("");
-		System.out.println("  These are the commands you can enter");
-		System.out.println("  during a pause. Remember, they cannot");
-		System.out.println("  be used during an input prompt.");
-		System.out.println("");
-		System.out.println("  KEYBINDINGS           FUNCTION");
+        System.out.println("  These are the commands you can enter");
+        System.out.println("  during a pause. Remember, they cannot");
+        System.out.println("  be used during an input prompt.");
+        System.out.println("");
+        System.out.println("  KEYBINDINGS           FUNCTION");
         System.out.println("  'quit' or 'q'..........save and quit the game");
         System.out.println("  'help' or 'h' or '?'...bring up help menu");
         System.out.println("  'examine' or 'e'.......examine enemy");
         System.out.println("");
         Delay(null);
     }
-	
-	private static void Save(String[] args) {
-		System.out.println("");
-		System.out.println("  Saving...");
-		try {
-			FileWriter fw1 = new FileWriter("Save.txt");
-			PrintWriter pw1 = new PrintWriter(fw1);
-			
-			pw1.printf("%s" + "%n", mode);
-			
-			FileWriter fw = new FileWriter("Save.txt", true);
-			PrintWriter pw = new PrintWriter(fw);
-			
-			pw.printf("%s" + "%n", level);							pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", Double.toString(healthMult));   	pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", hPotionCost);  					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", mPotionCost);  					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", enId);							pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getHealth());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getWeapon());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getName());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getQName());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getDamage());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getSpeed());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getScore());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getCash());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getMana());					pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getHPotions());				pw.printf("%s" + "%n", ",");
-			pw.printf("%s" + "%n", pl.getMPotions());				pw.printf("%s" + "%n", ",");
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		} 
-		System.out.println("  File Saved");
-	}
+    
+    private static void Save(String[] args) {
+        System.out.println("");
+        System.out.println("  Saving...");
+        try {
+            FileWriter fw1 = new FileWriter("Save.txt");
+            PrintWriter pw1 = new PrintWriter(fw1);
+            
+            pw1.printf("%s" + "%n", mode);
+            
+            FileWriter fw = new FileWriter("Save.txt", true);
+            PrintWriter pw = new PrintWriter(fw);
+            
+            pw.printf("%s" + "%n", level);                          pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", Double.toString(healthMult));    pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", hPotionCost);                    pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", mPotionCost);                    pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", enId);                           pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getHealth());                 pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getWeapon());                 pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getName());                   pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getQName());                  pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getDamage());                 pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getSpeed());                  pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getScore());                  pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getCash());                   pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getMana());                   pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getHPotions());               pw.printf("%s" + "%n", ",");
+            pw.printf("%s" + "%n", pl.getMPotions());               pw.printf("%s" + "%n", ",");
+        }
+        catch(Exception e) {
+            System.out.println(e);
+        } 
+        System.out.println("  File Saved");
+    }
     
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
-		level++;
-		healthMult += 0.2;
-		System.out.println("  You find a staircase leading deeper into the dungeon");
-		LevelChain(null); //then restart LevelChain
+        level++;
+        healthMult += 0.2;
+        System.out.println("  You find a staircase leading deeper into the dungeon");
+        LevelChain(null); //then restart LevelChain
     }
     
     public static void Delay(String[] args) {//wait for user function
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
-		if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
+        if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
             Help(null);
         }
-		if (delay.equalsIgnoreCase("quit")) {
-			System.exit(1);
-		}
-		if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
-			System.out.println("  enId in Delay() is "+enId);
-			Examine(enId);
-		}
+        if (delay.equalsIgnoreCase("quit")) {
+            System.exit(1);
+        }
+        if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
+            System.out.println("  enId in Delay() is "+enId);
+            Examine(enId);
+        }
     }
 
     private static int RoomId(int roomId) { //room Id list
         Random r = new Random();
         roomId = r.nextInt(51)+1; //update with new room cases
         //change max random number to change shop spawn chance 
-		//(E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
+        //(E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
         if (roomId > 25) {
             roomId = 26; //give shops one Id
         }
         return roomId; //pass RoomId back to Caller
     }
    
-   	private static void Battle(Weapon e, int h) {
-		Enemy en = new Enemy();
-		e.newWeapon();
-		en.setHealth((int) Math.round(h*healthMult)); //set enemy health
-		Delay(null);
-		System.out.println("  A " + e.getName() + " appears!");
-		Delay(null);
-		
-		while (en.getHealth() > 0) {
-			Scanner s = new Scanner(System.in);
-			System.out.println("  What will you do?");
-			System.out.println("  =================");
-			System.out.println("  [Weapon]: Enemy health "+en.getHealth()+" -> "+(en.getHealth()-pl.getDamage()));
-			System.out.println("  [Spell]");
-			System.out.println("  [Heal("+pl.getHPotions()+")]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
-			System.out.println("  [Mana("+pl.getMPotions()+")]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
-			
-			
-			System.out.print("  ");
-			String input = s.nextLine();
-			//String input = "w"; speed-run melee attacks
-			if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
-				enDodgeChance(e, en);
-				if (en.isDead == true) {
-					pl.addScore(100+h); //+100 for winning, + damage dealt
-					System.out.println("");
-					GetLoot(null); //moneys
-					System.out.println("  You enter the next room");
-					Delay(null);
-					return;
-				}
-				Delay(null);
-				plDodgeChance(e);
-			}
-			else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
-				System.out.println("  You don't know any spells!");
-				Delay(null);
-			}
-			else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
-				if (pl.getHPotions() > 0) {
-					System.out.println("  You feel your body being repaired");
-					pl.setHealth(potionHeal);
-					pl.setHPotions(-1);
-					System.out.println("  You have "+pl.getHPotions()+" health potions");
-					Delay(null);
-					plDodgeChance(e);
-				} else {
-					System.out.println("");
-					System.out.println("  You don't have any more health potions!");
-				}
-				
-			}
-			else if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
-				if (pl.getMPotions() > 0) {
-					System.out.println("  Your magik is restored");
-					pl.setMana(potionMana);
-					pl.setMPotions(-1);
-					System.out.println("  You have "+pl.getHPotions()+" health potions");
-					Delay(null);
-					plDodgeChance(e);
-				} else {
-					System.out.println("");
-					System.out.println("  You don't have any more mana potions!");
-				}
-			} else {
-				System.out.println("  Not a valid option. Enter '?' for help");
-			}
-			
-			Delay(null);
+    private static void Battle(Weapon e, int h) {
+        Enemy en = new Enemy();
+        e.newWeapon();
+        en.setHealth((int) Math.round(h*healthMult)); //set enemy health
+        Delay(null);
+        System.out.println("  A " + e.getName() + " appears!");
+        Delay(null);
+        
+        while (en.getHealth() > 0) {
+            Scanner s = new Scanner(System.in);
+            System.out.println("  What will you do?");
+            System.out.println("  =================");
+            System.out.println("  [Weapon]: Enemy health "+en.getHealth()+" -> "+(en.getHealth()-pl.getDamage()));
+            System.out.println("  [Spell]");
+            System.out.println("  [Heal("+pl.getHPotions()+")]:   Your health "+pl.getHealth()+" -> "+(potionHeal+pl.getHealth()));
+            System.out.println("  [Mana("+pl.getMPotions()+")]:   Your mana "+pl.getMana()+" -> "+(potionMana+pl.getMana()));
+            
+            
+            System.out.print("  ");
+            String input = s.nextLine();
+            //String input = "w"; speed-run melee attacks
+            if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
+                enDodgeChance(e, en);
+                if (en.isDead == true) {
+                    pl.addScore(100+h); //+100 for winning, + damage dealt
+                    System.out.println("");
+                    GetLoot(null); //moneys
+                    System.out.println("  You enter the next room");
+                    Delay(null);
+                    return;
+                }
+                Delay(null);
+                plDodgeChance(e);
+            }
+            else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
+                System.out.println("  You don't know any spells!");
+                Delay(null);
+            }
+            else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
+                if (pl.getHPotions() > 0) {
+                    System.out.println("  You feel your body being repaired");
+                    pl.setHealth(potionHeal);
+                    pl.setHPotions(-1);
+                    System.out.println("  You have "+pl.getHPotions()+" health potions");
+                    Delay(null);
+                    plDodgeChance(e);
+                } else {
+                    System.out.println("");
+                    System.out.println("  You don't have any more health potions!");
+                }
+                
+            }
+            else if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
+                if (pl.getMPotions() > 0) {
+                    System.out.println("  Your magik is restored");
+                    pl.setMana(potionMana);
+                    pl.setMPotions(-1);
+                    System.out.println("  You have "+pl.getHPotions()+" health potions");
+                    Delay(null);
+                    plDodgeChance(e);
+                } else {
+                    System.out.println("");
+                    System.out.println("  You don't have any more mana potions!");
+                }
+            } else {
+                System.out.println("  Not a valid option. Enter '?' for help");
+            }
+            
+            Delay(null);
+        }
+    }
+    
+    private static void enDodgeChance(Weapon e, Enemy en) {
+        //dodge chance is speed * X% chance, eg 6x3 = 18% chance
+        //to dodge attack with max 10 * X% (10x4) chance to dodge
+        //to dodge score must be lower than target.
+        Random r = new Random();
+        int target = e.getSpeed() * 4;
+        int score = r.nextInt(100)+1;
+        
+        if (score > target) {
+            en.hit(e);
+        } else {
+            System.out.println("");
+            System.out.println("  The "+e.getName()+" dodges your attack!");
+        }
+    }
+    
+    private static void plDodgeChance(Weapon e) {
+        Random r = new Random();
+        int target = e.getSpeed() * 4;
+        int score = r.nextInt(100)+1;
+        
+        if (score > target) {
+            pl.hit(e);
+        } else {
+            System.out.println("  You dodge the "+e.getName()+"'s attack!");
+        }
+    }
+    
+    private static void Shop(String[] args) {
+        Scanner s = new Scanner(System.in);
+        String input = "";
+        String subInput = "";
+        wGen = true; //make sure shop only sells one weapon
+        
+        while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
+            System.out.println("  What Do you want to buy?");
+            System.out.println("  ========================");
+            System.out.println("  [Potions][Weapons][Leave]");
+            System.out.print("  ");
+            input = s.nextLine();
+            System.out.println("");
+            
+            if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
+                System.out.println("  What Do you want to buy?");
+                System.out.println("  ========================");
+                System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]");
+                System.out.println("  Balance: "+pl.getCash());
+                System.out.print("  ");
+                subInput = s.nextLine();
+                System.out.println("");
+                
+                if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
+                    if (pl.getCash() > hPotionCost) {
+                        pl.setHPotions(1);
+                        pl.setCash(-hPotionCost);
+                        hPotionCost = (int) Math.round(hPotionCost * 1.5);
+                        System.out.println("  You purchased a health potion");
+                        System.out.println("  You have "+pl.getHPotions()+" health potions");
+                    } else {
+                        System.out.println("  You don't have enough money!");
+                    }                   
+                }
+                else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
+                    if (pl.getCash() > mPotionCost) {
+                        pl.setMPotions(1);
+                        pl.setCash(-mPotionCost);
+                        mPotionCost = (int) Math.round(mPotionCost * 1.5);
+                        System.out.println("  You purchased a health potion");
+                        System.out.println("  You have "+pl.getMPotions()+" health potions");
+                    } else {
+                        System.out.println("  You don't have enough money!");
+                    }
+                } else {
+                        System.out.println("  Not a valid option. Enter '?' for help");
+                }
+            }
+            else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
+                shop = true;
+                WeaponTier(null);
+                wGen = false;
+                shop = false;
+            }
+            else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
+                System.out.println("  The shopkeeper wishes you luck");
+                
+            } else {
+                System.out.println("  Not a valid option. Enter '?' for help");
+            }
+            Delay(null);
+        }
+    }
+    
+    private static void WeaponTier(String[] args) {
+        //only selects weapon up to + including current level
+		Random t = new Random();
+		Random q = new Random();
+		int tier = t.nextInt(level)+1;
+		int w;
+		switch (tier) {
+			case 1: w = q.nextInt(10)+1;
+					WeaponStatsT1(w); break;
+			case 2: w = q.nextInt(10)+1;
+					WeaponStatsT2(w); break;
+			case 3: w = q.nextInt(10)+1;
+					WeaponStatsT3(w); break;
 		}
     }
-	
-	private static void enDodgeChance(Weapon e, Enemy en) {
-		//dodge chance is speed * X% chance, eg 6x3 = 18% chance
-		//to dodge attack with max 10 * X% (10x4) chance to dodge
-		//to dodge score must be lower than target.
-		Random r = new Random();
-		int target = e.getSpeed() * 4;
-		int score = r.nextInt(100)+1;
-		
-		if (score > target) {
-			en.hit(e);
-		} else {
-			System.out.println("");
-			System.out.println("  The "+e.getName()+" dodges your attack!");
-		}
-	}
-	
-	private static void plDodgeChance(Weapon e) {
-		Random r = new Random();
-		int target = e.getSpeed() * 4;
-		int score = r.nextInt(100)+1;
-		
-		if (score > target) {
-			pl.hit(e);
-		} else {
-			System.out.println("  You dodge the "+e.getName()+"'s attack!");
-		}
-	}
-	
-	private static void Shop(String[] args) {
-		Scanner s = new Scanner(System.in);
-		String input = "";
-		String subInput = "";
-		Random r = new Random();
-		int weapon = r.nextInt(23)+1; //not including spells atm
-		wGen = true;
-		
-		while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
-			System.out.println("  What Do you want to buy?");
-			System.out.println("  ========================");
-			System.out.println("  [Potions][Weapons][Leave]");
-			System.out.print("  ");
-			input = s.nextLine();
-			System.out.println("");
-			
-			if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
-				System.out.println("  What Do you want to buy?");
-				System.out.println("  ========================");
-				System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]");
-				System.out.println("  Balance: "+pl.getCash());
-				System.out.print("  ");
-				subInput = s.nextLine();
-				System.out.println("");
-				
-				if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
-					if (pl.getCash() > hPotionCost) {
-						pl.setHPotions(1);
-						pl.setCash(-hPotionCost);
-						hPotionCost = (int) Math.round(hPotionCost * 1.5);
-						System.out.println("  You purchased a health potion");
-						System.out.println("  You have "+pl.getHPotions()+" health potions");
-					} else {
-						System.out.println("  You don't have enough money!");
-					}					
-				}
-				else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
-					if (pl.getCash() > mPotionCost) {
-						pl.setMPotions(1);
-						pl.setCash(-mPotionCost);
-						mPotionCost = (int) Math.round(mPotionCost * 1.5);
-						System.out.println("  You purchased a health potion");
-						System.out.println("  You have "+pl.getMPotions()+" health potions");
-					} else {
-						System.out.println("  You don't have enough money!");
-					}
-				} else {
-						System.out.println("  Not a valid option. Enter '?' for help");
-				}
-			}
-			else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
-				shop = true;
-				WeaponStatsT1(weapon);
-				wGen = false;
-				shop = false;
-			}
-			else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
-				System.out.println("  The shopkeeper wishes you luck");
-				
-			} else {
-				System.out.println("  Not a valid option. Enter '?' for help");
-			}
-			Delay(null);
-		}
-	}
-	
-	private static void GetLoot(String[] args) {
-		Random r = new Random();
-		int wChance = r.nextInt(10)+1;
-		int weapon;
-		if (wChance == 1) {
-			System.out.println("  You find a weapon!");
-			Delay(null);
-			weapon = r.nextInt(23)+1; //not including spells atm
-			WeaponStatsT1(weapon);
-		} else {
-			int loot = (r.nextInt(11)+5) * level;
-			if (isChest == true) {
-				Delay(null);
-				System.out.println("  you open the chest to see what's in it");
-				pl.setCash(loot * 2);
-				isChest = false;
-				Delay(null);
-			}
-			System.out.println("  You find "+loot+" coins");
-			Delay(null);
-			pl.setCash(loot);
-		}
-	}
-	
-	private static void SetStats(Weapon w) {
-		pl.setDamage(w.getDamage()); 
-		pl.setSpeed(w.speed);
-		pl.setName(w.name);
-		w.SendQualityName();
-	}
-	
-	private static void GetStats(Weapon w) {
-		Scanner s = new Scanner(System.in);
-		String input = "";
-		if (changeW == true) {
-			w.newWeapon();
-			SetStats(w);
-		} 
-		else if (shop == true) {
-			if (wGen == true) {
-				w.newWeapon();
-			}
-			System.out.println("");
-			System.out.println("  Current Weapon:");
-			System.out.println("  Name: "+pl.getName());
-			System.out.println("  Quality: "+pl.getQName());
-			System.out.println("  Damage: "+pl.getDamage()); 
-			System.out.println("  Speed: "+pl.getSpeed());
-			System.out.println("");
-			System.out.println("  New Weapon:");
-			System.out.println("  Name: "+w.name);
-			System.out.println("  Quality: "+w.qualityN);
-			System.out.println("  Damage: "+w.getDamage()); 
-			System.out.println("  Speed: "+w.getSpeed());
-			System.out.println("");
-			System.out.println("  Cost: "+weaponCost);
-			System.out.println("  Balance: "+pl.getCash());
-			System.out.println("");
-			System.out.println("  Do you want to buy this weapon?");
-			System.out.println("  ===============================");
-			System.out.println("        [Yes]        [No]");
-			System.out.print("  ");
-			input = s.nextLine();
-			System.out.println("");
-			
-			if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
-				if (pl.getCash() > weaponCost) {
-					System.out.println("  You purchase the weapon");
-					pl.setCash(-weaponCost);
-					SetStats(w);
-				} else {
-					System.out.println("  You son't have enough money!");
-				}
-			}
-			else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
-				System.out.println("  You keep your current weapon");
-			} else {
-				System.out.println("  Not a valid option. Enter '?' for help");
-			}
-			System.out.println("");
-		} 
-		else {
-			while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
-				w.newWeapon();
-				System.out.println("");
-				System.out.println("  Current Weapon:");
-				System.out.println("  Name: "+pl.getName());
-				System.out.println("  Quality: "+pl.getQName());
-				System.out.println("  Damage: "+pl.getDamage()); 
-				System.out.println("  Speed: "+pl.getSpeed());
-				System.out.println("");
-				System.out.println("  New Weapon:");
-				System.out.println("  Name: "+w.name);
-				System.out.println("  Quality: "+w.qualityN);
-				System.out.println("  Damage: "+w.getDamage()); 
-				System.out.println("  Speed: "+w.getSpeed());
-				System.out.println("");
-				System.out.println("  Do you want to change your weapon?");
-				System.out.println("  ==================================");
-				System.out.println("           [Yes]        [No]");    
-				System.out.print("  ");
-				input = s.nextLine();
-				System.out.println("");
-				
-				if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
-					System.out.println("  You change your weapon");
-					SetStats(w);
-				}
-				else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
-					System.out.println("  You keep your current weapon");
-				} else {
-					System.out.println("  Not a valid option. Enter '?' for help");
-				}
-				System.out.println("");
-			}
-		}
-	}
-	
-	private static void WeaponStatsT1(int Id) {
+    
+    private static void GetLoot(String[] args) {
+        Random r = new Random();
+        int wChance = r.nextInt(10)+1;
+        if (wChance == 1) {
+            System.out.println("  You find a weapon!");
+            Delay(null);
+            WeaponTier(null);
+        } else {
+            int loot = (r.nextInt(11)+5) * level;
+            if (isChest == true) {
+                Delay(null);
+                System.out.println("  you open the chest to see what's in it");
+                pl.setCash(loot * 2);
+                isChest = false;
+                Delay(null);
+            }
+            System.out.println("  You find "+loot+" coins");
+            Delay(null);
+            pl.setCash(loot);
+        }
+    }
+    
+    private static void SetStats(Weapon w) {
+        pl.setDamage(w.getDamage()); 
+        pl.setSpeed(w.speed);
+        pl.setName(w.name);
+        w.SendQualityName();
+    }
+    
+    private static void GetStats(Weapon w) {
+        Scanner s = new Scanner(System.in);
+        String input = "";
+        if (changeW == true) {
+            w.newWeapon();
+            SetStats(w);
+        } 
+        else if (shop == true) {
+            if (wGen == true) {
+                w.newWeapon();
+            }
+            System.out.println("");
+            System.out.println("  Current Weapon:");
+            System.out.println("  Name: "+pl.getName());
+            System.out.println("  Quality: "+pl.getQName());
+            System.out.println("  Damage: "+pl.getDamage()); 
+            System.out.println("  Speed: "+pl.getSpeed());
+            System.out.println("");
+            System.out.println("  New Weapon:");
+            System.out.println("  Name: "+w.name);
+            System.out.println("  Quality: "+w.qualityN);
+            System.out.println("  Damage: "+w.getDamage()); 
+            System.out.println("  Speed: "+w.getSpeed());
+            System.out.println("");
+            System.out.println("  Cost: "+weaponCost);
+            System.out.println("  Balance: "+pl.getCash());
+            System.out.println("");
+            System.out.println("  Do you want to buy this weapon?");
+            System.out.println("  ===============================");
+            System.out.println("        [Yes]        [No]");
+            System.out.print("  ");
+            input = s.nextLine();
+            System.out.println("");
+            
+            if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
+                if (pl.getCash() > weaponCost) {
+                    System.out.println("  You purchase the weapon");
+                    pl.setCash(-weaponCost);
+                    SetStats(w);
+                } else {
+                    System.out.println("  You son't have enough money!");
+                }
+            }
+            else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
+                System.out.println("  You keep your current weapon");
+            } else {
+                System.out.println("  Not a valid option. Enter '?' for help");
+            }
+            System.out.println("");
+        } 
+        else {
+            while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
+                w.newWeapon();
+                System.out.println("");
+                System.out.println("  Current Weapon:");
+                System.out.println("  Name: "+pl.getName());
+                System.out.println("  Quality: "+pl.getQName());
+                System.out.println("  Damage: "+pl.getDamage()); 
+                System.out.println("  Speed: "+pl.getSpeed());
+                System.out.println("");
+                System.out.println("  New Weapon:");
+                System.out.println("  Name: "+w.name);
+                System.out.println("  Quality: "+w.qualityN);
+                System.out.println("  Damage: "+w.getDamage()); 
+                System.out.println("  Speed: "+w.getSpeed());
+                System.out.println("");
+                System.out.println("  Do you want to change your weapon?");
+                System.out.println("  ==================================");
+                System.out.println("           [Yes]        [No]");    
+                System.out.print("  ");
+                input = s.nextLine();
+                System.out.println("");
+                
+                if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
+                    System.out.println("  You change your weapon");
+                    SetStats(w);
+                }
+                else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
+                    System.out.println("  You keep your current weapon");
+                } else {
+                    System.out.println("  Not a valid option. Enter '?' for help");
+                }
+                System.out.println("");
+            }
+        }
+    }
+    
+     private static void WeaponStatsT1(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
 			//Melee weapons
-            case 1: GetStats(dagger); break;
-            case 2: GetStats(sword); break;
-			case 3: GetStats(mace); break;
-            case 4: GetStats(axe); break;
-            case 5: GetStats(warHammer); break;
-			case 6: GetStats(quarterstaff); break;
-			case 7: GetStats(greatsword); break;
-            case 8: GetStats(shank); break;
-            case 9: GetStats(spear); break;
-            case 10:GetStats(wristBlades); break;
-            case 11:GetStats(battleAxe); break;
-			case 12:GetStats(morningstar); break;
-            case 13:GetStats(pike); break;
-            case 14:GetStats(cutlass); break;
-            case 15:GetStats(chain); break;
-            case 16:GetStats(ballChain); break;
-			case 17:GetStats(warScythe); break;
+            case 1:GetStats(dagger); break;
+            case 2:GetStats(sword); break;
+            case 3:GetStats(axe); break;
+            case 4:GetStats(shank); break;
+            case 5:GetStats(spear); break;
+            case 6:GetStats(wristBlades); break;
+            case 7:GetStats(cutlass); break;
+            case 8:GetStats(club); break;
             
 			//Ranged weapons
-            case 19:GetStats(shortbow); break;
-            case 20:GetStats(longbow); break;
-            case 21:GetStats(shurikan); break;
-			case 22:GetStats(crossbow); break;
-			case 23:GetStats(magicStaff); break;
-           
-		    //Magic weapons
-            case 24:GetStats(flame); break;
-            case 25:GetStats(lightning); break;
-            case 26:GetStats(frost); break;
-            case 27:GetStats(sapping); break;
-            case 28:GetStats(aura); break;
-            case 29:GetStats(speed); break;
-            case 30:GetStats(shift); break;
-            case 31:GetStats(fireWall); break;
+            case 9:GetStats(shortbow); break;
+            case 10:GetStats(shurikan); break;
+            case 11:GetStats(sling); break;
+			case 12:GetStats(dartGun); break;
         }
-    }
-	
-	private static void WeaponStatsT2(int Id) {
+   }
+    
+   private static void WeaponStatsT2(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
 			//Melee weapons
-            case 1: GetStats(dagger); break;
-            case 2: GetStats(sword); break;
-			case 3: GetStats(mace); break;
-            case 4: GetStats(axe); break;
-            case 5: GetStats(warHammer); break;
-			case 6: GetStats(quarterstaff); break;
-			case 7: GetStats(greatsword); break;
-            case 8: GetStats(shank); break;
-            case 9: GetStats(spear); break;
-            case 10:GetStats(wristBlades); break;
-            case 11:GetStats(battleAxe); break;
-			case 12:GetStats(morningstar); break;
-            case 13:GetStats(pike); break;
-            case 14:GetStats(cutlass); break;
-            case 15:GetStats(chain); break;
-            case 16:GetStats(ballChain); break;
-			case 17:GetStats(warScythe); break;
+			case 1:GetStats(mace); break;
+			case 2:GetStats(quarterstaff); break;
+			case 3:GetStats(greatsword); break;
+            case 4:GetStats(pike); break;
+            case 5:GetStats(flail); break;
             
 			//Ranged weapons
-            case 19:GetStats(shortbow); break;
-            case 20:GetStats(longbow); break;
-            case 21:GetStats(shurikan); break;
-			case 22:GetStats(crossbow); break;
-			case 23:GetStats(magicStaff); break;
+            case 6:GetStats(longbow); break;
+			case 7:GetStats(crossbow); break;
+			case 8:GetStats(javelin); break;
+			case 9:GetStats(tomahawk); break;
            
 		    //Magic weapons
-            case 24:GetStats(flame); break;
-            case 25:GetStats(lightning); break;
-            case 26:GetStats(frost); break;
-            case 27:GetStats(sapping); break;
-            case 28:GetStats(aura); break;
-            case 29:GetStats(speed); break;
-            case 30:GetStats(shift); break;
-            case 31:GetStats(fireWall); break;
+            case 10:GetStats(flame); break;
+            case 11:GetStats(lightning); break;
+            case 12:GetStats(frost); break;
         }
     }
-	
-	private static void WeaponStatsT3(int Id) {
+    
+    private static void WeaponStatsT3(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
 			//Melee weapons
-            case 1: GetStats(dagger); break;
-            case 2: GetStats(sword); break;
-			case 3: GetStats(mace); break;
-            case 4: GetStats(axe); break;
-            case 5: GetStats(warHammer); break;
-			case 6: GetStats(quarterstaff); break;
-			case 7: GetStats(greatsword); break;
-            case 8: GetStats(shank); break;
-            case 9: GetStats(spear); break;
-            case 10:GetStats(wristBlades); break;
-            case 11:GetStats(battleAxe); break;
-			case 12:GetStats(morningstar); break;
-            case 13:GetStats(pike); break;
-            case 14:GetStats(cutlass); break;
-            case 15:GetStats(chain); break;
-            case 16:GetStats(ballChain); break;
-			case 17:GetStats(warScythe); break;
+            case 1: GetStats(warHammer); break;
+            case 2:GetStats(battleAxe); break;
+			case 3:GetStats(morningstar); break;
+			case 4:GetStats(warScythe); break;
             
 			//Ranged weapons
-            case 19:GetStats(shortbow); break;
-            case 20:GetStats(longbow); break;
-            case 21:GetStats(shurikan); break;
-			case 22:GetStats(crossbow); break;
-			case 23:GetStats(magicStaff); break;
+			case 5:GetStats(magicStaff); break;
+			case 6:GetStats(compoundBow); break;
+			case 7:GetStats(rCrossbow); break;
            
 		    //Magic weapons
-            case 24:GetStats(flame); break;
-            case 25:GetStats(lightning); break;
-            case 26:GetStats(frost); break;
-            case 27:GetStats(sapping); break;
-            case 28:GetStats(aura); break;
-            case 29:GetStats(speed); break;
-            case 30:GetStats(shift); break;
-            case 31:GetStats(fireWall); break;
+            case 8:GetStats(sapping); break;
+            case 9:GetStats(aura); break;
+            case 10:GetStats(speed); break;
+            case 11:GetStats(shift); break;
+            case 12:GetStats(fireWall); break;
         }
     }
-	
+    
     private static void EnemyGen(int Id) {//enemy Id list
         switch (Id) {
-			     //Battle(Enemy base stats, skeleton health)
+                 //Battle(Enemy base stats, skeleton health)
             case 0:Battle(skeleton, 10); break;
             case 1:Battle(spider, 8); break;
             case 2:Battle(troll, 20); break;      
-            case 3:Battle(snake, 7); break; 			
-            case 4:Battle(necromancer, 14); break;  			
+            case 3:Battle(snake, 7); break;             
+            case 4:Battle(necromancer, 14); break;              
             case 5:Battle(wizard, 13); break;  
             case 6:Battle(skeletonArcher, 12); break;  
             case 7:Battle(goblin, 10); break;  
@@ -743,7 +705,7 @@ public class DungeonT {
             case 32:Battle(mimic, 13); break;
         }
     }
-	
+    
     private static int EnemyId(int[] enArr) {
         Random r = new Random();
         int Id = r.nextInt(enArr.length);
@@ -751,22 +713,22 @@ public class DungeonT {
     }
     
     public static void Examine(int Id) {
-		switch (Id) {
-			case 1:System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones."); break;
-			case 2:System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");  break;
-			case 3:System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction."); break;
-			case 4:System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
-			case 5:System.out.print  ("  Necromancers are the most despicable of all the Magi, performing the darkest magics on the deceased to ");
-				   System.out.println("  bend into their undying slaves."); break;
-			case 6:System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon"); break;
-			case 7:System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow"); break;
-			case 8:System.out.println("  Perhaps the most infamous of foes, the goblin "); break;
-			//... on and on it goes.
-			default:System.out.println("Congrats! this enemy doesn't exist"); break;
-		}
-	}
+        switch (Id) {
+            case 1:System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones."); break;
+            case 2:System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");  break;
+            case 3:System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction."); break;
+            case 4:System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
+            case 5:System.out.print  ("  Necromancers are the most despicable of all the Magi, performing the darkest magics on the deceased to ");
+                   System.out.println("  bend into their undying slaves."); break;
+            case 6:System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon"); break;
+            case 7:System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow"); break;
+            case 8:System.out.println("  Perhaps the most infamous of foes, the goblin "); break;
+            //... on and on it goes.
+            default:System.out.println("Congrats! this enemy doesn't exist"); break;
+        }
+    }
     
-	/*
+    /*
  *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
  *Spider:            The spider does not seem to be hard to kill, but it's nimble nature might get in the way.
  *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
@@ -791,122 +753,122 @@ public class DungeonT {
  *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
  *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
  */
-	
-	private static void RoomGen(int Id) {   
+    
+    private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;
         
         switch(Id) {
             case -1:System.out.println("  This should not appear. if it does, roomId wasn't called"); 
-					enArr = new int[]{-1}; //numbers in curly brackets reperesents possible enemy spawns in room via Id#
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{-1}; //numbers in curly brackets reperesents possible enemy spawns in room via Id#
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
-					enArr = new int[]{0,4,6,19,23,25};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,4,6,19,23,25};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 2: System.out.println("  You find yourself in a massive cavern"); 
-					enArr = new int[]{1,2,7,13,17,18,22,29};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{1,2,7,13,17,18,22,29};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 3: System.out.println("  A long corridor stretches before you"); 
-					enArr = new int[]{1,3,9,15,17,20,31};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{1,3,9,15,17,20,31};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow");     
-					enArr = new int[]{4,5,10,11,12,25};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{4,5,10,11,12,25};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 5: System.out.println("  It seems you have stumbled upon a mass grave"); 
-					enArr = new int[]{0,6,9,15,19,23};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,6,9,15,19,23};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 6: System.out.println("  shelves full of exotic potions and illegible tomes surround you"); 
-					enArr = new int[]{4,5,11,12,30};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{4,5,11,12,30};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 7: System.out.println("  An evil darkness lurks in the corners of the room"); 
-					enArr = new int[]{10,11,12,25};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{10,11,12,25};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); 
-					enArr = new int[]{1};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{1};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 9: System.out.println("  The floor is littered with eggs. It seems to be a nest of some sort"); 
-					enArr = new int[]{1,3,13,30};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{1,3,13,30};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 10:System.out.println("  You enter an unremarable little cave, recently inhabited..."); 
-					enArr = new int[]{2,5,7,8,11,14,15,23};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{2,5,7,8,11,14,15,23};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 11:System.out.println("  In the darkness you barely avoid falling into the underground lake in front of you");
-					enArr = new int[]{16,17,18,24,27,30};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{16,17,18,24,27,30};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 12:System.out.println("  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"); 
-					enArr = new int[]{2,3,13,16,21,22,24,30};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{2,3,13,16,21,22,24,30};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 13:System.out.println("  Strange symbols cover all this room's surfaces"); 
-					enArr = new int[]{4,5,11,12,15,20,25};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{4,5,11,12,15,20,25};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 14:System.out.println("  It looks like there was once a forge here"); 
-					enArr = new int[]{0,6,7,8,14,15,23,26};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,6,7,8,14,15,23,26};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 15:System.out.println("  rusted weapons and armour lay abandoned around you"); 
-					enArr = new int[]{0,6,7,8,14,15,23};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,6,7,8,14,15,23};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 16:System.out.println("  The ground before you falls away into a seemingly endless abyss"); 
-					enArr = new int[]{10,12,13,17,18,26,27,28,29};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{10,12,13,17,18,26,27,28,29};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 17:System.out.println("  The air around you suddenly cools"); 
-					enArr = new int[]{4,10,12,29};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{4,10,12,29};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 18:System.out.println("  in front of you is a once-great statue of some forgotten hero"); 
-					enArr = new int[]{0,6,9,11,19,20,28};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,6,9,11,19,20,28};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 19:System.out.println("  A thick mist gathers around your feet"); 
-					enArr = new int[]{4,5,10,12,17,29,31};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{4,5,10,12,17,29,31};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 20:System.out.println("  You enter a mineshaft, long abandoned to rot and degradation"); 
-					enArr = new int[]{0,1,2,3,7,9,23,31};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,1,2,3,7,9,23,31};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
-					GetLoot(null); 
-					isChest = true; break; 
+                    GetLoot(null); 
+                    isChest = true; break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
-					enArr = new int[]{32};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break; 
+                    enArr = new int[]{32};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break; 
             case 23:System.out.println("  A portal to some dark world floats omniously in front of you"); 
-					enArr = new int[]{10,11,12};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{10,11,12};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 24:System.out.println("  The floor is littered with the old bodies of would-be heroes"); 
-					enArr = new int[]{0,6,10,19,23};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{0,6,10,19,23};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             case 25:System.out.println("  the doorway to this room has strange runes scrawled across it - probably a warning"); 
-					enArr = new int[]{2,13,20,21,24,30,31};
-					enemyId = EnemyId(enArr);
-					EnemyGen(enemyId); break;
+                    enArr = new int[]{2,13,20,21,24,30,31};
+                    enemyId = EnemyId(enArr);
+                    EnemyGen(enemyId); break;
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
-					Delay(null);
-					Shop(null); break;
+                    Delay(null);
+                    Shop(null); break;
         }
     }
-	
-	private void LWeapons(int Id) {
+    
+    private void LWeapons(int Id) {
         //legendary weapons
         switch (Id) {
             case 1:; //Excalibur
@@ -928,8 +890,8 @@ public class DungeonT {
             case 9:; //Mithril Hamaxe
             break;
             case 10:; //Fists of Fury
-			break;
-			case 11:; //Shadow Daggers
+            break;
+            case 11:; //Shadow Daggers
         }
     }
 }
