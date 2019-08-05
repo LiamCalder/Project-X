@@ -38,20 +38,22 @@ public abstract class Weapon {
 	
 	public void newWeapon() {
 		multiplier = d.level - 1;
-		Random t = new Random();
-		Random q = new Random();
-		int tier = t.nextInt(d.level)+1;
+		Random r = new Random();
+		int tier = 5;
+		while (tier > 3) {
+			tier = r.nextInt(d.level)+1;
+		}
 		int qualityId;
         
 		switch (tier) {
-			case 1: qualityId = q.nextInt(19)+1;
+			case 1: qualityId = r.nextInt(19)+1;
 					QualityT1(qualityId); break;
-			case 2: qualityId = q.nextInt(14)+1;
+			case 2: qualityId = r.nextInt(14)+1;
 					QualityT2(qualityId); break;
-			case 3: qualityId = q.nextInt(15)+1;
+			case 3: qualityId = r.nextInt(15)+1;
 					QualityT3(qualityId); break;
-			case 4: qualityId = q.nextInt(10)+1;
-					QualityT4(qualityId); break;
+			//case 4: qualityId = r.nextInt(10)+1;
+			//		QualityT4(qualityId); break;
 		}
 	}
 	
@@ -59,24 +61,24 @@ public abstract class Weapon {
 		//Only negative effects on stats (0 < quality < 1)
 		d.weaponCost = (int) Math.round(d.level * 20);
 		switch (Id) {
-			case 1: qualityD = 1; qualityS = 1; qualityN = "Basic "; break;
+			case 1: qualityD = 1;   qualityS = 1;   qualityN = "Basic "; break;
 			case 2: qualityD = 0.8; qualityS = 0.9; qualityN = "Flimsy "; break;
 			case 3: qualityD = 0.5; qualityS = 0.8; qualityN = "Rusty "; break;
-			case 4: qualityD = 0.9; qualityS = 1; qualityN = "Vintage "; break;
+			case 4: qualityD = 0.9; qualityS = 1;   qualityN = "Vintage "; break;
 			case 5: qualityD = 0.6; qualityS = 0.7; qualityN = "Moldy "; break;
 			case 6: qualityD = 0.9; qualityS = 0.9; qualityN = "Old "; break;
-			case 7: qualityD = 0.9; qualityS = 1; qualityN = "Stinky "; break;
+			case 7: qualityD = 0.9; qualityS = 1;   qualityN = "Stinky "; break;
 			case 8: qualityD = 0.7; qualityS = 0.8; qualityN = "Poorly Made "; break;
 			case 9: qualityD = 0.8; qualityS = 0.8; qualityN = "Dirty "; break;
-			case 10:qualityD = 0.7; qualityS = 1; qualityN = "Tiny "; break;
+			case 10:qualityD = 0.7; qualityS = 1;   qualityN = "Tiny "; break;
 			case 11:qualityD = 0.7; qualityS = 0.8; qualityN = "Unreliable "; break;
 			case 12:qualityD = 0.6; qualityS = 0.8; qualityN = "Faulty "; break;
 			case 13:qualityD = 0.5; qualityS = 0.8; qualityN = "Blunt "; break;
 			case 14:qualityD = 0.8; qualityS = 0.7; qualityN = "Shoddy "; break;
 			case 15:qualityD = 0.9; qualityS = 0.9; qualityN = "Child's "; break;
 			case 16:qualityD = 0.6; qualityS = 0.7; qualityN = "Cheap "; break;
-			case 17:qualityD = 1; qualityS = 1; qualityN = "Ordinary "; break;
-			case 18:qualityD = 1; qualityS = 0.5; qualityN = "Slow "; break;
+			case 17:qualityD = 1;   qualityS = 1;   qualityN = "Ordinary "; break;
+			case 18:qualityD = 1;   qualityS = 0.5; qualityN = "Slow "; break;
 			case 19:qualityD = 0.4; qualityS = 0.6; qualityN = "Broken "; break;
 		}
     }
@@ -87,17 +89,17 @@ public abstract class Weapon {
         switch (Id) {
             case 1: qualityD = 0.8; qualityS = 1.7; qualityN = "Light "; break;
             case 2: qualityD = 1.7; qualityS = 0.8; qualityN = "Heavy "; break;
-            case 3: qualityD = 1.2; qualityS = 1; qualityN = "Dense "; break;
+            case 3: qualityD = 1.2; qualityS = 1;   qualityN = "Dense "; break;
             case 4: qualityD = 0.8; qualityS = 1.6; qualityN = "Nimble "; break;
             case 5: qualityD = 0.7; qualityS = 1.8; qualityN = "Quick "; break;
-            case 6: qualityD = 1.4; qualityS = 1; qualityN = "Battle-tested "; break;
+            case 6: qualityD = 1.4; qualityS = 1;   qualityN = "Battle-tested "; break;
             case 7: qualityD = 1.5; qualityS = 0.9; qualityN = "Bloodied "; break;
             case 8: qualityD = 1.2; qualityS = 0.9; qualityN = "Raging "; break;
             case 9: qualityD = 1.6; qualityS = 0.8; qualityN = "Sharp "; break;
-            case 10:qualityD = 1; qualityS = 1.3; qualityN = "Balanced "; break;
+            case 10:qualityD = 1;   qualityS = 1.3; qualityN = "Balanced "; break;
             case 11:qualityD = 1.4; qualityS = 0.9; qualityN = "Large "; break;
             case 12:qualityD = 0.7; qualityS = 1.5; qualityN = "Small "; break;
-            case 13:qualityD = 1.3; qualityS = 1; qualityN = "Modified "; break;
+            case 13:qualityD = 1.3; qualityS = 1;   qualityN = "Modified "; break;
             case 14:qualityD = 0.8; qualityS = 1.5; qualityN = "Excited "; break;
         }
     }
@@ -107,7 +109,7 @@ public abstract class Weapon {
         //good effects of stats (1 < quality)
         switch (Id) {
             case 1: qualityD = 1.3; qualityS = 1.3; qualityN = "Enhanced "; break;
-            case 2: qualityD = 1; qualityS = 1.9; qualityN = "Unnaturally Fast "; break;
+            case 2: qualityD = 1;   qualityS = 1.9; qualityN = "Unnaturally Fast "; break;
             case 3: qualityD = 1.2; qualityS = 1.5; qualityN = "Shielding "; break;
             case 4: qualityD = 1.5; qualityS = 1.1; qualityN = "Reinforced "; break;
             case 5: qualityD = 1.6; qualityS = 1.2; qualityN = "Long Reaching "; break;

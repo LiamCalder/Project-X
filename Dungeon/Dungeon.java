@@ -111,9 +111,9 @@ public class Dungeon {
         while (!input.equalsIgnoreCase("start")) {
             //option select
             System.out.println("");
-            System.out.println("     Do you want to enter The Dungeon?");
-            System.out.println("  =======================================");
-            System.out.println("  [Start] [Quit] [Help] [fast] [Tutorial]");
+            System.out.println("       Do you want to enter The Dungeon?");
+            System.out.println("  ===========================================");
+            System.out.println("  [Start] [Quit] [Help] [Controls] [Tutorial]");
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
@@ -125,9 +125,6 @@ public class Dungeon {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
             }
-			else if (input.equalsIgnoreCase("fast") || input.equalsIgnoreCase("f")) {
-				fast = !fast;
-			}
             else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
                 try {
                     FileWriter fw = new FileWriter("Save.txt");
@@ -277,6 +274,9 @@ public class Dungeon {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
+		else if (delay.equalsIgnoreCase("fast") || delay.equalsIgnoreCase("f")) {
+			fast = !fast;
+		}
     }
 
     private static int RoomId(int roomId) { //room Id list
@@ -449,23 +449,7 @@ public class Dungeon {
             }
             Delay(null);
         }
-    }
-    
-    private static void WeaponTier(String[] args) {
-        //only selects weapon up to + including current level
-		Random t = new Random();
-		Random q = new Random();
-		int tier = t.nextInt(level)+1;
-		int w;
-		switch (tier) {
-			case 1: w = q.nextInt(10)+1;
-					WeaponStatsT1(w); break;
-			case 2: w = q.nextInt(7)+1;
-					WeaponStatsT2(w); break;
-			case 3: w = q.nextInt(5)+1;
-					WeaponStatsT3(w); break;
-		}
-    }
+    }  
     
     private static void GetLoot(String[] args) {
         Random r = new Random();
@@ -499,7 +483,7 @@ public class Dungeon {
     private static void GetStats(Weapon w) {
         Scanner s = new Scanner(System.in);
         String input = "";
-        if (changeW == true) {
+        if (changeW == true) { //force weapon change
             w.newWeapon();
             SetStats(w);
         } 
@@ -546,7 +530,7 @@ public class Dungeon {
             }
             System.out.println("");
         } 
-        else {
+        else { //if you find the weapon
             while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
                 w.newWeapon();
                 System.out.println("");
@@ -583,7 +567,26 @@ public class Dungeon {
         }
     }
     
-    private static void WeaponStatsT1(int Id) {
+	private static void WeaponTier(String[] args) {
+        //only selects weapon up to + including current level
+		Random t = new Random();
+		Random q = new Random();
+		int tier = 5;
+		while (tier > 3) {
+			tier = t.nextInt(level)+1;
+		}
+		int w;
+		switch (tier) {
+			case 1: w = q.nextInt(12)+1;
+					WeaponStatsT1(w); break;
+			case 2: w = q.nextInt(9)+1;
+					WeaponStatsT2(w); break;
+			case 3: w = q.nextInt(7)+1;
+					WeaponStatsT3(w); break;
+		}
+    }
+    
+	private static void WeaponStatsT1(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
 		switch (Id) {
