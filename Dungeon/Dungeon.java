@@ -17,10 +17,11 @@ public class Dungeon {
     static boolean changeW = true;
     static boolean wGen = false;
     static boolean shop = false;
+	static boolean fast = false;
     
     //initialise Classes
     static Player pl = new Player();
-    static DungeonT dt = new DungeonT();
+    //static DungeonT dt = new DungeonT();
     
     //Melee weapons - speed determines dodge chance
     static Weapon dagger         = new Melee("Dagger", 7, 6);            
@@ -55,11 +56,11 @@ public class Dungeon {
     static Weapon javelin        = new Ranged("Javelin", 11, 7);
            
     //Magic weapons - speed increases chance to hit on top of weapon speed 
-    static Weapon flame          = new Magic("Fireball", 12, 7);            
+    static Weapon flame          = new Magic("Fireball", 12, 4);            
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 10);    
-    static Weapon frost          = new Magic("Ice Beam", 14, 4);          
-    static Weapon sapping        = new Magic("Drain Speed", 10, 7); //decrease en speed  
-    static Weapon aura           = new Magic("Defensive Aura", 10, 10); //decrease en damage   
+    static Weapon frost          = new Magic("Ice Beam", 14, 2);          
+    static Weapon sapping        = new Magic("Drain Speed", 10, 5); //decrease en speed  
+    static Weapon aura           = new Magic("Defensive Aura", 10, 5); //decrease en damage   
     static Weapon speed          = new Magic("Swiftness", 10, 10); //increase pl speed 
     static Weapon shift          = new Magic("Dimensional Shift", 10, 10); //increase pl dodge
     static Weapon fireWall       = new Magic("Wall Of Fire", 10, 10); //damage melee attackers 
@@ -99,7 +100,7 @@ public class Dungeon {
     static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
     static Weapon golem            = new Melee("Rock Golem", 10, 2);         
     static Weapon mimic            = new Melee("Mimic", 9, 4);
-    
+	
     public static void main(String[] args) {
         //set up beginning of game
         Scanner s = new Scanner(System.in);
@@ -110,9 +111,9 @@ public class Dungeon {
         while (!input.equalsIgnoreCase("start")) {
             //option select
             System.out.println("");
-            System.out.println("      Do you want to enter The Dungeon?");
-            System.out.println("  ===========================================");
-            System.out.println("  [Start] [Quit] [Help] [Controls] [Tutorial]");
+            System.out.println("     Do you want to enter The Dungeon?");
+            System.out.println("  =======================================");
+            System.out.println("  [Start] [Quit] [Help] [fast] [Tutorial]");
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
@@ -124,6 +125,9 @@ public class Dungeon {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls(null);
             }
+			else if (input.equalsIgnoreCase("fast") || input.equalsIgnoreCase("f")) {
+				fast = !fast;
+			}
             else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
                 try {
                     FileWriter fw = new FileWriter("Save.txt");
@@ -136,7 +140,7 @@ public class Dungeon {
                 System.out.println("");
                 System.out.println("  Mode changed to Tutorial");
                 
-                dt.main(null);
+                //dt.main(null);
                 System.exit(1);
             }
             else if (input.equalsIgnoreCase("save")) {
@@ -172,15 +176,6 @@ public class Dungeon {
         }
         
         NextLevel(null);
-        
-        //outputs to JFrame instead of console
-        /*JFrame f = new JFrame("ASCII");
-        JLabel l = new  JLabel("room");
-        l.setBounds(300,100,100,100);
-        f.add(l);
-        f.setSize(101,101);
-        f.setLayout(null);
-        f.setVisible(true);*/
     }
     
     private static boolean isDuplicate(int roomArr[], int Id) {//duplicate room check function
@@ -263,15 +258,22 @@ public class Dungeon {
     }
     
     public static void Delay(String[] args) {//wait for user function
-        Scanner s = new Scanner(System.in);
-        String delay = s.nextLine();
+        
+		if (fast == true) {
+			System.out.println("");
+			return;
+		}
+		
+		Scanner s = new Scanner(System.in);
+		String delay = s.nextLine();
+		
         if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") || delay.equalsIgnoreCase("h")) {
             Help(null);
         }
-        if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
+        else if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
             System.exit(1);
         }
-        if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
+        else if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
@@ -366,7 +368,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            en.hit(e);
+            e.EnHit(e, en);
         } else {
             System.out.println("");
             System.out.println("  The "+e.getName()+" dodges your attack!");
@@ -379,7 +381,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            pl.hit(e);
+            e.PlHit(e);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
@@ -713,7 +715,7 @@ public class Dungeon {
         }
     }
     
-    /*
+    /* Enemy Descriptions
  *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
  *Spider:            
  *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour

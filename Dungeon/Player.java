@@ -1,12 +1,12 @@
 public class Player {
     Dungeon d = new Dungeon();
-	private int hp;
+	int hp;
 	static private int wId = 2; //determines starting weapon Id: (2) is sword
 	static private String name;
 	static private String qName;
 	static private int damage;
 	static private int speed;
-	private int score;
+	int score;
 	private int cash;
 	private int mana;
 	private int hPotions;
@@ -102,21 +102,4 @@ public class Player {
 	public int getHealth() {
 		return hp;
 	}
-	
-    public void hit(Weapon w) {
-        hp -= w.getDamage();
-
-        // Damage output
-        System.out.println("  The " + w.getName() + " hits you for " + w.getDamage() + " damage.");
-        if (hp <= 0) {
-			d.Delay(null);
-			System.out.println("  Final Score: "+score);
-			d.Delay(null);
-            System.out.println("  You Have Perished in the Dungeon...");
-			d.Delay(null);
-			System.exit(1);
-        } else {
-            System.out.println("  You have " + hp + " hp.");
-        }
-    }
 }

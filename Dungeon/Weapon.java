@@ -2,15 +2,17 @@ import java.util.*;
 public abstract class Weapon {
     
     protected String name;
-    protected double damage;
+    protected double damage; //Passed onto Child Classes
 	protected int speed;
 	
 	protected double qualityD;
-	protected double qualityS;
+	protected double qualityS; //determined in Weapon Class
 	protected String qualityN;
-	Dungeon d = new Dungeon();
-	Player pl = new Player();
 	protected int multiplier;
+	
+	protected Dungeon d = new Dungeon();
+	protected Player pl = new Player();  
+	protected Enemy en = new Enemy();
 
     public Weapon(String name, double damage, int speed) {
         this.name = name;
@@ -28,7 +30,11 @@ public abstract class Weapon {
 	
 	public abstract int getSpeed();
 
-    public abstract int getDamage();
+    public abstract int getDamage();      //These are defined in Child Classes (abstract)
+	
+	public abstract void PlHit(Weapon w);
+	
+	public abstract void EnHit(Weapon w, Enemy en);
 	
 	public void newWeapon() {
 		multiplier = d.level - 1;

@@ -1,3 +1,5 @@
+//Update when code is complete
+/*
 import java.util.*;
 import java.io.*;
 //import javax.swing.*;
@@ -189,7 +191,7 @@ public class DungeonT {
         f.add(l);
         f.setSize(101,101);
         f.setLayout(null);
-        f.setVisible(true);*/
+        f.setVisible(true);
     }
     
     private static boolean isDuplicate(int roomArr[], int Id) {//duplicate room check function
@@ -276,7 +278,7 @@ public class DungeonT {
     }
     
     public static void Delay(String[] args) {//wait for user function
-        Scanner s = new Scanner(System.in);
+        /*Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
         if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") ||delay.equalsIgnoreCase("h")) {
             Help(null);
@@ -288,6 +290,7 @@ public class DungeonT {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
+		return;
     }
 
     private static int RoomId(int roomId) { //room Id list
@@ -382,7 +385,7 @@ public class DungeonT {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            en.hit(e);
+            e.EnHit(e);
         } else {
             System.out.println("");
             System.out.println("  The "+e.getName()+" dodges your attack!");
@@ -395,7 +398,7 @@ public class DungeonT {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            pl.hit(e);
+            e.PlHit(e);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
@@ -752,7 +755,7 @@ public class DungeonT {
  *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
  *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
  *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
- */
+ 
     
     private static void RoomGen(int Id) {   
         int enArr[];
@@ -894,4 +897,4 @@ public class DungeonT {
             case 11:; //Shadow Daggers
         }
     }
-}
+}*/
