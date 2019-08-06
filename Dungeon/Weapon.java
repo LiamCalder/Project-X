@@ -32,9 +32,9 @@ public abstract class Weapon {
 
     public abstract int getDamage();      //These are defined in Child Classes (abstract)
 	
-	public abstract void PlHit(Weapon w);
+	public abstract void PlHit(Weapon w, Player p);
 	
-	public abstract void EnHit(Weapon w, Enemy en);
+	public abstract void EnHit(Weapon w, Enemy en, Player p);
 	
 	public void newWeapon() {
 		multiplier = d.level - 1;

@@ -11,29 +11,29 @@ public class Ranged extends Weapon {
 		return (int) Math.round(speed * qualityS); //round speed to integer
 	}
 	
-	public void PlHit(Weapon w) {
-        pl.hp -= w.getDamage();
+	public void PlHit(Weapon w, Player p) {
+        p.hp -= w.getDamage();
 
         // Damage output
         System.out.println("  The " + w.getName() + " hits you for " + w.getDamage() + " damage.");
-        if (pl.hp <= 0) {
+        if (p.hp <= 0) {
 			d.Delay(null);
-			System.out.println("  Final Score: "+pl.score);
+			System.out.println("  Final Score: "+p.score);
 			d.Delay(null);
             System.out.println("  You Have Perished in the Dungeon...");
 			d.Delay(null);
 			System.exit(1);
         } else {
-            System.out.println("  You have " + pl.hp + " hp.");
+            System.out.println("  You have " + p.hp + " hp.");
         }
     }
 	
-	public void EnHit(Weapon w, Enemy en) {
-        en.hp -= pl.getDamage();
+	public void EnHit(Weapon w, Enemy en, Player p) {
+        en.hp -= p.getDamage();
 
         // Damage output
 		System.out.println("");
-        System.out.println("  You hit the "+ w.getName()+" with your "+pl.getQName()+pl.getName()+" for "+pl.getDamage()+" damage.");
+        System.out.println("  You hit the "+ w.getName()+" with your "+p.getQName()+p.getName()+" for "+p.getDamage()+" damage.");
         if (en.hp <= 0) {
             System.out.println("  The " + w.getName() + " dies!");
 			en.isDead = true;

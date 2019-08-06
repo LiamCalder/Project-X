@@ -320,7 +320,7 @@ public class Dungeon {
                 if (en.isDead == true) {
                     pl.addScore(100+h); //+100 for winning, + damage dealt
                     System.out.println("");
-                    GetLoot(null); //moneys
+                    GetLoot(null); //get money
                     System.out.println("  You enter the next room");
                     Delay(null);
                     return;
@@ -375,7 +375,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            e.EnHit(e, en);
+            e.EnHit(e, en, pl);
         } else {
             System.out.println("");
             System.out.println("  The "+e.getName()+" dodges your attack!");
@@ -388,7 +388,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            e.PlHit(e);
+            e.PlHit(e, pl);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
