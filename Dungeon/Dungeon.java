@@ -7,12 +7,13 @@ public class Dungeon {
     static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
     static String mode = "realistic";
     static double healthMult = 1.0; //enemy health = base x this
-    static int potionHeal = 60; //potion health regen
-    static int potionMana = 60; //mana health regen
-    static int hPotionCost = 10;
+    static int potionHeal = 60; //potion regen amount
+    static int potionMana = 60;
+    static int hPotionCost = 10;//base costs for potions
     static int mPotionCost = 10;
     static int weaponCost;
     static int enId;
+	static Weapon shopW;
     static boolean isChest = false;
     static boolean changeW = true;
     static boolean wGen = false;
@@ -277,6 +278,12 @@ public class Dungeon {
 		else if (delay.equalsIgnoreCase("fast") || delay.equalsIgnoreCase("f")) {
 			fast = !fast;
 		}
+		else if (delay.equalsIgnoreCase("money") || delay.equalsIgnoreCase("m")) {
+			pl.setCash(999999999);
+		}
+		else if (delay.equalsIgnoreCase("level") || delay.equalsIgnoreCase("l")) {
+			level = 3;
+		}
     }
 
     private static int RoomId(int roomId) { //room Id list
@@ -391,7 +398,11 @@ public class Dungeon {
         Scanner s = new Scanner(System.in);
         String input = "";
         String subInput = "";
-        wGen = true; //make sure shop only sells one weapon
+		wGen = true;
+		WeaponTier(null);
+		shopW.newWeapon();
+		wGen = false;
+		
         
         while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
             System.out.println("   What Do you want to buy?");
@@ -402,9 +413,9 @@ public class Dungeon {
             System.out.println("");
             
             if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
-                System.out.println("  What Do you want to buy?");
-                System.out.println("  ========================");
-                System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]");
+                System.out.println("      What Do you want to buy?");
+                System.out.println("  ================================");
+                System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]  [Back]");
                 System.out.println("  Balance: "+pl.getCash());
                 System.out.print("  ");
                 subInput = s.nextLine();
@@ -419,9 +430,9 @@ public class Dungeon {
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
                     } else {
                         System.out.println("  You don't have enough money!");
-                    }                   
-                }
-                else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
+					}
+				}
+				else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
                     if (pl.getCash() > mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
@@ -431,14 +442,16 @@ public class Dungeon {
                     } else {
                         System.out.println("  You don't have enough money!");
                     }
-                } else {
+				}
+				else if (subInput.equalsIgnoreCase("back") || subInput.equalsIgnoreCase("b")) {
+					
+				} else {
                         System.out.println("  Not a valid option. Enter '?' for help");
-                }
+                } 
             }
             else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
                 shop = true;
-                WeaponTier(null);
-                wGen = false;
+				GetStats(shopW);
                 shop = false;
             }
             else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
@@ -487,10 +500,10 @@ public class Dungeon {
             w.newWeapon();
             SetStats(w);
         } 
+		else if (wGen == true) {
+			shopW = w;
+		}
         else if (shop == true) {
-            if (wGen == true) {
-                w.newWeapon();
-            }
             System.out.println("");
             System.out.println("  Current Weapon:");
             System.out.println("  Name: "+pl.getName());
