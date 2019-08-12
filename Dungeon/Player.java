@@ -1,7 +1,8 @@
 public class Player {
     Dungeon d = new Dungeon();
 	int hp;
-	static private int wId = 2; //determines starting weapon Id: (2) is sword
+	static private int mWId = 2; //stores melee weapon Id: (2) is sword
+	static private int rWId = -1; //stores ranged weapon Id
 	static private String name;
 	static private String qName;
 	static private int damage;
@@ -73,10 +74,10 @@ public class Player {
 	}
 	
 	public void setWeapon(int sw) {
-		wId = sw;
+		mWId = sw;
 	}
 	public int getWeapon() {
-		return wId;
+		return mWId;
 	}
 	
 	public void setDamage(int st) {

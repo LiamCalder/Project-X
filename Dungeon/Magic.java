@@ -11,6 +11,10 @@ public class Magic extends Weapon {
 		return (int) Math.round(speed * qualityS); //round speed to integer
 	}
 	
+	public String getType() {
+		return String magic;
+	}
+	
 	public void PlHit(Weapon w, Player p) {
         p.hp -= w.getDamage();
 

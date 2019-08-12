@@ -113,8 +113,8 @@ public class Dungeon {
         Scanner s = new Scanner(System.in);
         int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
         WeaponStatsT1(weapon);
-        changeW = false;
         String input = "";
+		changeW = false;
         while (!input.equalsIgnoreCase("start")) {
             //option select
             System.out.println("");
@@ -175,7 +175,7 @@ public class Dungeon {
             }
             else {
                 roomArr[i] = roomId; //if no dupes, add Id to array and execute room
-                RoomGen(roomId);
+				RoomGen(roomId);
             }
         }
         
@@ -336,7 +336,6 @@ public class Dungeon {
             }
             else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
                 System.out.println("  You don't know any spells!");
-                Delay(null);
             }
             else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
                 if (pl.getHPotions() > 0) {
@@ -450,7 +449,7 @@ public class Dungeon {
                     }
                 }
                 else if (subInput.equalsIgnoreCase("back") || subInput.equalsIgnoreCase("b")) {
-                    
+                    continue;
                 } else {
                         System.out.println("  Not a valid option. Enter '?' for help");
                 } 
@@ -505,9 +504,11 @@ public class Dungeon {
         if (changeW == true) { //force weapon change
             w.newWeapon();
             SetStats(w);
+			return;
         } 
         else if (wGen == true) {
             shopW = w;
+			return;
         }
         else if (shop == true) {
             System.out.println("");
@@ -627,7 +628,7 @@ public class Dungeon {
         }
    }
     
-   private static void WeaponStatsT2(int Id) {
+    private static void WeaponStatsT2(int Id) {
         //weapon list
         //spells will be learned from books, but will be balanced with limited mana/cooldowns etc
         switch (Id) {
@@ -776,11 +777,11 @@ public class Dungeon {
         int w;
         switch (tier) {
             case 1: w = q.nextInt(12)+1;
-                    WeaponStatsT1(w); break;
+                    //EnemyTier1(w); break;
             case 2: w = q.nextInt(9)+1;
-                    WeaponStatsT2(w); break;
+                    //EnemyTier2(w); break;
             case 3: w = q.nextInt(7)+1;
-                    WeaponStatsT3(w); break;
+                    //EnemyTier3(w); break;
         }
         
         switch(Id) {

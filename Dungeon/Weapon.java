@@ -4,6 +4,7 @@ public abstract class Weapon {
     protected String name;
     protected double damage; //Passed onto Child Classes
 	protected int speed;
+	protected String type;
 	
 	protected double qualityD;
 	protected double qualityS; //determined in Weapon Class
