@@ -68,45 +68,45 @@ public class Dungeon {
     
     //Enemies - Kept in Weapon class in case you 
     //want to 'wield' (ie summon) an ally monster
-    static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
-    static Weapon spider           = new Melee("Spider", 6, 8);             
-    static Weapon troll            = new Melee("Troll", 11, 2);              
-    static Weapon snake            = new Melee("Snake", 4, 8);              
+    static Weapon skeleton         = new Melee("Skeleton", 7, 5);           
+    static Weapon spider           = new Melee("Spider", 4, 8);             
+    static Weapon troll            = new Melee("Troll", 10, 2);              
+    static Weapon snake            = new Melee("Snake", 3, 9);              
     static Weapon necromancer      = new Magic("Necromancer", 10, 5);        
-    static Weapon wizard           = new Magic("Wizard", 11, 5);             
-    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 7, 6);   
-    static Weapon goblin           = new Melee("Goblin", 6, 7);             
-    static Weapon outlaw           = new Melee("outlaw", 8, 6);             
-    static Weapon caveRat          = new Melee("Cave Rat", 4, 8);           
-    static Weapon wraith           = new Melee("Wraith", 10, 5);             
+    static Weapon wizard           = new Magic("Wizard", 15, 5);             
+    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 11, 9);   
+    static Weapon goblin           = new Melee("Goblin", 5, 8);             
+    static Weapon outlaw           = new Melee("outlaw", 10, 5);             
+    static Weapon caveRat          = new Melee("Cave Rat", 3, 10);           
+    static Weapon wraith           = new Melee("Wraith", 14, 6);             
     static Weapon fanatic          = new Melee("Fanatic", 9, 4);             
-    static Weapon demon            = new Magic("Demon", 11, 5);              
-    static Weapon dragon           = new Melee("Dragon", 12, 2);             
-    static Weapon orc              = new Melee("Orc", 9, 4);                
-    static Weapon vampire          = new Magic("Vampire", 9, 5);            
-    static Weapon leviathan        = new Melee("Leviathan", 11, 3);          
-    static Weapon pixie            = new Magic("Pixie", 4, 8);              
-    static Weapon harpy            = new Melee("Harpy", 5, 7);              
-    static Weapon fallenHero       = new Melee("Fallen Hero", 9, 5);        
-    static Weapon guardian         = new Melee("Guardian", 11, 2);           
-    static Weapon carnPlant        = new Melee("Carnivorous Plant", 7, 4);  
-    static Weapon giant            = new Melee("Giant", 9, 2);              
-    static Weapon looter           = new Melee("Looter", 6, 6);             
-    static Weapon wyvern           = new Melee("Wyvern", 10, 3);               
-    static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 4);        
+    static Weapon demon            = new Magic("Demon", 14, 9);              
+    static Weapon dragon           = new Melee("Dragon", 17, 2);             
+    static Weapon orc              = new Melee("Orc", 11, 4);                
+    static Weapon vampire          = new Magic("Vampire", 11, 8);            
+    static Weapon leviathan        = new Melee("Leviathan", 16, 3);          
+    static Weapon pixie            = new Magic("Pixie", 4, 9);              
+    static Weapon harpy            = new Melee("Harpy", 6, 6);              
+    static Weapon fallenHero       = new Melee("Fallen Hero", 10, 8);        
+    static Weapon guardian         = new Melee("Guardian", 15, 4);           
+    static Weapon carnPlant        = new Melee("Carnivorous Plant", 6, 7);  
+    static Weapon giant            = new Melee("Giant", 13, 2);              
+    static Weapon looter           = new Melee("Looter", 7, 4);             
+    static Weapon wyvern           = new Melee("Wyvern", 14, 3);               
+    static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 10);        
     static Weapon fElemental       = new Ranged("Fire Elemental", 9, 5);    
     static Weapon wElemental       = new Ranged("Water Elemental", 9, 5);   
     static Weapon eElemental       = new Ranged("Earth Elemental", 9, 5);   
     static Weapon aElemental       = new Ranged("Air Elemental", 9, 5);     
-    static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
-    static Weapon golem            = new Melee("Rock Golem", 10, 2);
-    static Weapon manticore        = new Melee("Manticore", 5, 5);
-    static Weapon draugr           = new Melee("Draugr", 5, 5);
-    static Weapon legion           = new Melee("Legion", 5, 5);
+    static Weapon basilisk         = new Melee("Basilisk", 14, 5);           
+    static Weapon golem            = new Melee("Rock Golem", 10, 3);
+    static Weapon manticore        = new Melee("Manticore", 12, 5);
+    static Weapon draugr           = new Melee("Draugr", 12, 7);
+    static Weapon legion           = new Melee("Legion", 9, 6);
     static Weapon gtmichaels       = new Melee("GtMichaels", 5, 5);
-    static Weapon arvin            = new Melee("Arvin", 1, 1);
-    static Weapon griffin          = new Melee("Griffin", 5, 5);
-    static Weapon mimic            = new Melee("Mimic", 9, 4);
+    static Weapon arvin            = new Melee("Arvin", 10, 7);
+    static Weapon griffin          = new Melee("Griffin", 11, 6);
+    static Weapon mimic            = new Melee("Mimic", 8, 4);
     
     public static void main(String[] args) {
         //set up beginning of game
@@ -679,38 +679,38 @@ public class Dungeon {
     private static void EnemyGen(int Id) {//enemy Id list
         switch (Id) {
                  //Battle(Enemy base stats, skeleton health)
-            case 0:Battle(skeleton, 10); break;
-            case 1:Battle(spider, 8); break;
+            case 0:Battle(skeleton, 15); break;
+            case 1:Battle(spider, 12); break;
             case 2:Battle(troll, 20); break;      
-            case 3:Battle(snake, 7); break;             
-            case 4:Battle(necromancer, 14); break;              
-            case 5:Battle(wizard, 13); break;  
-            case 6:Battle(skeletonArcher, 12); break;  
+            case 3:Battle(snake, 6); break;             
+            case 4:Battle(necromancer, 16); break;              
+            case 5:Battle(wizard, 19); break;  
+            case 6:Battle(skeletonArcher, 15); break;  
             case 7:Battle(goblin, 10); break;  
             case 8:Battle(outlaw, 15); break;  
             case 9:Battle(caveRat, 7); break;  
             case 10:Battle(wraith, 15); break;  
             case 11:Battle(fanatic, 13); break;  
             case 12:Battle(demon, 16); break;  
-            case 13:Battle(dragon, 23); break;  
+            case 13:Battle(dragon, 29); break;  
             case 14:Battle(orc, 17); break;  
             case 15:Battle(vampire, 14); break;  
-            case 16:Battle(leviathan, 22); break; 
+            case 16:Battle(leviathan, 28); break; 
             case 17:Battle(pixie, 9); break; 
             case 18:Battle(harpy, 11); break; 
             case 19:Battle(fallenHero, 16); break; 
             case 20:Battle(guardian, 18); break; 
             case 21:Battle(carnPlant, 12); break; 
-            case 22:Battle(giant, 19); break; 
+            case 22:Battle(giant, 21); break; 
             case 23:Battle(looter, 14); break; 
             case 24:Battle(wyvern, 20); break; 
-            case 25:Battle(cursedSoul, 18); break; 
+            case 25:Battle(cursedSoul, 17); break; 
             case 26:Battle(fElemental, 16); break; 
             case 27:Battle(wElemental, 16); break; 
             case 28:Battle(eElemental, 16); break; 
             case 29:Battle(aElemental, 16); break; 
-            case 30:Battle(basilisk, 21); break; 
-            case 31:Battle(golem, 20); break; 
+            case 30:Battle(basilisk, 25); break; 
+            case 31:Battle(golem, 18); break; 
             case 32:Battle(mimic, 13); break;
         }
     }
@@ -769,31 +769,27 @@ public class Dungeon {
         int enemyId;
         //only selects weapon up to + including current level
         Random t = new Random();
-        Random q = new Random();
         int tier = 5;
         while (tier > 3) {
             tier = t.nextInt(level)+1;
-        }
-        int w;
-        switch (tier) {
-            case 1: w = q.nextInt(12)+1;
-                    //EnemyTier1(w); break;
-            case 2: w = q.nextInt(9)+1;
-                    //EnemyTier2(w); break;
-            case 3: w = q.nextInt(7)+1;
-                    //EnemyTier3(w); break;
         }
         
         switch(Id) {
             //decide tier of enemy here or up there ^
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
-                    enArr = new int[]{0,4,6,19,23,25};//possible enemy by Id tier 
-                    //array for tier 2
-                    //array for tier 3
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,9,17,18,23,25,32 }; break;//possible enemy by Id tier
+                        case 2:  enArr = new int[]{2,4,6,11,14,15,20,31}; break;
+                        case 3:  enArr = new int[]{5,12,20,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 2: System.out.println("  You find yourself in a massive cavern"); 
-                    enArr = new int[]{1,2,7,13,17,18,22,29};
+            case 2: System.out.println("  You find yourself in a massive cavern");
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,4,7,9,17,18,23,25,32}; break;//possible enemy by Id tier
+                        case 2:  enArr = new int[]{2,6,8,11,14,15,19,22,31}; break;
+                        case 3:  enArr = new int[]{5,10,12,13,16,24,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 3: System.out.println("  A long corridor stretches before you"); 
