@@ -12,7 +12,8 @@ public class Melee extends Weapon {
 	}
 	
 	public String getType() {
-		return String melee;
+		String type = "melee";
+	    return type;
 	}
 	
 	public void PlHit(Weapon w, Player p) {

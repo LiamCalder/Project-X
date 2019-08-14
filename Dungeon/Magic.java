@@ -12,7 +12,8 @@ public class Magic extends Weapon {
 	}
 	
 	public String getType() {
-		return String magic;
+		String type = "magic";
+	    return type;
 	}
 	
 	public void PlHit(Weapon w, Player p) {

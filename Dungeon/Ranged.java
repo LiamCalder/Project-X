@@ -12,7 +12,8 @@ public class Ranged extends Weapon {
 	}
 	
 	public String getType() {
-		return String ranged;
+		String type = "ranged";
+	    return type;
 	}
 	
 	public void PlHit(Weapon w, Player p) {

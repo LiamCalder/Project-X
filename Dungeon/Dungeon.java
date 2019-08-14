@@ -104,7 +104,7 @@ public class Dungeon {
     static Weapon draugr           = new Melee("Draugr", 12, 7);
     static Weapon legion           = new Melee("Legion", 9, 6);
     static Weapon gtmichaels       = new Melee("GtMichaels", 5, 5);
-    static Weapon arvin            = new Melee("Arvin", 10, 7);
+    static Weapon arvin            = new Melee("Arvin", 0, 0);
     static Weapon griffin          = new Melee("Griffin", 11, 6);
     static Weapon mimic            = new Melee("Mimic", 8, 4);
     
@@ -712,6 +712,11 @@ public class Dungeon {
             case 30:Battle(basilisk, 25); break; 
             case 31:Battle(golem, 18); break; 
             case 32:Battle(mimic, 13); break;
+            case 33:Battle(manticore, 15); break;
+            case 34:Battle(draugr, 16); break;
+            case 35:Battle(legion, 12); break;
+            case 36:Battle(griffin, 14); break;
+            case 37:Battle(arvin, 1); break;
         }
     }
     
@@ -786,14 +791,18 @@ public class Dungeon {
                     EnemyGen(enemyId); break;
             case 2: System.out.println("  You find yourself in a massive cavern");
                     switch(tier) {
-                        default: enArr = new int[]{0,1,3,4,7,9,17,18,23,25,32}; break;//possible enemy by Id tier
-                        case 2:  enArr = new int[]{2,6,8,11,14,15,19,22,31}; break;
-                        case 3:  enArr = new int[]{5,10,12,13,16,24,30}; break;
+                        default: enArr = new int[]{0,1,3,4,7,9,17,18,23,25,32}; break;
+                        case 2:  enArr = new int[]{2,6,11,14,15,19,22,31}; break;
+                        case 3:  enArr = new int[]{10,12,13,16,24,30}; break;
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 3: System.out.println("  A long corridor stretches before you"); 
-                    enArr = new int[]{1,3,9,15,17,20,31};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,9,17,23,32}; break;
+                        case 2:  enArr = new int[]{2,6,8,11,14,15,31,34}; break;
+                        case 3:  enArr = new int[]{5,10,20}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow");     

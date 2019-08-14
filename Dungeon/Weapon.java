@@ -29,6 +29,8 @@ public abstract class Weapon {
 		return name;
 	}
 	
+	public abstract String getType();
+	
 	public abstract int getSpeed();
 
     public abstract int getDamage();      //These are defined in Child Classes (abstract)
