@@ -85,7 +85,7 @@ public class Dungeon {
     static Weapon outlaw           = new Melee("outlaw", 8, 6);             
     static Weapon caveRat          = new Melee("Cave Rat", 4, 8);           
     static Weapon wraith           = new Melee("Wraith", 10, 5);             
-    static Weapon fanatic          = new Melee("Fanatic", 9, 4);             
+    static Weapon zealot          = new Melee("Zealot", 9, 4);             
     static Weapon demon            = new Magic("Demon", 11, 5);              
     static Weapon dragon           = new Melee("Dragon", 12, 2);             
     static Weapon orc              = new Melee("Orc", 9, 4);                
@@ -708,7 +708,7 @@ public class Dungeon {
             case 8:Battle(outlaw, 15); break;  
             case 9:Battle(caveRat, 7); break;  
             case 10:Battle(wraith, 15); break;  
-            case 11:Battle(fanatic, 13); break;  
+            case 11:Battle(zealot, 13); break;  
             case 12:Battle(demon, 16); break;  
             case 13:Battle(dragon, 29); break;  
             case 14:Battle(orc, 17); break;  
@@ -773,7 +773,7 @@ public class Dungeon {
  *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
  *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
  *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
- *Fanatic:           The fanatic has a devastating blow, but doesn't seem to have fast reflexes
+ *zealot:            The zealot has a devastating blow, but doesn't seem to have fast reflexes
  *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
  *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
  *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
@@ -794,10 +794,10 @@ public class Dungeon {
         Random t = new Random();
         Random q = new Random();
         int tier = 5;
-        while (tier > 3) {
-            tier = t.nextInt(level)+1;
+        if (tier > 3) {
+            tier = 3;
         }
-        
+        tier = t.nextInt(level)+1;
         switch(Id) {
             //decide tier of enemy here or up there ^
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
@@ -811,7 +811,7 @@ public class Dungeon {
                     EnemyGen(enemyId); break;
             case 2: System.out.println("  You find yourself in a massive cavern");
                     switch(tier) {
-                        default: enArr = new int[]{0,1,3,4,7,9,17,18,23,25,32}; break;
+                        default: enArr = new int[]{0,1,3,4,7,9,17,18,23,25}; break;
                         case 2:  enArr = new int[]{2,6,11,14,15,19,22,31}; break;
                         case 3:  enArr = new int[]{10,12,13,16,24,30}; break;
                     }
@@ -819,24 +819,40 @@ public class Dungeon {
                     EnemyGen(enemyId); break;
             case 3: System.out.println("  A long corridor stretches before you"); 
                     switch(tier) {
-                        default: enArr = new int[]{0,1,3,9,17,23,32}; break;
+                        default: enArr = new int[]{0,1,3,9,17,23}; break;
                         case 2:  enArr = new int[]{2,6,8,11,14,15,31,34}; break;
                         case 3:  enArr = new int[]{5,10,20}; break;
                     }
             case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow");     
-                    enArr = new int[]{4,5,10,11,12,25};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,21,25,35}; break;
+                        case 2:  enArr = new int[]{11,28,29,31,33,34,36}; break;
+                        case 3:  enArr = new int[]{10,12,13,16,20,24,26,27,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 5: System.out.println("  It seems you have stumbled upon a mass grave"); 
-                    enArr = new int[]{0,6,9,15,19,23};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,21,23,25,35}; break;
+                        case 2:  enArr = new int[]{4,6,15,19}; break;
+                        case 3:  enArr = new int[]{5,10,12,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 6: System.out.println("  shelves full of exotic potions and illegible tomes surround you"); 
-                    enArr = new int[]{4,5,11,12,30};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,9,17,18,23}; break;
+                        case 2:  enArr = new int[]{2,6,19,28,29}; break;
+                        case 3:  enArr = new int[]{5,10,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 7: System.out.println("  An evil darkness lurks in the corners of the room"); 
-                    enArr = new int[]{10,11,12,25};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,7,25,35}; break;
+                        case 2:  enArr = new int[]{2,4,6,11,14,15,19,22,31}; break;
+                        case 3:  enArr = new int[]{10,12,20}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); 
@@ -844,11 +860,19 @@ public class Dungeon {
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 9: System.out.println("  The floor is littered with eggs. It seems to be a nest of some sort"); 
-                    enArr = new int[]{1,3,13,30};
+                    switch(tier) {
+                        default: enArr = new int[]{1,3}; break;
+                        case 2:  enArr = new int[]{34,36}; break;
+                        case 3:  enArr = new int[]{12,16,24,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 10:System.out.println("  You enter an unremarable little cave, recently inhabited..."); 
-                    enArr = new int[]{2,5,7,8,11,14,15,23};
+            case 10:System.out.println("  You enter an unremarkable little cave, recently inhabited..."); 
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,9,23,37}; break;
+                        case 2:  enArr = new int[]{}; break;
+                        case 3:  enArr = new int[]{}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 11:System.out.println("  In the darkness you barely avoid falling into the underground lake in front of you");
