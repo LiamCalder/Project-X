@@ -13,7 +13,7 @@ public class Ranged extends Weapon {
 	
 	public String getType() {
 		String type = "ranged";
-	    return type;
+		return type;
 	}
 	
 	public void PlHit(Weapon w, Player p) {
@@ -34,11 +34,11 @@ public class Ranged extends Weapon {
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        en.hp -= p.getDamage();
+        en.hp -= p.getDamageR();
 
         // Damage output
 		System.out.println("");
-        System.out.println("  You hit the "+ w.getName()+" with your "+p.getQName()+p.getName()+" for "+p.getDamage()+" damage.");
+        System.out.println("  You hit the "+ w.getName()+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");
         if (en.hp <= 0) {
             System.out.println("  The " + w.getName() + " dies!");
 			en.isDead = true;

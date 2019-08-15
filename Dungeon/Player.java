@@ -2,11 +2,15 @@ public class Player {
     Dungeon d = new Dungeon();
 	int hp;
 	static private int mWId = 2; //stores melee weapon Id: (2) is sword
-	static private int rWId = -1; //stores ranged weapon Id
-	static private String name;
-	static private String qName;
-	static private int damage;
-	static private int speed;
+	static public int rWId = -1; //stores ranged weapon Id
+	static private String nameM;
+	static private String qNameM;
+	static private int damageM;
+	static private int speedM;
+	static private String nameR;
+	static private String qNameR;
+	static private int damageR;
+	static private int speedR;
 	int score;
 	private int cash;
 	private int mana;
@@ -59,39 +63,74 @@ public class Player {
 		return score;
 	}
 	
-	public void setName(String sn) {
-		name = sn;
+	public void setNameM(String sn) {
+		nameM = sn;
 	}
-	public String getName() {
-		return name;
-	}
-	
-	public void setQName(String sq) {
-		qName = sq;
-	}
-	public String getQName() {
-		return qName;
+	public String getNameM() {
+		return nameM;
 	}
 	
-	public void setWeapon(int sw) {
+	public void setQNameM(String sq) {
+		qNameM = sq;
+	}
+	public String getQNameM() {
+		return qNameM;
+	}
+	
+	public void setWeaponM(int sw) {
 		mWId = sw;
 	}
-	public int getWeapon() {
+	public int getWeaponM() {
 		return mWId;
 	}
 	
-	public void setDamage(int st) {
-		damage = st;
+	public void setDamageM(int st) {
+		damageM = st;
 	}
-	public int getDamage() {
-		return damage;
+	public int getDamageM() {
+		return damageM;
 	}
 	
-	public void setSpeed(int ss) {
-		speed = ss;
+	public void setSpeedM(int ss) {
+		speedM = ss;
 	}
-	public int getSpeed() {
-		return speed;
+	public int getSpeedM() {
+		return speedM;
+	}
+	
+	public void setNameR(String snr) {
+		nameR = snr;
+	}
+	public String getNameR() {
+		return nameR;
+	}
+	
+	public void setQNameR(String sqr) {
+		qNameR = sqr;
+	}
+	public String getQNameR() {
+		return qNameR;
+	}
+	
+	public void setWeaponR(int swr) {
+		rWId = swr;
+	}
+	public int getWeaponR() {
+		return rWId;
+	}
+	
+	public void setDamageR(int str) {
+		damageR = str;
+	}
+	public int getDamageR() {
+		return damageR;
+	}
+	
+	public void setSpeedR(int ssr) {
+		speedR = ssr;
+	}
+	public int getSpeedR() {
+		return speedR;
 	}
 	
 	public void setHealth(int sh) {

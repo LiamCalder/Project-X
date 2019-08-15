@@ -13,7 +13,7 @@ public class Magic extends Weapon {
 	
 	public String getType() {
 		String type = "magic";
-	    return type;
+		return type;
 	}
 	
 	public void PlHit(Weapon w, Player p) {
@@ -34,16 +34,6 @@ public class Magic extends Weapon {
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        en.hp -= p.getDamage();
-
-        // Damage output
-		System.out.println("");
-        System.out.println("  You hit the "+ w.getName()+" with your "+p.getQName()+p.getName()+" for "+p.getDamage()+" damage.");
-        if (en.hp <= 0) {
-            System.out.println("  The " + w.getName() + " dies!");
-			en.isDead = true;
-        } else {
-            System.out.println("  The " + w.getName() + " has " + en.hp + " hp.");
-        }
+        //???
     }
 }

@@ -4,7 +4,6 @@ public abstract class Weapon {
     protected String name;
     protected double damage; //Passed onto Child Classes
 	protected int speed;
-	protected String type;
 	
 	protected double qualityD;
 	protected double qualityS; //determined in Weapon Class
@@ -21,8 +20,12 @@ public abstract class Weapon {
 		this.speed = speed;
     }
 	
-	public void SendQualityName() {
-		pl.setQName(qualityN);
+	public void SendQualityNameM() {
+		pl.setQNameM(qualityN);
+	}
+	
+	public void SendQualityNameR() {
+		pl.setQNameR(qualityN);
 	}
 	
 	public String getName() {

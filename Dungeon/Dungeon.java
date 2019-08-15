@@ -6,6 +6,7 @@ public class Dungeon {
     //initialize Variables
     static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
     static String mode = "realistic";
+	static String weaponType;
     static double healthMult = 1.0; //enemy health = base x this
     static int potionHeal = 60; //potion regen amount
     static int potionMana = 60;
@@ -22,6 +23,11 @@ public class Dungeon {
     
     //initialise Classes
     static Player pl = new Player();
+	
+	//used to call general class functions eg: melee.enHit()
+	static Weapon melee         = new Melee("", 0, 0); 
+	static Weapon ranged         = new Ranged("", 0, 0);
+	static Weapon magic         = new Magic("", 0, 0);
     //static DungeonT dt = new DungeonT();
     
     //Melee weapons - speed determines dodge chance
@@ -68,53 +74,53 @@ public class Dungeon {
     
     //Enemies - Kept in Weapon class in case you 
     //want to 'wield' (ie summon) an ally monster
-    static Weapon skeleton         = new Melee("Skeleton", 7, 5);           
-    static Weapon spider           = new Melee("Spider", 4, 8);             
-    static Weapon troll            = new Melee("Troll", 10, 2);              
-    static Weapon snake            = new Melee("Snake", 3, 9);              
+    static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
+    static Weapon spider           = new Melee("Spider", 6, 8);             
+    static Weapon troll            = new Melee("Troll", 11, 2);              
+    static Weapon snake            = new Melee("Snake", 4, 8);              
     static Weapon necromancer      = new Magic("Necromancer", 10, 5);        
-    static Weapon wizard           = new Magic("Wizard", 15, 5);             
-    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 11, 9);   
-    static Weapon goblin           = new Melee("Goblin", 5, 8);             
-    static Weapon outlaw           = new Melee("outlaw", 10, 5);             
-    static Weapon caveRat          = new Melee("Cave Rat", 3, 10);           
-    static Weapon wraith           = new Melee("Wraith", 14, 6);             
+    static Weapon wizard           = new Magic("Wizard", 11, 5);             
+    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 7, 6);   
+    static Weapon goblin           = new Melee("Goblin", 6, 7);             
+    static Weapon outlaw           = new Melee("outlaw", 8, 6);             
+    static Weapon caveRat          = new Melee("Cave Rat", 4, 8);           
+    static Weapon wraith           = new Melee("Wraith", 10, 5);             
     static Weapon fanatic          = new Melee("Fanatic", 9, 4);             
-    static Weapon demon            = new Magic("Demon", 14, 9);              
-    static Weapon dragon           = new Melee("Dragon", 17, 2);             
-    static Weapon orc              = new Melee("Orc", 11, 4);                
-    static Weapon vampire          = new Magic("Vampire", 11, 8);            
-    static Weapon leviathan        = new Melee("Leviathan", 16, 3);          
-    static Weapon pixie            = new Magic("Pixie", 4, 9);              
-    static Weapon harpy            = new Melee("Harpy", 6, 6);              
-    static Weapon fallenHero       = new Melee("Fallen Hero", 10, 8);        
-    static Weapon guardian         = new Melee("Guardian", 15, 4);           
-    static Weapon carnPlant        = new Melee("Carnivorous Plant", 6, 7);  
-    static Weapon giant            = new Melee("Giant", 13, 2);              
-    static Weapon looter           = new Melee("Looter", 7, 4);             
-    static Weapon wyvern           = new Melee("Wyvern", 14, 3);               
-    static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 10);        
+    static Weapon demon            = new Magic("Demon", 11, 5);              
+    static Weapon dragon           = new Melee("Dragon", 12, 2);             
+    static Weapon orc              = new Melee("Orc", 9, 4);                
+    static Weapon vampire          = new Magic("Vampire", 9, 5);            
+    static Weapon leviathan        = new Melee("Leviathan", 11, 3);          
+    static Weapon pixie            = new Magic("Pixie", 4, 8);              
+    static Weapon harpy            = new Melee("Harpy", 5, 7);              
+    static Weapon fallenHero       = new Melee("Fallen Hero", 9, 5);        
+    static Weapon guardian         = new Melee("Guardian", 11, 2);           
+    static Weapon carnPlant        = new Melee("Carnivorous Plant", 7, 4);  
+    static Weapon giant            = new Melee("Giant", 9, 2);              
+    static Weapon looter           = new Melee("Looter", 6, 6);             
+    static Weapon wyvern           = new Melee("Wyvern", 10, 3);               
+    static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 4);        
     static Weapon fElemental       = new Ranged("Fire Elemental", 9, 5);    
     static Weapon wElemental       = new Ranged("Water Elemental", 9, 5);   
     static Weapon eElemental       = new Ranged("Earth Elemental", 9, 5);   
     static Weapon aElemental       = new Ranged("Air Elemental", 9, 5);     
-    static Weapon basilisk         = new Melee("Basilisk", 14, 5);           
-    static Weapon golem            = new Melee("Rock Golem", 10, 3);
-    static Weapon manticore        = new Melee("Manticore", 12, 5);
-    static Weapon draugr           = new Melee("Draugr", 12, 7);
-    static Weapon legion           = new Melee("Legion", 9, 6);
+    static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
+    static Weapon golem            = new Melee("Rock Golem", 10, 2);
+    static Weapon manticore        = new Melee("Manticore", 5, 5);
+    static Weapon draugr           = new Melee("Draugr", 5, 5);
+    static Weapon legion           = new Melee("Legion", 5, 5);
     static Weapon gtmichaels       = new Melee("GtMichaels", 5, 5);
-    static Weapon arvin            = new Melee("Arvin", 0, 0);
-    static Weapon griffin          = new Melee("Griffin", 11, 6);
-    static Weapon mimic            = new Melee("Mimic", 8, 4);
+    static Weapon arvin            = new Melee("Arvin", 1, 1);
+    static Weapon griffin          = new Melee("Griffin", 5, 5);
+    static Weapon mimic            = new Melee("Mimic", 9, 4);
+	
     
     public static void main(String[] args) {
         //set up beginning of game
         Scanner s = new Scanner(System.in);
-        int weapon = pl.getWeapon(); //gives Player class weapon info from the get go
+        int weapon = pl.getWeaponM(); //gives Player class melee weapon info from the get go
         WeaponStatsT1(weapon);
         String input = "";
-		changeW = false;
         while (!input.equalsIgnoreCase("start")) {
             //option select
             System.out.println("");
@@ -146,9 +152,6 @@ public class Dungeon {
                 
                 //dt.main(null);
                 System.exit(1);
-            }
-            else if (input.equalsIgnoreCase("save")) {
-                Save(null);
             }
             else {
                 Help(null);
@@ -218,41 +221,6 @@ public class Dungeon {
         Delay(null);
     }
     
-    private static void Save(String[] args) {
-        System.out.println("");
-        System.out.println("  Saving...");
-        try {
-            FileWriter fw1 = new FileWriter("Save.txt");
-            PrintWriter pw1 = new PrintWriter(fw1);
-            
-            pw1.printf("%s" + "%n", mode);
-            
-            FileWriter fw = new FileWriter("Save.txt", true);
-            PrintWriter pw = new PrintWriter(fw);
-            
-            pw.printf("%s" + "%n", level);                          pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", Double.toString(healthMult));    pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", hPotionCost);                    pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", mPotionCost);                    pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", enId);                           pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getHealth());                 pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getWeapon());                 pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getName());                   pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getQName());                  pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getDamage());                 pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getSpeed());                  pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getScore());                  pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getCash());                   pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getMana());                   pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getHPotions());               pw.printf("%s" + "%n", ",");
-            pw.printf("%s" + "%n", pl.getMPotions());               pw.printf("%s" + "%n", ",");
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        } 
-        System.out.println("  File Saved");
-    }
-    
     private static void NextLevel(String[] args) {
         //This method will bump up enemy stats, loot spawns etc
         level++;
@@ -313,29 +281,45 @@ public class Dungeon {
         
         while (en.getHealth() > 0) {
             Scanner s = new Scanner(System.in);
-            System.out.println("           What will you do?");
-            System.out.println("  ====================================");
-            System.out.println("  [Weapon] [Spell] [Heal("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")]");
-            
-            
-            System.out.print("  ");
+            System.out.println("        What will you do?");
+            System.out.println("  ==============================");
+            System.out.println("  [Weapon] [Heal("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")]");
+			System.out.print("  ");
             String input = s.nextLine();
-            //String input = "w"; speed-run melee attacks
             if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
-                enDodgeChance(e, en);
-                if (en.isDead == true) {
-                    pl.addScore(100+h); //+100 for winning, + damage dealt
-                    System.out.println("");
-                    GetLoot(null); //get money
-                    System.out.println("  You enter the next room");
-                    Delay(null);
-                    return;
-                }
-                Delay(null);
-                plDodgeChance(e);
-            }
-            else if (input.equalsIgnoreCase("spell") || input.equalsIgnoreCase("s")) {
-                System.out.println("  You don't know any spells!");
+                System.out.println("");
+				System.out.println("     What weapon do you use?");
+				System.out.println("  ==============================");
+				System.out.println("  [Melee]    [Ranged]    [Magic]");
+				System.out.print("  ");
+				String subInput = s.nextLine();
+				
+				if (subInput.equalsIgnoreCase("melee") || subInput.equalsIgnoreCase("m")) {
+					enDodgeChance(e, en);
+					if (en.isDead == true) {
+						pl.addScore(100+h); //+100 for winning, + damage dealt
+						System.out.println("");
+						GetLoot(null); //get money
+						System.out.println("  You enter the next room");
+						Delay(null);
+						return;
+					}
+					Delay(null);
+					plDodgeChance(e);
+				}
+				else if (subInput.equalsIgnoreCase("ranged") || subInput.equalsIgnoreCase("r")) {
+					ranged.EnHit(e, en, pl);
+					if (en.isDead == true) {
+						pl.addScore(100+h); //+100 for winning, + damage dealt
+						System.out.println("");
+						GetLoot(null); //get money
+						System.out.println("  You enter the next room");
+						Delay(null);
+						return;
+					}
+					Delay(null);
+					plDodgeChance(e);
+				}
             }
             else if (input.equalsIgnoreCase("heal") || input.equalsIgnoreCase("h")) {
                 if (pl.getHPotions() > 0) {
@@ -380,7 +364,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            e.EnHit(e, en, pl);
+            melee.EnHit(e, en, pl);
         } else {
             System.out.println("");
             System.out.println("  The "+e.getName()+" dodges your attack!");
@@ -393,7 +377,7 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            e.PlHit(e, pl);
+            melee.PlHit(e, pl);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
@@ -492,18 +476,52 @@ public class Dungeon {
     }
     
     private static void SetStats(Weapon w) {
-        pl.setDamage(w.getDamage()); 
-        pl.setSpeed(w.speed);
-        pl.setName(w.name);
-        w.SendQualityName();
+        if(w.getType().equalsIgnoreCase("melee")) {
+			pl.setDamageM(w.getDamage()); 
+			pl.setSpeedM(w.getSpeed());
+			pl.setNameM(w.name);
+			w.SendQualityNameM();
+		} 
+		else if(w.getType().equalsIgnoreCase("ranged")) {
+			pl.setDamageR(w.getDamage()); 
+			pl.setSpeedR(w.getSpeed());
+			pl.setNameR(w.name);
+			w.SendQualityNameR();
+		}
     }
     
     private static void GetStats(Weapon w) {
         Scanner s = new Scanner(System.in);
         String input = "";
+		int localPlDamage = 0;
+		int localPlSpeed = 0;
+		String localPlName = "";
+		String localPlQName = "";
+		int localWDamage = w.getDamage();
+		int localWSpeed = w.getSpeed();
+		String localWName = w.name;
+		String localWQName = w.qualityN;
+		
+		if (w.getType().equalsIgnoreCase("ranged") && pl.rWId != -1) {
+			localPlDamage = pl.getDamageR(); 
+			localPlSpeed = pl.getSpeedR();
+			localPlName = pl.getNameR();
+			localPlQName = pl.getQNameR();
+		} 
+		else if (pl.rWId == -1 && shop == false) {
+			changeW = true;
+		} else {
+			//set as melee stats
+			localPlDamage = pl.getDamageM(); 
+			localPlSpeed = pl.getSpeedM();
+			localPlName = pl.getNameM();
+			localPlQName = pl.getQNameM();
+		}
+		
         if (changeW == true) { //force weapon change
             w.newWeapon();
             SetStats(w);
+			changeW = false;
 			return;
         } 
         else if (wGen == true) {
@@ -513,16 +531,16 @@ public class Dungeon {
         else if (shop == true) {
             System.out.println("");
             System.out.println("  Current Weapon:");
-            System.out.println("  Name: "+pl.getName());
-            System.out.println("  Quality: "+pl.getQName());
-            System.out.println("  Damage: "+pl.getDamage()); 
-            System.out.println("  Speed: "+pl.getSpeed());
+            System.out.println("  Name: "+localPlName);
+            System.out.println("  Quality: "+localPlQName);
+            System.out.println("  Damage: "+localPlDamage); 
+            System.out.println("  Speed: "+localPlSpeed);
             System.out.println("");
             System.out.println("  New Weapon:");
-            System.out.println("  Name: "+w.name);
-            System.out.println("  Quality: "+w.qualityN);
-            System.out.println("  Damage: "+w.getDamage()); 
-            System.out.println("  Speed: "+w.getSpeed());
+            System.out.println("  Name: "+localWDamage);
+            System.out.println("  Quality: "+localWQName);
+            System.out.println("  Damage: "+localWDamage); 
+            System.out.println("  Speed: "+localWSpeed);
             System.out.println("");
             System.out.println("  Cost: "+weaponCost);
             System.out.println("  Balance: "+pl.getCash());
@@ -555,16 +573,16 @@ public class Dungeon {
                 w.newWeapon();
                 System.out.println("");
                 System.out.println("  Current Weapon:");
-                System.out.println("  Name: "+pl.getName());
-                System.out.println("  Quality: "+pl.getQName());
-                System.out.println("  Damage: "+pl.getDamage()); 
-                System.out.println("  Speed: "+pl.getSpeed());
+                System.out.println("  Name: "+localPlName);
+                System.out.println("  Quality: "+localPlQName);
+                System.out.println("  Damage: "+localPlDamage); 
+                System.out.println("  Speed: "+localPlSpeed);
                 System.out.println("");
                 System.out.println("  New Weapon:");
-                System.out.println("  Name: "+w.name);
-                System.out.println("  Quality: "+w.qualityN);
-                System.out.println("  Damage: "+w.getDamage()); 
-                System.out.println("  Speed: "+w.getSpeed());
+                System.out.println("  Name: "+localWName);
+                System.out.println("  Quality: "+localWQName);
+                System.out.println("  Damage: "+localWDamage); 
+                System.out.println("  Speed: "+localWSpeed);
                 System.out.println("");
                 System.out.println("  Do you want to change your weapon?");
                 System.out.println("  ==================================");
@@ -774,6 +792,7 @@ public class Dungeon {
         int enemyId;
         //only selects weapon up to + including current level
         Random t = new Random();
+        Random q = new Random();
         int tier = 5;
         while (tier > 3) {
             tier = t.nextInt(level)+1;
@@ -783,7 +802,8 @@ public class Dungeon {
             //decide tier of enemy here or up there ^
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");
                     switch(tier) {
-                        default: enArr = new int[]{0,1,3,7,9,17,18,23,25,32 }; break;//possible enemy by Id tier
+						//each case reflects different tier enemy spawns
+                        default: enArr = new int[]{0,1,3,7,9,17,18,23,25,32 }; break;
                         case 2:  enArr = new int[]{2,4,6,11,14,15,20,31}; break;
                         case 3:  enArr = new int[]{5,12,20,30}; break;
                     }
@@ -803,8 +823,6 @@ public class Dungeon {
                         case 2:  enArr = new int[]{2,6,8,11,14,15,31,34}; break;
                         case 3:  enArr = new int[]{5,10,20}; break;
                     }
-                    enemyId = EnemyId(enArr);
-                    EnemyGen(enemyId); break;
             case 4: System.out.println("  An alter to some unknown deity stands wreathed in shadow");     
                     enArr = new int[]{4,5,10,11,12,25};
                     enemyId = EnemyId(enArr);
