@@ -8,7 +8,7 @@ public class Ranged extends Weapon {
     }
 	
 	public int getSpeed() {
-		return (int) Math.round(speed * qualityS); //round speed to integer
+		return speed; //speed for ranged weapons is ammo
 	}
 	
 	public String getType() {
@@ -35,7 +35,8 @@ public class Ranged extends Weapon {
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
         en.hp -= p.getDamageR();
-
+		pl.setAmmo(-1);
+		
         // Damage output
 		System.out.println("");
         System.out.println("  You hit the "+ w.getName()+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");

@@ -34,6 +34,6 @@ public class Magic extends Weapon {
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        //???
+		//?
     }
 }
