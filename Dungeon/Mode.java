@@ -30,7 +30,7 @@ public class Mode {
 	public static void main(String[] args)throws Exception { 
 		new Mode();
 		Dungeon d = new Dungeon();
-		DungeonT dt = new DungeonT();
+		//DungeonT dt = new DungeonT();
 		
 		BufferedReader br = new BufferedReader(new FileReader("Save.txt")); 
 		System.out.println("hello");
@@ -40,7 +40,7 @@ public class Mode {
 			System.exit(1);
 		} 
 		else { 
-			dt.main(null);
+			//dt.main(null);
 			System.exit(1);
 		}
 	}

@@ -839,7 +839,7 @@ public class Dungeon {
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 6: System.out.println("  shelves full of exotic potions and illegible tomes surround you"); 
+            case 6: System.out.println("  Shelves full of exotic potions and illegible tomes surround you"); 
                     switch(tier) {
                         default: enArr = new int[]{0,1,3,7,9,17,18,23}; break;
                         case 2:  enArr = new int[]{2,6,19,28,29}; break;
@@ -855,7 +855,7 @@ public class Dungeon {
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 8: System.out.println("  thick threads of spider silk coat the ceiling and walls around you"); 
+            case 8: System.out.println("  Thick threads of spider silk coat the ceiling and walls around you"); 
                     enArr = new int[]{1};
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
@@ -870,49 +870,89 @@ public class Dungeon {
             case 10:System.out.println("  You enter an unremarkable little cave, recently inhabited..."); 
                     switch(tier) {
                         default: enArr = new int[]{0,1,3,7,9,23,37}; break;
-                        case 2:  enArr = new int[]{}; break;
-                        case 3:  enArr = new int[]{}; break;
+                        case 2:  enArr = new int[]{2,6,8,11,14,15,22,31,33,34}; break;
+                        case 3:  enArr = new int[]{5,13,20,24,30}; break;
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 11:System.out.println("  In the darkness you barely avoid falling into the underground lake in front of you");
-                    enArr = new int[]{16,17,18,24,27,30};
+                    switch(tier) {
+                        default: enArr = new int[]{0,7,17,18,21,23}; break;
+                        case 2:  enArr = new int[]{2,6,8,11,14,19,22,28,29,31}; break;
+                        case 3:  enArr = new int[]{16,20,24,27,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 12:System.out.println("  Bones and other, fresher, remains, lay on the floor, surrounding a dark crevice in the wall"); 
-                    enArr = new int[]{2,3,13,16,21,22,24,30};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,9,21,25}; break;
+                        case 2:  enArr = new int[]{4,6,8,11,14,15,19,22,36}; break;
+                        case 3:  enArr = new int[]{10,12,20,24}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 13:System.out.println("  Strange symbols cover all this room's surfaces"); 
-                    enArr = new int[]{4,5,11,12,15,20,25};
+                    switch(tier) {
+                        default: enArr = new int[]{0,7,23,25,35}; break;
+                        case 2:  enArr = new int[]{4,8,11,15,28,29}; break;
+                        case 3:  enArr = new int[]{5,10,12,20,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 14:System.out.println("  It looks like there was once a forge here"); 
-                    enArr = new int[]{0,6,7,8,14,15,23,26};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,23,31}; break;
+                        case 2:  enArr = new int[]{2,6,8,11,19}; break;
+                        case 3:  enArr = new int[]{5,10,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 15:System.out.println("  rusted weapons and armour lay abandoned around you"); 
-                    enArr = new int[]{0,6,7,8,14,15,23};
+            case 15:System.out.println("  Rusted weapons and armour lay abandoned around you"); 
+                    switch(tier) {
+                        default: enArr = new int[]{0,7,23,25}; break;
+                        case 2:  enArr = new int[]{2,6,8,14,19,22,31}; break;
+                        case 3:  enArr = new int[]{5,10,13,20,24}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 16:System.out.println("  The ground before you falls away into a seemingly endless abyss"); 
-                    enArr = new int[]{10,12,13,17,18,26,27,28,29};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,9,21,25}; break;
+                        case 2:  enArr = new int[]{2,6,14,22,31,33,36}; break;
+                        case 3:  enArr = new int[]{10,16,20,24,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 17:System.out.println("  The air around you suddenly cools"); 
-                    enArr = new int[]{4,10,12,29};
+                    switch(tier) {
+                        default: enArr = new int[]{17,18,25,35}; break;
+                        case 2:  enArr = new int[]{19,28,29,36}; break;
+                        case 3:  enArr = new int[]{5,10,12,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 18:System.out.println("  in front of you is a once-great statue of some forgotten hero"); 
-                    enArr = new int[]{0,6,9,11,19,20,28};
+            case 18:System.out.println("  In front of you is a once-great statue of some forgotten king"); 
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,23}; break;
+                        case 2:  enArr = new int[]{2,4,8,11,14,19,34}; break;
+                        case 3:  enArr = new int[]{5,10,20}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 19:System.out.println("  A thick mist gathers around your feet"); 
-                    enArr = new int[]{4,5,10,12,17,29,31};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,17,18,25,35}; break;
+                        case 2:  enArr = new int[]{6,11,15,19,28,29,33,34}; break;
+                        case 3:  enArr = new int[]{10,12,24,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 20:System.out.println("  You enter a mineshaft, long abandoned to rot and degradation"); 
-                    enArr = new int[]{0,1,2,3,7,9,23,31};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,3,7,9,21,23}; break;
+                        case 2:  enArr = new int[]{2,4,6,8,11,14,22,31,34}; break;
+                        case 3:  enArr = new int[]{5,10,24,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
@@ -922,16 +962,28 @@ public class Dungeon {
                     enArr = new int[]{32};
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break; 
-            case 23:System.out.println("  A portal to some dark world floats omniously in front of you"); 
-                    enArr = new int[]{10,11,12};
+            case 23:System.out.println("  A portal to some dark world opens in front of you"); 
+                    switch(tier) {
+                        default: enArr = new int[]{25,35}; break;
+                        case 2:  enArr = new int[]{28,29}; break;
+                        case 3:  enArr = new int[]{10,12,26,27}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 24:System.out.println("  The floor is littered with the old bodies of would-be heroes"); 
-                    enArr = new int[]{0,6,10,19,23};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,21,23}; break;
+                        case 2:  enArr = new int[]{2,6,8,11,14,15,19,22,31,33,34,36}; break;
+                        case 3:  enArr = new int[]{10,13,20,24,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 25:System.out.println("  the doorway to this room has strange runes scrawled across it - probably a warning"); 
-                    enArr = new int[]{2,13,20,21,24,30,31};
+                    switch(tier) {
+                        default: enArr = new int[]{0,1,7,17,18,25}; break;
+                        case 2:  enArr = new int[]{2,4,6,11,14,28,29,34}; break;
+                        case 3:  enArr = new int[]{10,12,13,20,24,26,27,30}; break;
+                    }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
