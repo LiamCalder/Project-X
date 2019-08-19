@@ -65,7 +65,7 @@ public abstract class Weapon {
 	
 	private void QualityT1(int Id)  {
 		//Only negative effects on stats (0 < quality < 1)
-		d.weaponCost = (int) Math.round(d.level * 20);
+		d.weaponCost = (int) Math.round(d.level * 10);
 		switch (Id) {
 			case 1: qualityD = 1;   qualityS = 1;   qualityN = "Basic "; break;
 			case 2: qualityD = 0.8; qualityS = 0.9; qualityN = "Flimsy "; break;
@@ -91,7 +91,7 @@ public abstract class Weapon {
     
     private void QualityT2(int Id) {
         //Mixed effects on stats or small buff
-		d.weaponCost = (int) Math.round(d.level * 30);
+		d.weaponCost = (int) Math.round(d.level * 20);
         switch (Id) {
             case 1: qualityD = 0.8; qualityS = 1.7; qualityN = "Light "; break;
             case 2: qualityD = 1.7; qualityS = 0.8; qualityN = "Heavy "; break;
@@ -111,7 +111,7 @@ public abstract class Weapon {
     }
     
      private void QualityT3(int Id) {
-		 d.weaponCost = (int) Math.round(d.level * 40);
+		 d.weaponCost = (int) Math.round(d.level * 30);
         //good effects of stats (1 < quality)
         switch (Id) {
             case 1: qualityD = 1.3; qualityS = 1.3; qualityN = "Enhanced "; break;
@@ -133,7 +133,7 @@ public abstract class Weapon {
     }
     
     private void QualityT4(int Id) {
-		d.weaponCost = (int) Math.round(d.level * 50);
+		d.weaponCost = (int) Math.round(d.level * 40);
         //Special stat boosts (need coding)
         switch (Id) {
             case 1:; //Flaming (cont. burn damage)

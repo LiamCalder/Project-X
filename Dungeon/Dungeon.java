@@ -10,8 +10,11 @@ public class Dungeon {
     static double healthMult = 1.0; //enemy health = base x this
     static int potionHeal = 60; //potion regen amount
     static int potionMana = 60;
-    static int hPotionCost = 10;//base costs for potions
-    static int mPotionCost = 10;
+    static int potionBCost = 10;//base costs for potions
+	static int hPotionCost = 10;//current cost
+	static int mPotionCost = 10;
+	static double mPotionMult = 1.0;//cost multiplier
+	static double hPotionMult = 1.0;//cost multiplier
     static int weaponCost;
     static int enId;
     static Weapon shopW;
@@ -130,7 +133,7 @@ public class Dungeon {
             System.out.println("");
             System.out.println("       Do you want to enter The Dungeon?");
             System.out.println("  ===========================================");
-            System.out.println("  [Start] [Quit] [Help] [Controls] [Tutorial]");
+            System.out.println("  [Start] [Help] [Controls] [Tutorial] [Quit]");
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
@@ -204,6 +207,7 @@ public class Dungeon {
         System.out.println("  When you need to make a choice, your options appear in");
         System.out.println("  square brackets under a double line, like this:");
         System.out.println("");
+		System.out.println("   What will you do?");
         System.out.println("  ===================");
         System.out.println("  [Option1] [Option2]");
         System.out.println("");
@@ -217,7 +221,7 @@ public class Dungeon {
     
     private static void Controls(String[] args) {
         System.out.println("");
-        System.out.println("  KEYBINDINGS           FUNCTION");
+        System.out.println("  KEYBINDINGS            FUNCTION");
         System.out.println("  'quit' or 'q'..........save and quit the game");
         System.out.println("  'help' or 'h' or '?'...bring up help menu");
         System.out.println("  'examine' or 'e'.......examine enemy");
@@ -282,6 +286,8 @@ public class Dungeon {
         Delay(null);
         System.out.println("  A " + e.getName() + " appears!");
         Delay(null);
+		String subInput = "";
+		String input = "";
         
         while (en.getHealth() > 0) {
             Scanner s = new Scanner(System.in);
@@ -290,19 +296,20 @@ public class Dungeon {
             System.out.println("  ===========================");
             System.out.println("  [Weapon]  [Potions]  [Last]");
 			System.out.print("  ");
-            String input = s.nextLine();
+            input = s.nextLine();
 			if (input.equalsIgnoreCase("last") || input.equalsIgnoreCase("l")) {
 				last = true;
 				//select last choice to make battles less tedious
 			}
-            else if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
-                System.out.println("");
-				System.out.println("       What weapon do you use?");
-				System.out.println("  ==================================");
-				System.out.println("  [Melee] [Ranged("+pl.getAmmo()+")] [Spell] [Back]");
-				System.out.print("  ");
-				String subInput = s.nextLine();
-				
+            if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w") || last == true) {
+				if (last != true) {
+					System.out.println("");
+					System.out.println("       What weapon do you use?");
+					System.out.println("  ==================================");
+					System.out.println("  [Melee] [Ranged("+pl.getAmmo()+")] [Spell] [Back]");
+					System.out.print("  ");
+					subInput = s.nextLine();
+				}
 				if (subInput.equalsIgnoreCase("melee") || subInput.equalsIgnoreCase("m")) {
 					enDodgeChance(e, en);
 					if (en.isDead == true) {
@@ -352,13 +359,15 @@ public class Dungeon {
 					continue;
 				}
             }
-			else if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
-				System.out.println("");
-				System.out.println("    What potion do you use?");
-				System.out.println("  ============================");
-				System.out.println("  [Health("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")] [Back]");
-				System.out.print("  ");
-				String subInput = s.nextLine();
+			else if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p") || last == true) {
+				if (last != true) {
+					System.out.println("");
+					System.out.println("    What potion do you use?");
+					System.out.println("  ============================");
+					System.out.println("  [Health("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")] [Back]");
+					System.out.print("  ");
+					subInput = s.nextLine();
+				}
 				if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
 					if (pl.getHPotions() > 0) {
 						System.out.println("  You feel your body being repaired");
@@ -398,6 +407,7 @@ public class Dungeon {
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
             Delay(null);
+			last = false;
         }
     }
     
@@ -430,6 +440,7 @@ public class Dungeon {
     }
     
     private static void Shop(String[] args) {
+		shop = true;
         Scanner s = new Scanner(System.in);
         String input = "";
         String subInput = "";
@@ -460,7 +471,9 @@ public class Dungeon {
                     if (pl.getCash() > hPotionCost) {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
-                        hPotionCost = (int) Math.round(hPotionCost * 1.5);
+						hPotionMult = hPotionMult * 1.5;
+                        hPotionCost = (int) Math.round(potionBCost * hPotionMult);
+						
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
                     } else {
@@ -471,7 +484,8 @@ public class Dungeon {
                     if (pl.getCash() > mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
-                        mPotionCost = (int) Math.round(mPotionCost * 1.5);
+						mPotionMult = mPotionMult * 1.5;
+                        mPotionCost = (int) Math.round(potionBCost * mPotionMult);
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getMPotions()+" health potions");
                     } else {
@@ -485,9 +499,7 @@ public class Dungeon {
                 } 
             }
             else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
-                shop = true;
                 GetStats(shopW);
-                shop = false;
             }
             else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
                 System.out.println("  The shopkeeper wishes you luck");
@@ -497,6 +509,7 @@ public class Dungeon {
             }
             Delay(null);
         }
+		shop = false;
     }  
     
     private static void GetLoot(String[] args) {
@@ -532,7 +545,7 @@ public class Dungeon {
 		} 
 		else if(w.getType().equalsIgnoreCase("ranged")) {
 			pl.setDamageR(w.getDamage()); 
-			pl.setAmmo(w.getSpeed());
+			pl.setNewAmmo(w.getSpeed());
 			pl.setNameR(w.getName());
 			w.SendQualityNameR();
 		}
@@ -554,7 +567,7 @@ public class Dungeon {
 		if (pl.rWId == -1 && shop == false) {
 			changeW = true;
 		}
-        if (changeW == true) { //force weapon change
+        if (changeW == true) { //automatic weapon change
             w.newWeapon();
             SetStats(w);
 			changeW = false;
@@ -570,7 +583,7 @@ public class Dungeon {
 			localPlSpeed = pl.getAmmo();
 			localPlName = pl.getNameR();
 			localPlQName = pl.getQNameR();
-			speedType = "  Ammo: ";
+			speedType = "  Max Ammo: ";
 		}  
 		if (w.getType().equalsIgnoreCase("melee")) {
 			//change melee weapon
@@ -800,16 +813,24 @@ public class Dungeon {
     
     private static void Examine(int Id) {
         switch (Id) {
-            case 1:System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones."); break;
-            case 2:System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");  break;
-            case 3:System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction."); break;
-            case 4:System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
-            case 5:System.out.print  ("  Necromancers are the most despicable of all the Magi, performing the darkest magics on the deceased to ");
-                   System.out.println("  bend into their undying slaves."); break;
-            case 6:System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon"); break;
-            case 7:System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow"); break;
-            case 8:System.out.println("  Perhaps the most infamous of foes, the goblin "); break;
-            //... on and on it goes.
+            case 0: System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones.");
+					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
+			case 1: System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");
+					System.out.println("  Tier: 1    Type: Melee    Highest stat: Speed"); break;
+			case 2: System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction.");
+					System.out.println("  Tier: 2    Type: Melee    Highest stat: Damage"); break;
+			case 3: System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
+					System.out.println("  Tier: 1    Type: Melee    Highest stat: Speed"); break;
+			case 4: System.out.print  ("  Necromancers are the most despised of all magicians, performing the darkest magics on the deceased to ");
+					System.out.println("  bend into their undying slaves.");
+					System.out.println("  Tier: 1    Type: Magic    Highest stat: Damage"); break;
+			case 6: System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon");
+					System.out.println("  Tier: 3    Type: Magic    Highest stat: Damage"); break;
+			case 7: System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow");
+					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
+			case 8: System.out.println("  Perhaps the most infamous of foes, the goblin "); 
+					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
+			//... on and on it goes.
             default:System.out.println("Congrats! this enemy doesn't exist"); break;
         }
     }

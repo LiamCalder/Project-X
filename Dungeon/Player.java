@@ -2,7 +2,7 @@ public class Player {
     Dungeon d = new Dungeon();
 	int hp;
 	static private int mWId = 2; //stores melee weapon Id: (2) is sword
-	static public int rWId = 9; //stores ranged weapon Id
+	static public int rWId = 11; //stores ranged weapon Id
 	static private String nameM;
 	static private String qNameM;
 	static private int damageM;
@@ -126,8 +126,11 @@ public class Player {
 		return damageR;
 	}
 	
-	public void setAmmo(int ra) {
-		ammo += ra;
+	public void setAmmo(int ar) {
+		ammo += ar;
+	}
+	public void setNewAmmo(int nar) {
+		ammo = nar;
 	}
 	public int getAmmo() {
 		return ammo;
