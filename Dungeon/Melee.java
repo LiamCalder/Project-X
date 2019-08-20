@@ -17,37 +17,37 @@ public class Melee extends Weapon {
 	}
 	
 	public void PlHit(Weapon w, Player p) {
-        p.hp -= w.getDamage();
 		String enemyName = w.name;
 		int enemyDamage = w.getDamage();
+		p.takeDamage(enemyDamage);
 
         // Damage output
         System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
-        if (p.hp <= 0) {
+        if (p.getHealth() <= 0) {
 			d.Delay(null);
-			System.out.println("  Final Score: "+p.score);
+			System.out.println("  Final Score: "+p.getScore());
 			d.Delay(null);
             System.out.println("  You Have Perished in the Dungeon...");
 			d.Delay(null);
 			System.exit(1);
         } else {
-            System.out.println("  You have " +p.hp+ " hp.");
+            System.out.println("  You have " +p.getHealth()+ " hp.");
         }
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        en.hp -= p.getDamageM();
-		String enemyName = w.name;
-		int enemyDamage = w.getDamage();
+        String enemyName = w.name;
+		int playerDamage = p.getDamageM();
+		en.takeDamage(playerDamage);
 		
         // Damage output
 		System.out.println("");
-        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameM()+p.getNameM()+" for "+p.getDamageM()+" damage.");
-        if (en.hp <= 0) {
+        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameM()+p.getNameM()+" for "+playerDamage+" damage.");
+        if (en.getHealth() <= 0) {
             System.out.println("  The " +enemyName+ " dies!");
-			en.isDead = true;
+			en.setDead(true);
         } else {
-            System.out.println("  The " +enemyName+ " has " +en.hp+ " hp.");
+            System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
         }
     }
 }

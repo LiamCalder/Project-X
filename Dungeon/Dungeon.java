@@ -6,6 +6,7 @@ public class Dungeon {
     //initialize Variables
     static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
     static String mode = "realistic";
+	static String battleLast;
 	static String weaponType;
     static double healthMult = 1.0; //enemy health = base x this
     static int potionHeal = 60; //potion regen amount
@@ -16,6 +17,7 @@ public class Dungeon {
 	static double mPotionMult = 1.0;//cost multiplier
 	static double hPotionMult = 1.0;//cost multiplier
     static int weaponCost;
+	static int reloadCost;
     static int enId;
     static Weapon shopW;
 	static boolean findWeapon = false;
@@ -24,6 +26,8 @@ public class Dungeon {
     static boolean wGen = false;
     static boolean shop = false;
     static boolean fast = false;
+	static boolean usedMoney = false;
+	static boolean usedLevel = false;
     
     //initialise Classes
     static Player pl = new Player();
@@ -238,12 +242,10 @@ public class Dungeon {
     }
     
     public static void Delay(String[] args) {//wait for user function
-        
         if (fast == true) {
             System.out.println("");
             return;
         }
-        
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
         
@@ -257,15 +259,59 @@ public class Dungeon {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
-        else if (delay.equalsIgnoreCase("fast") || delay.equalsIgnoreCase("f")) {
+        else if (delay.equalsIgnoreCase("fast")) {
             fast = !fast;
         }
-        else if (delay.equalsIgnoreCase("money") || delay.equalsIgnoreCase("m")) {
+        else if (delay.equalsIgnoreCase("money")) {
             pl.setCash(999999999);
+			usedMoney = true;
         }
-        else if (delay.equalsIgnoreCase("level") || delay.equalsIgnoreCase("l")) {
+        else if (delay.equalsIgnoreCase("level")) {
             level = 3;
+			usedLevel = true;
         }
+		else if (delay.equalsIgnoreCase("debug")) {
+			System.out.println("");
+			System.out.println("---- DEBUG STATS ----");
+			System.out.println("");
+			System.out.println("  level: "+level);
+			System.out.println("  Enemy Health Multiplier: "+healthMult);
+			System.out.println("  Last enemy Id: "+enId);
+			System.out.println("");
+			System.out.println("  Current Boolean states");
+			System.out.println("  Weapon found: "+findWeapon);
+			System.out.println("  getting loot from chest: "+isChest);
+			System.out.println("  force weapon change: "+changeW);
+			System.out.println("  Generate weapon when possible: "+wGen);
+			System.out.println("  Currently in Shop: "+shop);
+			System.out.println("  Fast mode on: "+fast);
+			System.out.println("  Artificially advanced money: "+usedMoney);
+			System.out.println("  Artificially advanced level: "+usedLevel);
+			System.out.println("");
+			System.out.println("  Player Values");
+			System.out.println("  Coins: "+pl.getCash());
+			System.out.println("  Health: "+pl.getHealth());
+			System.out.println("  Score: "+pl.getScore());
+			System.out.println("  Mana: "+pl.getMana());
+			System.out.println("  Health Potions: "+pl.getHPotions());
+			System.out.println("  Mana Potions: "+pl.getMPotions());
+			System.out.println("  Melee Weapon Id: "+pl.getWeaponM());
+			System.out.println("  Melee Weapon name: "+pl.getNameM());
+			System.out.println("  Melee Weapon quality: "+pl.getQNameM());
+			System.out.println("  Melee Weapon damage: "+pl.getDamageM());
+			System.out.println("  Melee Weapon speed: "+pl.getSpeedM());
+			System.out.println("  Ranged Weapon Id: "+pl.getWeaponR());
+			System.out.println("  Melee Weapon name: "+pl.getNameR());
+			System.out.println("  Ranged Weapon quality: "+pl.getQNameR());
+			System.out.println("  Ranged Weapon damage: "+pl.getDamageR());
+			System.out.println("  Ranged Weapon ammo: "+pl.getAmmo());
+			System.out.println("  Ranged weapon max ammo: "+pl.getMaxAmmo());
+			System.out.println("");
+			System.out.println("---- DEBUG STATS ----");
+			System.out.println("");
+			
+			
+		}
     }
 
     private static int RoomId(int roomId) { //room Id list
@@ -283,11 +329,16 @@ public class Dungeon {
         Enemy en = new Enemy();
         e.newWeapon();
         en.setHealth((int) Math.round(h*healthMult)); //set enemy health
-        Delay(null);
-        System.out.println("  A " + e.getName() + " appears!");
-        Delay(null);
-		String subInput = "";
 		String input = "";
+		String subInput = battleLast;
+		Delay(null);
+		if (enId == 32) {
+			System.out.println("  It's a Mimic!");
+		} else {
+			System.out.println("  A " + e.getName() + " appears!");
+		}
+        
+        Delay(null);
         
         while (en.getHealth() > 0) {
             Scanner s = new Scanner(System.in);
@@ -310,9 +361,10 @@ public class Dungeon {
 					System.out.print("  ");
 					subInput = s.nextLine();
 				}
+				System.out.println(subInput);
 				if (subInput.equalsIgnoreCase("melee") || subInput.equalsIgnoreCase("m")) {
 					enDodgeChance(e, en);
-					if (en.isDead == true) {
+					if (en.getDead()) {
 						pl.addScore(100+h); //+100 for winning, + damage dealt
 						System.out.println("");
 						GetLoot(null); //get money
@@ -326,7 +378,7 @@ public class Dungeon {
 				else if (subInput.equalsIgnoreCase("ranged") || subInput.equalsIgnoreCase("r")) {
 					if (pl.getAmmo() != 0) {
 						ranged.EnHit(e, en, pl);
-						if (en.isDead == true) {
+						if (en.getDead()) {
 							pl.addScore(100+h); //+100 for winning, + damage dealt
 							System.out.println("");
 							GetLoot(null); //get money
@@ -342,8 +394,16 @@ public class Dungeon {
 					}
 				}
 				else if (subInput.equalsIgnoreCase("spell") || subInput.equalsIgnoreCase("s")) {
+					System.out.println("     What spell do you use?");
+					System.out.println("  ===========================");
+					if (pl.getSpell("Wall of Fire")) {
+						
+					}
+					System.out.print("  ");
+					input = s.nextLine();
+					
 					magic.EnHit(e, en, pl);
-					if (en.isDead == true) {
+					if (en.getDead()) {
 						pl.addScore(100+h); //+100 for winning, + damage dealt
 						System.out.println("");
 						GetLoot(null); //get money
@@ -406,8 +466,9 @@ public class Dungeon {
 				System.out.println("");
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
-            Delay(null);
+            battleLast = subInput;
 			last = false;
+			Delay(null);
         }
     }
     
@@ -451,7 +512,7 @@ public class Dungeon {
         
         
         while (!input.equalsIgnoreCase("leave") && !input.equalsIgnoreCase("l")) {
-            System.out.println("   What Do you want to buy?");
+            System.out.println("   What do you want to buy?");
             System.out.println("  ===========================");
             System.out.println("  [Potions] [Weapons] [Leave]");
             System.out.print("  ");
@@ -459,7 +520,7 @@ public class Dungeon {
             System.out.println("");
             
             if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
-                System.out.println("      What Do you want to buy?");
+                System.out.println("      What do you want to buy?");
                 System.out.println("  ================================");
                 System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]  [Back]");
                 System.out.println("  Balance: "+pl.getCash());
@@ -471,8 +532,7 @@ public class Dungeon {
                     if (pl.getCash() > hPotionCost) {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
-						hPotionMult = hPotionMult * 1.5;
-                        hPotionCost = (int) Math.round(potionBCost * hPotionMult);
+                        hPotionCost += (int) Math.round((potionBCost * hPotionMult) * level);
 						
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
@@ -484,8 +544,7 @@ public class Dungeon {
                     if (pl.getCash() > mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
-						mPotionMult = mPotionMult * 1.5;
-                        mPotionCost = (int) Math.round(potionBCost * mPotionMult);
+                        mPotionCost += (int) Math.round((potionBCost * mPotionMult) * level);
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getMPotions()+" health potions");
                     } else {
@@ -499,7 +558,38 @@ public class Dungeon {
                 } 
             }
             else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
-                GetStats(shopW);
+				System.out.println("    What do You want to buy?");
+				System.out.println("  ============================");
+				System.out.println("  [Weapon] [Reload:"+reloadCost+"] [Back]");
+				System.out.print("  ");
+				subInput = s.nextLine();
+				System.out.println("");
+				
+                if (subInput.equalsIgnoreCase("weapon") || subInput.equalsIgnoreCase("w")) {
+					GetStats(shopW);
+				}
+				else if (subInput.equalsIgnoreCase("reload") || subInput.equalsIgnoreCase("r")) {
+					System.out.println("  Purchase "+pl.getAmmoDiff()+" ammo?");
+					System.out.println("  ==================");
+					System.out.println("[Yes]   [No]");
+					System.out.print("  ");
+					subInput = s.nextLine();
+					System.out.println("");
+					
+					if (subInput.equalsIgnoreCase("yes") || subInput.equalsIgnoreCase("y")) {
+						if (pl.getCash() > reloadCost) {
+							System.out.println("  You purchase a reload");
+							pl.setCash(-reloadCost);
+							pl.setNewAmmo(pl.getMaxAmmo());
+						} else {
+							System.out.println("  You don't have enough money!");
+						}
+					} else {
+						continue;
+					}
+				} else {
+					continue;
+				}
             }
             else if (input.equalsIgnoreCase("leave") || input.equalsIgnoreCase("l")) {
                 System.out.println("  The shopkeeper wishes you luck");
@@ -514,7 +604,10 @@ public class Dungeon {
     
     private static void GetLoot(String[] args) {
         Random r = new Random();
-        int wChance = r.nextInt(10)+1;
+		int wChance = r.nextInt(10)+1;
+		if (pl.getCash() > 99999999) { //debug always make weapons appear
+			wChance = 1;
+		}
         if (wChance == 1) {
 			findWeapon = true;
             System.out.println("  You find a weapon!");
@@ -530,6 +623,7 @@ public class Dungeon {
                 isChest = false;
                 Delay(null);
             }
+			System.out.println("");
             System.out.println("  You find "+loot+" coins");
             Delay(null);
             pl.setCash(loot);
@@ -546,12 +640,20 @@ public class Dungeon {
 		else if(w.getType().equalsIgnoreCase("ranged")) {
 			pl.setDamageR(w.getDamage()); 
 			pl.setNewAmmo(w.getSpeed());
+			pl.setMaxAmmo(w.getSpeed());
 			pl.setNameR(w.getName());
 			w.SendQualityNameR();
+			reloadCost = weaponCost/2;
+			if (reloadCost < 10) {
+				reloadCost = 10;
+			}
 		}
     }
     
     private static void GetStats(Weapon w) {
+		if (findWeapon == true) {
+			w.newWeapon();
+		}
         Scanner s = new Scanner(System.in);
         String input = "";
 		int localPlDamage = 0;
@@ -563,10 +665,8 @@ public class Dungeon {
 		String localWName = w.getName();
 		String localWQName = w.qualityN;
 		String speedType = "  Speed: ";
+		String showAmmo = "";
 		
-		if (pl.rWId == -1 && shop == false) {
-			changeW = true;
-		}
         if (changeW == true) { //automatic weapon change
             w.newWeapon();
             SetStats(w);
@@ -577,13 +677,14 @@ public class Dungeon {
             shopW = w;
 			return;
         }
-		if (w.getType().equalsIgnoreCase("ranged") && pl.rWId != -1) {
+		if (w.getType().equalsIgnoreCase("ranged") && pl.getWeaponR() != -1) {
 			//change ranged weapon
 			localPlDamage = pl.getDamageR(); 
-			localPlSpeed = pl.getAmmo();
+			localPlSpeed = pl.getMaxAmmo();
 			localPlName = pl.getNameR();
 			localPlQName = pl.getQNameR();
 			speedType = "  Max Ammo: ";
+			showAmmo = "  Current Ammo: ";
 		}  
 		if (w.getType().equalsIgnoreCase("melee")) {
 			//change melee weapon
@@ -592,6 +693,7 @@ public class Dungeon {
 			localPlName = pl.getNameM();
 			localPlQName = pl.getQNameM();
 			speedType = "  Speed: ";
+			showAmmo = "";
 		}
         if (shop == true) {
             System.out.println("");
@@ -599,13 +701,14 @@ public class Dungeon {
             System.out.println("  Name: "+localPlName);
             System.out.println("  Quality: "+localPlQName);
             System.out.println("  Damage: "+localPlDamage); 
-            System.out.println(speedType+localPlSpeed);
+            System.out.println(   speedType+localPlSpeed);
+			System.out.println(   showAmmo+pl.getAmmo());
             System.out.println("");
             System.out.println("  New Weapon:");
             System.out.println("  Name: "+localWName);
             System.out.println("  Quality: "+localWQName);
             System.out.println("  Damage: "+localWDamage); 
-            System.out.println(speedType+localWSpeed);
+            System.out.println(   speedType+localWSpeed);
             System.out.println("");
             System.out.println("  Cost: "+weaponCost);
             System.out.println("  Balance: "+pl.getCash());
@@ -623,7 +726,7 @@ public class Dungeon {
                     pl.setCash(-weaponCost);
                     SetStats(w);
                 } else {
-                    System.out.println("  You son't have enough money!");
+                    System.out.println("  You don't have enough money!");
                 }
             }
             else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) {
@@ -635,19 +738,19 @@ public class Dungeon {
         } 
         if (findWeapon == true) { //if you find the weapon
             while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
-                w.newWeapon();
                 System.out.println("");
                 System.out.println("  Current Weapon:");
                 System.out.println("  Name: "+localPlName);
                 System.out.println("  Quality: "+localPlQName);
                 System.out.println("  Damage: "+localPlDamage); 
-                System.out.println("  Speed: "+localPlSpeed);
+                System.out.println(   speedType+localPlSpeed);
+				System.out.println(   showAmmo+pl.getAmmo());
                 System.out.println("");
                 System.out.println("  New Weapon:");
                 System.out.println("  Name: "+localWName);
                 System.out.println("  Quality: "+localWQName);
                 System.out.println("  Damage: "+localWDamage); 
-                System.out.println("  Speed: "+localWSpeed);
+                System.out.println(   speedType+localWSpeed);
                 System.out.println("");
                 System.out.println("  Do you want to change your weapon?");
                 System.out.println("  ==================================");
@@ -761,6 +864,7 @@ public class Dungeon {
     }
     
     private static void EnemyGen(int Id) {//enemy Id list
+	enId = Id;
         switch (Id) {
                  //Battle(Enemy base stats, skeleton health)
             case 0:Battle(skeleton, 15); break;
@@ -807,7 +911,6 @@ public class Dungeon {
     private static int EnemyId(int[] enArr) {
         Random r = new Random();
         int Id = r.nextInt(enArr.length);
-        enId = Id;
         return enArr[Id];
     }
     

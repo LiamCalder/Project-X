@@ -17,34 +17,38 @@ public class Ranged extends Weapon {
 	}
 	
 	public void PlHit(Weapon w, Player p) {
-        p.hp -= w.getDamage();
+        String enemyName = w.name;
+		int enemyDamage = w.getDamage();
+		p.takeDamage(enemyDamage);
 
         // Damage output
-        System.out.println("  The " + w.getName() + " hits you for " + w.getDamage() + " damage.");
-        if (p.hp <= 0) {
+        System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
+        if (p.getHealth() <= 0) {
 			d.Delay(null);
-			System.out.println("  Final Score: "+p.score);
+			System.out.println("  Final Score: "+p.getScore());
 			d.Delay(null);
             System.out.println("  You Have Perished in the Dungeon...");
 			d.Delay(null);
 			System.exit(1);
         } else {
-            System.out.println("  You have " + p.hp + " hp.");
+            System.out.println("  You have " +p.getHealth()+ " hp.");
         }
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        en.hp -= p.getDamageR();
-		pl.setAmmo(-1);
+		String enemyName = w.name;
+		int playerDamage = p.getDamageR();
+		en.takeDamage(playerDamage);
+		pl.useAmmo(-1);
 		
         // Damage output
 		System.out.println("");
-        System.out.println("  You hit the "+ w.getName()+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");
-        if (en.hp <= 0) {
-            System.out.println("  The " + w.getName() + " dies!");
-			en.isDead = true;
+        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");
+        if (en.getHealth() <= 0) {
+            System.out.println("  The " +enemyName+ " dies!");
+			en.setDead(true);
         } else {
-            System.out.println("  The " + w.getName() + " has " + en.hp + " hp.");
+            System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
         }
     }
 }
