@@ -4,7 +4,8 @@ import java.io.*;
 
 public class Dungeon {
     //initialize Variables
-    static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
+    public static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
+	public static int subLevel = 0;
     static String mode = "realistic";
 	static String battleLast;
 	static String weaponType;
@@ -129,7 +130,7 @@ public class Dungeon {
         int weaponM = pl.getWeaponM(); //gives Player melee weapon info from the get go
         WeaponStatsT1(weaponM);
 		changeW = true;
-		int weaponR = pl.getWeaponR(); //gives Player ranged weapon info from the get go (debug)
+		int weaponR = pl.getWeaponR(); //gives Player ranged weapon info from the get go
         WeaponStatsT1(weaponR);
         String input = "";
         while (!input.equalsIgnoreCase("start")) {
@@ -190,6 +191,7 @@ public class Dungeon {
             else {
                 roomArr[i] = roomId; //if no dupes, add Id to array and execute room
 				RoomGen(roomId);
+				subLevel++;
             }
         }
         
@@ -361,7 +363,6 @@ public class Dungeon {
 					System.out.print("  ");
 					subInput = s.nextLine();
 				}
-				System.out.println(subInput);
 				if (subInput.equalsIgnoreCase("melee") || subInput.equalsIgnoreCase("m")) {
 					enDodgeChance(e, en);
 					if (en.getDead()) {
@@ -558,9 +559,9 @@ public class Dungeon {
                 } 
             }
             else if (input.equalsIgnoreCase("weapons") || input.equalsIgnoreCase("w")) {
-				System.out.println("    What do You want to buy?");
-				System.out.println("  ============================");
-				System.out.println("  [Weapon] [Reload:"+reloadCost+"] [Back]");
+				System.out.println("  What do You want to buy?");
+				System.out.println("  ========================");
+				System.out.println("  [Weapon] [Reload] [Back]");
 				System.out.print("  ");
 				subInput = s.nextLine();
 				System.out.println("");
@@ -569,13 +570,17 @@ public class Dungeon {
 					GetStats(shopW);
 				}
 				else if (subInput.equalsIgnoreCase("reload") || subInput.equalsIgnoreCase("r")) {
-					System.out.println("  Purchase "+pl.getAmmoDiff()+" ammo?");
-					System.out.println("  ==================");
-					System.out.println("[Yes]   [No]");
-					System.out.print("  ");
-					subInput = s.nextLine();
-					System.out.println("");
-					
+					if (pl.getAmmoDiff() == 0) {
+						System.out.println("  Purchase "+pl.getAmmoDiff()+" ammo for "+reloadCost+" coins?");
+						System.out.println("  ==============================");
+						System.out.println("         [Yes]       [No]");
+						System.out.print("  ");
+						subInput = s.nextLine();
+						System.out.println("");
+					} else {
+						System.out.println("  You can't hold any more ammo!");
+						continue;
+					}
 					if (subInput.equalsIgnoreCase("yes") || subInput.equalsIgnoreCase("y")) {
 						if (pl.getCash() > reloadCost) {
 							System.out.println("  You purchase a reload");

@@ -13,6 +13,8 @@ public abstract class Weapon {
 	protected Dungeon d = new Dungeon();
 	protected Player pl = new Player();  
 	protected Enemy en = new Enemy();
+	
+	private int forceQuality = 2;
 
     public Weapon(String name, double damage, int speed) {
         this.name = name;
@@ -51,6 +53,12 @@ public abstract class Weapon {
 		}
 		int qualityId;
         
+		if (forceQuality > 0) {
+			QualityT1(1);
+			forceQuality--;
+			return;
+		}
+		
 		switch (tier) {
 			case 1: qualityId = r.nextInt(19)+1;
 					QualityT1(qualityId); break;
@@ -58,8 +66,6 @@ public abstract class Weapon {
 					QualityT2(qualityId); break;
 			case 3: qualityId = r.nextInt(15)+1;
 					QualityT3(qualityId); break;
-			//case 4: qualityId = r.nextInt(10)+1;
-			//		QualityT4(qualityId); break;
 		}
 	}
 	
@@ -85,7 +91,7 @@ public abstract class Weapon {
 			case 16:qualityD = 0.6; qualityS = 0.7; qualityN = "Cheap "; break;
 			case 17:qualityD = 1;   qualityS = 1;   qualityN = "Ordinary "; break;
 			case 18:qualityD = 1;   qualityS = 0.5; qualityN = "Slow "; break;
-			case 19:qualityD = 0.4; qualityS = 0.6; qualityN = "Broken "; break;
+			case 19:qualityD = 0.5; qualityS = 0.6; qualityN = "Broken "; break;
 		}
     }
     
@@ -129,32 +135,6 @@ public abstract class Weapon {
             case 13:qualityD = 1.5; qualityS = 1.3; qualityN = "Strong "; break;
             case 14:qualityD = 1.6; qualityS = 1.6; qualityN = "Mighty "; break;
             case 15:qualityD = 1.7; qualityS = 1.7; qualityN = "Powerful "; break;
-        }
-    }
-    
-    private void QualityT4(int Id) {
-		d.weaponCost = (int) Math.round(d.level * 40);
-        //Special stat boosts (need coding)
-        switch (Id) {
-            case 1:; //Flaming (cont. burn damage)
-            break;
-            case 2:; //Toxic (lower dodge of opp + small cont. damage)
-            break;
-            case 3:; //Grounding (flighing enemies lose dodge buff)
-            break;
-            case 4:; //Vampirical (chance to regain health on hit)
-            break;
-            case 5:; //Heroic (more damage to legendary beasts e.g. Dragons)
-            break;
-            case 6:; //Enchanted (more damage to magical enemies)
-            break;
-            case 7:; //Deadly (more damage to living enemies)
-            break;
-            case 8:; //Holy (more damage to unholy monsters)
-            break;
-            case 9:; //Hunting (more damage to animal monsters)
-            break;
-            case 10:; //Perfect (better than 'powerful' stats)
         }
     }
 }

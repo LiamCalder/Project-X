@@ -25,6 +25,7 @@ public class Melee extends Weapon {
         System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
         if (p.getHealth() <= 0) {
 			d.Delay(null);
+			System.out.println("  Level: "+d.level+"-"+d.subLevel);
 			System.out.println("  Final Score: "+p.getScore());
 			d.Delay(null);
             System.out.println("  You Have Perished in the Dungeon...");
