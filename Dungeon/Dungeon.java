@@ -40,22 +40,22 @@ public class Dungeon {
     //static DungeonT dt = new DungeonT();
     
     //Melee weapons - speed determines dodge chance
-    static Weapon dagger         = new Melee("Dagger", 5, 7);            
-    static Weapon sword          = new Melee("Sword", 7, 6);             
+    static Weapon dagger         = new Melee("Dagger", 6, 7);            
+    static Weapon sword          = new Melee("Sword", 8, 6);             
     static Weapon mace           = new Melee("Mace", 12, 5);                
-    static Weapon axe            = new Melee("Axe", 8, 5);             
+    static Weapon axe            = new Melee("Axe", 9, 5);             
     static Weapon warHammer      = new Melee("War Hammer", 16, 4);        
     static Weapon quarterstaff   = new Melee("Quarterstaff", 10, 8);      
     static Weapon greatsword     = new Melee("Greatsword", 11, 6);      
-    static Weapon shank          = new Melee("Shank", 4, 8);                
+    static Weapon shank          = new Melee("Shank", 5, 8);                
     static Weapon spear          = new Melee("Spear", 8, 6);               
-    static Weapon wristBlades    = new Melee("Wrist Blades", 7, 5);       
+    static Weapon wristBlades    = new Melee("Wrist Blades", 8, 5);       
     static Weapon battleAxe       = new Melee("Battle Axe", 16, 4);          
     static Weapon morningstar    = new Melee("Morningstar", 14, 6);       
     static Weapon pike           = new Melee("Pike", 10, 8);              
-    static Weapon cutlass        = new Melee("Cutlass", 6, 7);           
-    static Weapon flail          = new Melee("Flail", 9, 3);               
-    static Weapon club           = new Melee("Club", 7, 4);      
+    static Weapon cutlass        = new Melee("Cutlass", 7, 7);           
+    static Weapon flail          = new Melee("Flail", 12, 3);               
+    static Weapon club           = new Melee("Club", 8, 4);      
     static Weapon warScythe      = new Melee("War Scythe", 17 ,1);        
             
     //Ranged weapons - ^ same
