@@ -4,7 +4,7 @@ public class Mode {
 	
 	Mode() {
 		//outputs to JFrame instead of console
-		JFrame f=new JFrame();    
+		JFrame f=new JFrame("Bob");
 		
 		//JButton b=new JButton("click");
 		JLabel l = new  JLabel("room");		
@@ -30,13 +30,13 @@ public class Mode {
 	public static void main(String[] args)throws Exception { 
 		new Mode();
 		Dungeon d = new Dungeon();
-		//DungeonT dt = new DungeonT();
+		DungeonT dt = new DungeonT();
 		
 		BufferedReader br = new BufferedReader(new FileReader("Save.txt")); 
 		System.out.println("hello");
 		String st; 
 		if ((st = br.readLine()).equalsIgnoreCase("tutorial")) { 
-			d.main(null);
+			//d.main(null);
 			System.exit(1);
 		} 
 		else { 

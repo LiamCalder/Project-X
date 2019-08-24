@@ -6,7 +6,7 @@ public class Player {
 	static private String nameM;
 	static private String qNameM;
 	static private int damageM;
-	static private int speedM;
+	static private int specialM;
 	// - Ranged
 	static private int rWId = 11; //store ranged weapon Id
 	static private String nameR;
@@ -32,6 +32,7 @@ public class Player {
 	private boolean speed = false;
 	private boolean shift = false;
 	private boolean fireWall = false;
+	private boolean haveSpells = false;
 	
     public Player() {
         hp = 100;
@@ -43,28 +44,30 @@ public class Player {
 	
 	public boolean getSpell(String spell) {
 		switch(spell) {
-			case "Fireball": return flame;
-			case "Lightning Bolt": return lightning;
-			case "Ice Beam": return frost;
-			case "Drain Speed": return sapping;
-			case "Defensive Aura": return aura;
-			case "Swiftness": return speed;
-			case "Dimensional Shift": return shift;
-			case "Wall of Fire": return fireWall;
+			case "haveSpells": return haveSpells;
+			case "flame": return flame;
+			case "spark": return lightning;
+			case "frost": return frost;
+			case "sap": return sapping;
+			case "aura": return aura;
+			case "speed": return speed;
+			case "shift": return shift;
+			case "firewall": return fireWall;
 			default: return false;
 		}
 	}
 	public void giveSpell(String spell) {
 		switch(spell) {
-			case "Fireball": flame = true;
-			case "Lightning Bolt": lightning = true;
-			case "Ice Beam": frost = true;
-			case "Drain Speed": sapping = true;
-			case "Defensive Aura": aura = true;
-			case "Swiftness": speed = true;
-			case "Dimensional Shift": shift = true;
-			case "Wall of Fire": fireWall = true;
+			case "Fireball": flame = true; break;
+			case "Lightning Bolt": lightning = true; break;
+			case "Ice Beam": frost = true; break;
+			case "Drain Speed": sapping = true; break;
+			case "Defensive Aura": aura = true; break;
+			case "Swiftness": speed = true; break;
+			case "Dimensional Shift": shift = true; break;
+			case "Wall of Fire": fireWall = true; break;
 		}
+		haveSpells = true;
 	}
 	
 	public void setHealth(int sh) {
@@ -81,7 +84,7 @@ public class Player {
 	}
 	
 	public void setMana(int sm) {
-		mana = sm;
+		mana += sm;
 		if (mana > 100) {
 			mana = 100;
 		}
@@ -147,11 +150,11 @@ public class Player {
 		return damageM;
 	}
 	
-	public void setSpeedM(int ss) {
-		speedM = ss;
+	public void setSpecialM(int ss) {
+		specialM = ss;
 	}
-	public int getSpeedM() {
-		return speedM;
+	public int getSpecialM() {
+		return specialM;
 	}
 	
 	public void setNameR(String snr) {

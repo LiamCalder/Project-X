@@ -3,7 +3,7 @@ public abstract class Weapon {
     
     protected String name;
     protected double damage; //Passed onto Child Classes
-	protected int speed;
+	protected double special;
 	
 	protected double qualityD;
 	protected double qualityS; //determined in Weapon Class
@@ -14,12 +14,10 @@ public abstract class Weapon {
 	protected Player pl = new Player();  
 	protected Enemy en = new Enemy();
 	
-	private int forceQuality = 2;
-
-    public Weapon(String name, double damage, int speed) {
+    public Weapon(String name, double damage, int special) {
         this.name = name;
         this.damage = damage;
-		this.speed = speed;
+		this.special = special;
     }
 	
 	public void SendQualityNameM() {
@@ -36,9 +34,11 @@ public abstract class Weapon {
 	
 	public abstract String getType();
 	
-	public abstract int getSpeed();
+	public abstract int getSpecial();
 
     public abstract int getDamage();      //These are defined in Child Classes (abstract)
+	
+	public abstract int getBaseDamage();
 	
 	public abstract void PlHit(Weapon w, Player p);
 	
@@ -51,13 +51,14 @@ public abstract class Weapon {
 		while (tier > 3) {
 			tier = r.nextInt(d.level)+1;
 		}
-		int qualityId;
-        
-		if (forceQuality > 0) {
+		
+		if (d.forceQuality > 0) {
 			QualityT1(1);
-			forceQuality--;
+			d.forceQuality--;
 			return;
 		}
+		
+		int qualityId;
 		
 		switch (tier) {
 			case 1: qualityId = r.nextInt(19)+1;

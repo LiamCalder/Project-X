@@ -1,14 +1,18 @@
 public class Ranged extends Weapon {
-    public Ranged(String name, double damage, int speed) {
-        super(name, damage, speed);
+    public Ranged(String name, double damage, int special) {
+        super(name, damage, special);
     }
+
+	public int getBaseDamage() {
+	return (int) damage;	
+	}
 
     public int getDamage() {
         return (int) Math.round(damage * qualityD + multiplier); //round damage to an integer
     }
 	
-	public int getSpeed() {
-		return speed; //speed for ranged weapons is ammo
+	public int getSpecial() {
+		return (int) special; //special for ranged weapons is ammo
 	}
 	
 	public String getType() {

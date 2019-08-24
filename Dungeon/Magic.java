@@ -1,14 +1,19 @@
 public class Magic extends Weapon {
-	public Magic(String name, double damage, int speed) {
-        super(name, damage, speed);
+	public Magic(String name, double damage, int special) {
+        super(name, damage, special);
     }
 	
+	public int getBaseDamage() {
+	return (int) damage;	
+	}
+	
 	public int getDamage() {
+		this.newWeapon();
         return (int) Math.round(damage * qualityD + multiplier); //round damage to an integer
     }
 	
-	public int getSpeed() {
-		return (int) Math.round(speed * qualityS); //round speed to integer
+	public int getSpecial() {
+		return (int) special;
 	}
 	
 	public String getType() {
@@ -37,6 +42,20 @@ public class Magic extends Weapon {
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
-        //?
+		Dungeon d = new Dungeon();
+		String enemyName = w.name;
+		p.setMana(-this.getSpecial());
+        if (this.name.equalsIgnoreCase("Fireball") || this.name.equalsIgnoreCase("Ice Beam") || this.name.equalsIgnoreCase("Lightning Bolt")) {
+			en.takeDamage(this.getDamage());
+			// Damage output
+			System.out.println("");
+			System.out.println("  You hit the "+enemyName+" with your "+this.name+" for "+this.getDamage()+" damage.");
+			if (en.getHealth() <= 0) {
+				System.out.println("  The " +enemyName+ " dies!");
+				en.setDead(true);
+			} else {
+				System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
+			}
+		}
     }
 }

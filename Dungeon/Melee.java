@@ -1,14 +1,17 @@
 public class Melee extends Weapon {
-    public Melee(String name, double damage, int speed) {
-        super(name, damage, speed);
+    public Melee(String name, double damage, int special) {
+        super(name, damage, special);
     }
+	public int getBaseDamage() {
+	return (int) damage;	
+	}
 
     public int getDamage() {
         return (int) Math.round(damage * qualityD + multiplier); //round damage to an integer
     }
 	
-	public int getSpeed() {
-		return (int) Math.round(speed * qualityS); //round speed to integer
+	public int getSpecial() {
+		return (int) Math.round(special * qualityS); //round special to integer
 	}
 	
 	public String getType() {
@@ -17,10 +20,15 @@ public class Melee extends Weapon {
 	}
 	
 	public void PlHit(Weapon w, Player p) {
+		Dungeon d = new Dungeon();
 		String enemyName = w.name;
 		int enemyDamage = w.getDamage();
+		if (d.enId == 37) {
+			System.out.println("  Arvin spasms uselessly on the ground");
+			return;
+		}
 		p.takeDamage(enemyDamage);
-
+		
         // Damage output
         System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
         if (p.getHealth() <= 0) {
@@ -37,6 +45,7 @@ public class Melee extends Weapon {
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
+		Dungeon d = new Dungeon();
         String enemyName = w.name;
 		int playerDamage = p.getDamageM();
 		en.takeDamage(playerDamage);
@@ -47,6 +56,9 @@ public class Melee extends Weapon {
         if (en.getHealth() <= 0) {
             System.out.println("  The " +enemyName+ " dies!");
 			en.setDead(true);
+			if (d.enId == 37) {
+				System.out.println("  You almost feel sorry for killing this pathetic creature. Almost.");
+			}
         } else {
             System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
         }
