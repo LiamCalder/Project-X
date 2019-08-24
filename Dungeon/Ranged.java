@@ -28,13 +28,7 @@ public class Ranged extends Weapon {
         // Damage output
         System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
         if (p.getHealth() <= 0) {
-			d.Delay(null);
-			System.out.println("  Level: "+d.level+"-"+d.subLevel);
-			System.out.println("  Final Score: "+p.getScore());
-			d.Delay(null);
-            System.out.println("  You Have Perished in the Dungeon...");
-			d.Delay(null);
-			System.exit(1);
+			d.End();
         } else {
             System.out.println("  You have " +p.getHealth()+ " hp.");
         }

@@ -7,7 +7,8 @@ public class Dungeon {
     public static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
 	public static int subLevel = 0;
     static String mode = "realistic";
-	static String battleLast = "melee";
+	static String battleLast = "weapon";
+	static String battleSubLast = "melee";
 	static String weaponType;
     static double healthMult = 1.0; //enemy health = base x this
 	static int forceQuality = 2;
@@ -29,9 +30,7 @@ public class Dungeon {
     static boolean wGen = false;
     static boolean shop = false;
     static boolean fast = false;
-	static boolean usedMoney = false;
-	static boolean usedLevel = false;
-	static boolean usedSpells = false;
+	static boolean usedCheats = false;
     
     //initialise Classes
     static Player pl = new Player();
@@ -78,32 +77,32 @@ public class Dungeon {
     static Weapon flame          = new Magic("Fireball", 12, 17);
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 15);    
     static Weapon frost          = new Magic("Ice Beam", 14, 19);         
-    static Weapon sapping        = new Magic("Drain Speed", 3, 20); //decrease en special  
-    static Weapon aura           = new Magic("Defensive Aura", 4, 20); //decrease en damage   
-    static Weapon speed          = new Magic("Swiftness", 3, 20); //increase pl special (melee) 
-    static Weapon shift          = new Magic("Dimensional Shift", 10, 25); //increase pl special (melee)
+    static Weapon sapping        = new Magic("Drain Speed", 3, 25); //decrease en special  
+    static Weapon aura           = new Magic("Defensive Aura", 4, 25); //decrease en damage   
+    static Weapon speed          = new Magic("Swiftness", 3, 25); //increase pl special (melee) 
+    static Weapon shift          = new Magic("Dimensional Shift", 10, 20); //increase pl special (melee)
     static Weapon fireWall       = new Magic("Wall Of Fire", 3, 10); //damage melee attackers 
     
-    //Enemies - Kept in Weapon class in case you 
-    //want to 'wield' (ie summon) an ally monster
+    //Enemies - Kept in Weapon class in case we want
+    //to be able to 'wield' (ie summon) an ally monster
     static Weapon skeleton         = new Melee("Skeleton", 8, 7);           
     static Weapon spider           = new Melee("Spider", 6, 8);             
     static Weapon troll            = new Melee("Troll", 11, 2);              
     static Weapon snake            = new Melee("Snake", 4, 8);              
-    static Weapon necromancer      = new Magic("Necromancer", 10, 5);        
-    static Weapon wizard           = new Magic("Wizard", 11, 5);             
-    static Weapon skeletonArcher   = new Ranged("Skeleton Archer", 7, 6);   
+    static Weapon necromancer      = new Melee("Necromancer", 10, 5);        
+    static Weapon wizard           = new Melee("Wizard", 11, 5);             
+    static Weapon skeletonArcher   = new Melee("Skeleton Archer", 7, 6);   
     static Weapon goblin           = new Melee("Goblin", 6, 7);             
     static Weapon outlaw           = new Melee("outlaw", 8, 6);             
     static Weapon caveRat          = new Melee("Cave Rat", 4, 8);           
     static Weapon wraith           = new Melee("Wraith", 10, 5);             
-    static Weapon zealot          = new Melee("Zealot", 9, 4);             
-    static Weapon demon            = new Magic("Demon", 11, 5);              
+    static Weapon zealot           = new Melee("Zealot", 9, 4);             
+    static Weapon demon            = new Melee("Demon", 11, 5);              
     static Weapon dragon           = new Melee("Dragon", 12, 2);             
     static Weapon orc              = new Melee("Orc", 9, 4);                
-    static Weapon vampire          = new Magic("Vampire", 9, 5);            
+    static Weapon vampire          = new Melee("Vampire", 9, 5);            
     static Weapon leviathan        = new Melee("Leviathan", 11, 3);          
-    static Weapon pixie            = new Magic("Pixie", 4, 8);              
+    static Weapon pixie            = new Melee("Pixie", 4, 8);              
     static Weapon harpy            = new Melee("Harpy", 5, 7);              
     static Weapon fallenHero       = new Melee("Fallen Hero", 9, 5);        
     static Weapon guardian         = new Melee("Guardian", 11, 2);           
@@ -112,10 +111,10 @@ public class Dungeon {
     static Weapon looter           = new Melee("Looter", 6, 6);             
     static Weapon wyvern           = new Melee("Wyvern", 10, 3);               
     static Weapon cursedSoul       = new Melee("Cursed Soul", 8, 4);        
-    static Weapon fElemental       = new Ranged("Fire Elemental", 9, 5);    
-    static Weapon wElemental       = new Ranged("Water Elemental", 9, 5);   
-    static Weapon eElemental       = new Ranged("Earth Elemental", 9, 5);   
-    static Weapon aElemental       = new Ranged("Air Elemental", 9, 5);     
+    static Weapon fElemental       = new Melee("Fire Elemental", 9, 5);    
+    static Weapon wElemental       = new Melee("Water Elemental", 9, 5);   
+    static Weapon eElemental       = new Melee("Earth Elemental", 9, 5);   
+    static Weapon aElemental       = new Melee("Air Elemental", 9, 5);     
     static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
     static Weapon golem            = new Melee("Rock Golem", 10, 2);
     static Weapon manticore        = new Melee("Manticore", 5, 5);
@@ -145,13 +144,13 @@ public class Dungeon {
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
-                LevelChain(null);//level method
+                LevelChain();//level method
             }
             else if (input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q")) {
                 System.exit(1);
             }
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
-                Controls(null);
+                Controls();
             }
             else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
                 try {
@@ -169,17 +168,29 @@ public class Dungeon {
                 System.exit(1);
             }
             else {
-                Help(null);
+                Help();
             }
         }
-        
     }
+	
+	public static void End() {
+		if (usedCheats == true) {
+			pl.addScore(-(pl.getScore()*421610));
+		}
+		Delay();
+		System.out.println("  Level: "+level+"-"+subLevel);
+		System.out.println("  Final Score: "+pl.getScore());
+		Delay();
+        System.out.println("  You Have Perished in the Dungeon...");
+		Delay();
+		System.exit(1);
+	}
     
-    private static void LevelChain(String[] args) {
+    private static void LevelChain() {
         System.out.println("");
         System.out.println("  You descend the stairs...");
                 
-        Delay(null); //make game wait for user
+        Delay(); //make game wait for user
         Random r = new Random();
         int vary = r.nextInt(3)+4; //variation on number of levels (btwn 4 - 6)
         int roomArr[] = new int[vary]; //create array of vary length
@@ -198,7 +209,7 @@ public class Dungeon {
             }
         }
         
-        NextLevel(null);
+        NextLevel();
     }
     
     private static boolean isDuplicate(int roomArr[], int Id) {//duplicate room check function
@@ -211,7 +222,7 @@ public class Dungeon {
         return false;
     }
     
-    private static void Help(String[] args) {
+    private static void Help() {
         System.out.println("");
         System.out.println("  When you need to make a choice, your options appear in");
         System.out.println("  square brackets under a double line, like this:");
@@ -225,29 +236,29 @@ public class Dungeon {
         System.out.println("  name 'option1'. Then press enter and the option is selected.");
         System.out.println("  when the game pauses without this input prompt, simply press");
         System.out.println("  enter and the game will continue.");
-        Delay(null);
+        Delay();
     }
     
-    private static void Controls(String[] args) {
+    private static void Controls() {
         System.out.println("");
         System.out.println("  KEYBINDINGS            FUNCTION");
         System.out.println("  'quit' or 'q'..........save and quit the game");
         System.out.println("  'help' or 'h' or '?'...bring up help menu");
         System.out.println("  'examine' or 'e'.......examine enemy");
         System.out.println("");
-        Delay(null);
+        Delay();
     }
     
-    private static void NextLevel(String[] args) {
+    private static void NextLevel() {
         //This method will bump up enemy stats, loot spawns etc
         level++;
 		subLevel = 0;
         healthMult += 0.2;
         System.out.println("  You find a staircase leading deeper into the dungeon");
-        LevelChain(null); //then restart LevelChain
+        LevelChain(); //then restart LevelChain
     }
     
-    public static void Delay(String[] args) {//wait for user function
+    private static void Delay() {//wait for user function
         if (fast == true) {
             System.out.println("");
             return;
@@ -256,7 +267,7 @@ public class Dungeon {
         String delay = s.nextLine();
         
         if (delay.equalsIgnoreCase("?") || delay.equalsIgnoreCase("help") || delay.equalsIgnoreCase("h")) {
-            Help(null);
+            Help();
         }
         else if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
             System.exit(1);
@@ -270,11 +281,16 @@ public class Dungeon {
         }
         else if (delay.equalsIgnoreCase("money")) {
             pl.setCash(999999999);
-			usedMoney = true;
+			usedCheats = true;
         }
         else if (delay.equalsIgnoreCase("level")) {
             level = 3;
-			usedLevel = true;
+			usedCheats = true;
+        }
+		else if (delay.equalsIgnoreCase("potion")) {
+            pl.setHPotions(99);
+			pl.setMPotions(99);
+			usedCheats = true;
         }
 		else if (delay.equalsIgnoreCase("spells")) {
 			String input = s.nextLine();
@@ -290,7 +306,7 @@ public class Dungeon {
 			} else {
 				pl.giveSpell(input);
 			}
-			usedSpells = true;
+			usedCheats = true;
 		}
 		else if (delay.equalsIgnoreCase("weapon")) {
 			int input = s.nextInt();
@@ -298,6 +314,7 @@ public class Dungeon {
 			WeaponStats(input);
 			shopW.newWeapon();
 			wGen = false;
+			usedCheats = true;
         }
 		else if (delay.equalsIgnoreCase("debug")) {
 			System.out.println("");
@@ -314,9 +331,7 @@ public class Dungeon {
 			System.out.println("  Generate new weapon when possible: "+wGen);
 			System.out.println("  Currently in Shop: "+shop);
 			System.out.println("  Fast mode on: "+fast);
-			System.out.println("  Debug advanced money: "+usedMoney);
-			System.out.println("  Debug advanced level: "+usedLevel);
-			System.out.println("  Debug learned spells: "+usedSpells);
+			System.out.println("  Used debug cheats : "+usedCheats);
 			System.out.println("");
 			System.out.println("  Player Values");
 			System.out.println("  Coins: "+pl.getCash());
@@ -359,16 +374,16 @@ public class Dungeon {
         Enemy en = new Enemy();
         e.newWeapon();
         en.setHealth((int) Math.round(h*healthMult)); //set enemy health
-		String input = "";
-		String subInput = battleLast;
-		Delay(null);
+		String input = battleLast;
+		String subInput = battleSubLast;
+		Delay();
 		if (enId == 32) {
 			System.out.println("  It's a Mimic!");
 		} else {
 			System.out.println("  A " + e.getName() + " appears!");
 		}
         
-        Delay(null);
+        Delay();
         
         while (en.getHealth() > 0) {
             Scanner s = new Scanner(System.in);
@@ -380,9 +395,12 @@ public class Dungeon {
             input = s.nextLine();
 			if (input.equalsIgnoreCase("last") || input.equalsIgnoreCase("l")) {
 				last = true;
+				input = battleLast;
 				//select last choice to make battles less tedious
+			} else {
+				battleLast = input;
 			}
-            if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w") || last == true) {
+            if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
 				if (last != true) {
 					System.out.println("");
 					System.out.println("       What weapon do you use?");
@@ -390,18 +408,19 @@ public class Dungeon {
 					System.out.println("  [Melee] [Ranged("+pl.getAmmo()+")] [Spell] [Back]");
 					System.out.print("  ");
 					subInput = s.nextLine();
+					System.out.println("");
+					battleSubLast = subInput;
 				}
 				if (subInput.equalsIgnoreCase("melee") || subInput.equalsIgnoreCase("m")) {
-					enDodgeChance(e, en);
+					enDodgeChance(e, en, 1, null);
 					if (en.getDead()) {
 						pl.addScore(100+h); //+100 for winning, + damage dealt
-						System.out.println("");
-						GetLoot(null); //get money
+						GetLoot(); //get money
 						System.out.println("  You enter the next room");
-						Delay(null);
+						Delay();
 						return;
 					}
-					Delay(null);
+					Delay();
 					plDodgeChance(e);
 				}
 				else if (subInput.equalsIgnoreCase("ranged") || subInput.equalsIgnoreCase("r")) {
@@ -409,16 +428,14 @@ public class Dungeon {
 						ranged.EnHit(e, en, pl);
 						if (en.getDead()) {
 							pl.addScore(100+h); //+100 for winning, + damage dealt
-							System.out.println("");
-							GetLoot(null); //get money
+							GetLoot(); //get money
 							System.out.println("  You enter the next room");
-							Delay(null);
+							Delay();
 							return;
 						}
-						Delay(null);
+						Delay();
 						plDodgeChance(e);
 					} else {
-						System.out.println("");
 						System.out.println("  You don't have any more ammunition!");
 					}
 				}
@@ -457,76 +474,71 @@ public class Dungeon {
 						
 						System.out.print("  ");
 						String subSubInput = s.nextLine();
+						System.out.println("");
 						
 						if (subSubInput.equalsIgnoreCase("back") || subSubInput.equalsIgnoreCase("b")) {
-							System.out.println("");
 							continue;
 						}
 						switch (subSubInput.toLowerCase()) {
 							case "f": if (pl.getMana() > flame.getSpecial() && pl.getSpell("flame") == true) {
-								flame.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, flame); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "l": if (pl.getMana() > lightning.getSpecial() && pl.getSpell("firewall") == true) {
-								lightning.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, lightning); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "i": if (pl.getMana() > frost.getSpecial() && pl.getSpell("frost") == true) {
-								frost.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, frost); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "dr": if (pl.getMana() > sapping.getSpecial() && pl.getSpell("sap") == true) {
-								sapping.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, sapping); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "de": if (pl.getMana() > aura.getSpecial() && pl.getSpell("aura") == true) {
-								aura.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, aura); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "s": if (pl.getMana() > speed.getSpecial() && pl.getSpell("speed") == true) {
-								speed.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, speed); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "di": if (pl.getMana() > shift.getSpecial() && pl.getSpell("shift") == true) {
-								shift.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, shift); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
 							case "w": if (pl.getMana() > fireWall.getSpecial() && pl.getSpell("firewall") == true) {
-								fireWall.EnHit(e, en, pl); break;
+								enDodgeChance(e, en, 2, fireWall); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
-							default: System.out.println("");
-							System.out.println("  Not a valid option. Enter '?' for help"); 
-							Delay(null); continue;
+							default: System.out.println("  Not a valid option. Enter '?' for help"); 
+							Delay(); continue;
 						}
 						if (en.getDead()) {
 							pl.addScore((100 * level)+h); //+100 * level for winning, + damage dealt
-							System.out.println("");
-							GetLoot(null); //get money
+							GetLoot(); //get money
 							System.out.println("  You enter the next room");
-							Delay(null);
+							Delay();
 							return;
 						}
-						Delay(null);
+						Delay();
 						plDodgeChance(e);
 					} else {
-						System.out.println("");
 						System.out.println("  You don't know any spells!");
 					}
 				}
 				else if (subInput.equalsIgnoreCase("back") || subInput.equalsIgnoreCase("b")) {
-					System.out.println("");
 					continue;
 				} else {
-					System.out.println("");
 					System.out.println("  Not a valid option. Enter '?' for help");
 				}
             }
@@ -538,6 +550,8 @@ public class Dungeon {
 					System.out.println("  [Health("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")] [Back]");
 					System.out.print("  ");
 					subInput = s.nextLine();
+					System.out.println("");
+					battleSubLast = subInput;
 				}
 				if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
 					if (pl.getHPotions() > 0) {
@@ -545,10 +559,9 @@ public class Dungeon {
 						pl.setHealth(potionHeal);
 						pl.setHPotions(-1);
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
-						Delay(null);
+						Delay();
 						plDodgeChance(e);
 					} else {
-						System.out.println("");
 						System.out.println("  You don't have any more health potions!");
 					}
                 
@@ -559,10 +572,9 @@ public class Dungeon {
 						pl.setMana(potionMana);
 						pl.setMPotions(-1);
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
-						Delay(null);
+						Delay();
 						plDodgeChance(e);
 					} else {
-						System.out.println("");
 						System.out.println("  You don't have any more mana potions!");
 					}
 				} 
@@ -570,20 +582,17 @@ public class Dungeon {
 					System.out.println("");
 					continue;
 				} else {
-					System.out.println("");
 					System.out.println("  Not a valid option. Enter '?' for help");
 				}
 			} else {
-				System.out.println("");
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
-            battleLast = subInput;
 			last = false;
-			Delay(null);
+			Delay();
         }
     }
     
-    private static void enDodgeChance(Weapon e, Enemy en) {
+    private static void enDodgeChance(Weapon e, Enemy en, int type, Weapon w) {
         //dodge chance is special * X% chance, eg 6x4 = 24% chance
         //to dodge attack with max 10 * X% (10x4) chance to dodge
         //to dodge score must be lower than target.
@@ -592,9 +601,12 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            melee.EnHit(e, en, pl);
+			if (type == 1) {
+				melee.EnHit(e, en, pl);
+			} else {
+				w.EnHit(e, en, pl);
+			}
         } else {
-            System.out.println("");
             System.out.println("  The "+e.getName()+" dodges your attack!");
         }
     }
@@ -605,19 +617,19 @@ public class Dungeon {
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-            melee.PlHit(e, pl);
+			melee.PlHit(e, pl);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
     }
     
-    private static void Shop(String[] args) {
+    private static void Shop() {
 		shop = true;
         Scanner s = new Scanner(System.in);
         String input = "";
         String subInput = "";
         wGen = true;
-        WeaponTier(null);
+        WeaponTier();
         shopW.newWeapon();
         wGen = false;
         
@@ -713,12 +725,12 @@ public class Dungeon {
             } else {
                 System.out.println("  Not a valid option. Enter '?' for help");
             }
-            Delay(null);
+            Delay();
         }
 		shop = false;
     }  
     
-    private static void GetLoot(String[] args) {
+    private static void GetLoot() {
         Random r = new Random();
 		int wChance = r.nextInt(10)+1;
 		if (pl.getCash() > 99999999) { //debug always make weapons appear
@@ -727,21 +739,21 @@ public class Dungeon {
         if (wChance == 1) {
 			findWeapon = true;
             System.out.println("  You find a weapon!");
-            Delay(null);
-            WeaponTier(null);
+            Delay();
+            WeaponTier();
 			findWeapon= false;
         } else {
             int loot = (r.nextInt(11)+5) * level;
             if (isChest == true) {
-                Delay(null);
+                Delay();
                 System.out.println("  you open the chest to see what's in it");
                 pl.setCash(loot * 2);
                 isChest = false;
-                Delay(null);
+                Delay();
             }
 			System.out.println("");
             System.out.println("  You find "+loot+" coins");
-            Delay(null);
+            Delay();
             pl.setCash(loot);
         }
     }
@@ -910,7 +922,7 @@ public class Dungeon {
         }
     }
     
-    private static void WeaponTier(String[] args) {
+    private static void WeaponTier() {
         //only selects weapon up to + including current level
         Random r = new Random();
         int tier = 5;
@@ -1249,7 +1261,7 @@ public class Dungeon {
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             case 21:System.out.println("  You spot a chest placed discreetly in the corner"); //loot chest
-                    GetLoot(null); 
+                    GetLoot(); 
                     isChest = true; break; 
             case 22:System.out.println("  You spot a chest placed discreetly in the corner"); //trap chest
                     enArr = new int[]{32}; //mimic
@@ -1280,8 +1292,8 @@ public class Dungeon {
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
             default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
-                    Delay(null);
-                    Shop(null); break;
+                    Delay();
+                    Shop(); break;
         }
     }
     

@@ -29,13 +29,7 @@ public class Magic extends Weapon {
         // Damage output
         System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
         if (p.getHealth() <= 0) {
-			d.Delay(null);
-			System.out.println("  Level: "+d.level+"-"+d.subLevel);
-			System.out.println("  Final Score: "+p.getScore());
-			d.Delay(null);
-            System.out.println("  You Have Perished in the Dungeon...");
-			d.Delay(null);
-			System.exit(1);
+			d.End();
         } else {
             System.out.println("  You have " +p.getHealth()+ " hp.");
         }
@@ -56,6 +50,21 @@ public class Magic extends Weapon {
 			} else {
 				System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
 			}
+		}
+		else if (this.name.equalsIgnoreCase("Drain Speed")) {
+			
+		}
+		else if (this.name.equalsIgnoreCase("Defensive Aura")) {
+			
+		}
+		else if (this.name.equalsIgnoreCase("Swiftness")) {
+			
+		}
+		else if (this.name.equalsIgnoreCase("Dimensional Shift")) {
+			
+		}
+		else if (this.name.equalsIgnoreCase("Wall Of Fire")) {
+			
 		}
     }
 }

@@ -36,7 +36,7 @@ public class Mode {
 		System.out.println("hello");
 		String st; 
 		if ((st = br.readLine()).equalsIgnoreCase("tutorial")) { 
-			//d.main(null);
+			d.main(null);
 			System.exit(1);
 		} 
 		else { 
