@@ -120,7 +120,7 @@ public class Dungeon {
     static Weapon manticore        = new Melee("Manticore", 5, 5);
     static Weapon draugr           = new Melee("Draugr", 5, 5);
     static Weapon legion           = new Melee("Legion", 5, 5);
-    static Weapon gtmichaels       = new Melee("GtMichaels", 5, 5);
+    static Weapon gtmichaels       = new Melee("GTMichaels", 8554, 25);
     static Weapon arvin            = new Melee("Arvin", 0, 0);
     static Weapon griffin          = new Melee("Griffin", 5, 5);
     static Weapon mimic            = new Melee("Mimic", 9, 4);
@@ -189,7 +189,8 @@ public class Dungeon {
     private static void LevelChain() {
         System.out.println("");
         System.out.println("  You descend the stairs...");
-                
+        
+		subLevel++;
         Delay(); //make game wait for user
         Random r = new Random();
         int vary = r.nextInt(3)+4; //variation on number of levels (btwn 4 - 6)
@@ -205,7 +206,7 @@ public class Dungeon {
             else {
                 roomArr[i] = roomId; //if no dupes, add Id to array and execute room
 				RoomGen(roomId);
-				subLevel++;
+				
             }
         }
         
@@ -276,86 +277,91 @@ public class Dungeon {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
-        else if (delay.equalsIgnoreCase("fast")) {
-            fast = !fast;
-        }
-        else if (delay.equalsIgnoreCase("money")) {
-            pl.setCash(999999999);
-			usedCheats = true;
-        }
-        else if (delay.equalsIgnoreCase("level")) {
-            level = 3;
-			usedCheats = true;
-        }
-		else if (delay.equalsIgnoreCase("potion")) {
-            pl.setHPotions(99);
-			pl.setMPotions(99);
-			usedCheats = true;
-        }
-		else if (delay.equalsIgnoreCase("spells")) {
-			String input = s.nextLine();
-			if (input.equalsIgnoreCase("all")) {
-				pl.giveSpell("Fireball");
-				pl.giveSpell("Ice Beam");
-				pl.giveSpell("Lightning Bolt");
-				pl.giveSpell("Defensive Aura");
-				pl.giveSpell("Wall of Fire");
-				pl.giveSpell("Swiftness");
-				pl.giveSpell("Drain Speed");
-				pl.giveSpell("Dimensional Shift");
-			} else {
-				pl.giveSpell(input);
-			}
-			usedCheats = true;
+		else if (delay.equalsIgnoreCase("subscribe to GTMichaels2002")) {
+			System.out.println("");
+			System.out.println("  The caverns around you tremble. An ancient and powerful presence surrounds you,");
+			System.out.println("  filling your mind with dread and your body with weakness. As pure fear floods your ");
+			System.out.println("  body with hopelessness, you know one thing is certain: you are going to die.");
+			Battle(gtmichaels, 1000);
 		}
-		else if (delay.equalsIgnoreCase("weapon")) {
-			int input = s.nextInt();
-            wGen = true;
-			WeaponStats(input);
-			shopW.newWeapon();
-			wGen = false;
-			usedCheats = true;
+		else if (delay.equalsIgnoreCase("223")) {
+            usedCheats = true;
         }
-		else if (delay.equalsIgnoreCase("debug")) {
-			System.out.println("");
-			System.out.println("---- DEBUG STATS ----");
-			System.out.println("");
-			System.out.println("  level: "+level);
-			System.out.println("  Enemy Health Multiplier: "+healthMult);
-			System.out.println("  Last enemy Id: "+enId);
-			System.out.println("");
-			System.out.println("  Current Boolean states");
-			System.out.println("  Weapon found: "+findWeapon);
-			System.out.println("  getting loot from chest: "+isChest);
-			System.out.println("  force weapon change: "+changeW);
-			System.out.println("  Generate new weapon when possible: "+wGen);
-			System.out.println("  Currently in Shop: "+shop);
-			System.out.println("  Fast mode on: "+fast);
-			System.out.println("  Used debug cheats : "+usedCheats);
-			System.out.println("");
-			System.out.println("  Player Values");
-			System.out.println("  Coins: "+pl.getCash());
-			System.out.println("  Health: "+pl.getHealth());
-			System.out.println("  Score: "+pl.getScore());
-			System.out.println("  Mana: "+pl.getMana());
-			System.out.println("  Health Potions: "+pl.getHPotions());
-			System.out.println("  Mana Potions: "+pl.getMPotions());
-			System.out.println("  Melee Weapon Id: "+pl.getWeaponM());
-			System.out.println("  Melee Weapon name: "+pl.getNameM());
-			System.out.println("  Melee Weapon quality: "+pl.getQNameM());
-			System.out.println("  Melee Weapon damage: "+pl.getDamageM());
-			System.out.println("  Melee Weapon speed: "+pl.getSpecialM());
-			System.out.println("  Ranged Weapon Id: "+pl.getWeaponR());
-			System.out.println("  Melee Weapon name: "+pl.getNameR());
-			System.out.println("  Ranged Weapon quality: "+pl.getQNameR());
-			System.out.println("  Ranged Weapon damage: "+pl.getDamageR());
-			System.out.println("  Ranged Weapon ammo: "+pl.getAmmo());
-			System.out.println("  Ranged weapon max ammo: "+pl.getMaxAmmo());
-			System.out.println("");
-			System.out.println("---- DEBUG STATS ----");
-			System.out.println("");
-			
-			
+		if (usedCheats == true) {
+			if (delay.equalsIgnoreCase("fast")) {
+            fast = !fast;
+			}
+			else if (delay.equalsIgnoreCase("money")) {
+				pl.setCash(999999999);
+			}
+			else if (delay.equalsIgnoreCase("level")) {
+				level = 3;
+			}
+			else if (delay.equalsIgnoreCase("potion")) {
+				pl.setHPotions(99);
+				pl.setMPotions(99);
+			}
+			else if (delay.equalsIgnoreCase("spells")) {
+				String input = s.nextLine();
+				if (input.equalsIgnoreCase("all")) {
+					pl.giveSpell("Fireball");
+					pl.giveSpell("Ice Beam");
+					pl.giveSpell("Lightning Bolt");
+					pl.giveSpell("Defensive Aura");
+					pl.giveSpell("Wall of Fire");
+					pl.giveSpell("Swiftness");
+					pl.giveSpell("Drain Speed");
+					pl.giveSpell("Dimensional Shift");
+				} else {
+					pl.giveSpell(input);
+				}
+			}
+			else if (delay.equalsIgnoreCase("weapon")) {
+				int input = s.nextInt();
+				wGen = true;
+				WeaponStats(input);
+				shopW.newWeapon();
+				wGen = false;
+			}
+			else if (delay.equalsIgnoreCase("debug")) {
+				System.out.println("");
+				System.out.println("---- DEBUG STATS ----");
+				System.out.println("");
+				System.out.println("  level: "+level);
+				System.out.println("  Enemy Health Multiplier: "+healthMult);
+				System.out.println("  Last enemy Id: "+enId);
+				System.out.println("");
+				System.out.println("  Current Boolean states");
+				System.out.println("  Weapon found: "+findWeapon);
+				System.out.println("  getting loot from chest: "+isChest);
+				System.out.println("  force weapon change: "+changeW);
+				System.out.println("  Generate new weapon when possible: "+wGen);
+				System.out.println("  Currently in Shop: "+shop);
+				System.out.println("  Fast mode on: "+fast);
+				System.out.println("  Used debug cheats : "+usedCheats);
+				System.out.println("");
+				System.out.println("  Player Values");
+				System.out.println("  Coins: "+pl.getCash());
+				System.out.println("  Health: "+pl.getHealth());
+				System.out.println("  Score: "+pl.getScore());
+				System.out.println("  Mana: "+pl.getMana());
+				System.out.println("  Health Potions: "+pl.getHPotions());
+				System.out.println("  Mana Potions: "+pl.getMPotions());
+				System.out.println("  Melee Weapon Id: "+pl.getWeaponM());
+				System.out.println("  Melee Weapon name: "+pl.getNameM());
+				System.out.println("  Melee Weapon quality: "+pl.getQNameM());
+				System.out.println("  Melee Weapon damage: "+pl.getDamageM());
+				System.out.println("  Melee Weapon speed: "+pl.getSpecialM());
+				System.out.println("  Ranged Weapon Id: "+pl.getWeaponR());
+				System.out.println("  Melee Weapon name: "+pl.getNameR());
+				System.out.println("  Ranged Weapon quality: "+pl.getQNameR());
+				System.out.println("  Ranged Weapon damage: "+pl.getDamageR());
+				System.out.println("  Ranged Weapon ammo: "+pl.getAmmo());
+				System.out.println("  Ranged weapon max ammo: "+pl.getMaxAmmo());
+				System.out.println("");
+				System.out.println("---- DEBUG STATS ----");
+				System.out.println("");
+			}
 		}
     }
 
@@ -393,6 +399,7 @@ public class Dungeon {
             System.out.println("  [Weapon]  [Potions]  [Last]");
 			System.out.print("  ");
             input = s.nextLine();
+			System.out.println("");
 			if (input.equalsIgnoreCase("last") || input.equalsIgnoreCase("l")) {
 				last = true;
 				input = battleLast;
@@ -579,7 +586,6 @@ public class Dungeon {
 					}
 				} 
 				else if (subInput.equalsIgnoreCase("back") || subInput.equalsIgnoreCase("b")) {
-					System.out.println("");
 					continue;
 				} else {
 					System.out.println("  Not a valid option. Enter '?' for help");
@@ -597,6 +603,12 @@ public class Dungeon {
         //to dodge attack with max 10 * X% (10x4) chance to dodge
         //to dodge score must be lower than target.
         Random r = new Random();
+		if (e.getName().equalsIgnoreCase("GTMichaels")) {
+			System.out.println("  You drop your feeble weapons. Dispair fills your mind as he");
+			System.out.println("  approaches you, his very presence the harbinger of Death.");
+			System.out.println("");
+			melee.PlHit(e, pl);
+		}
         int target = e.getSpecial() * 4;
         int score = r.nextInt(100)+1;
         

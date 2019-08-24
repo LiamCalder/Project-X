@@ -45,6 +45,10 @@ public abstract class Weapon {
 	public abstract void EnHit(Weapon w, Enemy en, Player p);
 	
 	public void newWeapon() {
+		if (this.name.equalsIgnoreCase("gtmichaels")) {
+			QualityT1(1);
+			return;
+		}
 		multiplier = d.level - 1;
 		Random r = new Random();
 		int tier = 5;

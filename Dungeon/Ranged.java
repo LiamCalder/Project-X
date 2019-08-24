@@ -36,6 +36,10 @@ public class Ranged extends Weapon {
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
 		String enemyName = w.name;
+		if (enemyName.equalsIgnoreCase("GTMichaels")) {
+			System.out.println("  You drop your feeble weapons. Dispair fills your mind as he");
+			System.out.println("  approaches you, his very presence the harbinger of Death.");
+		}
 		int playerDamage = p.getDamageR();
 		en.takeDamage(playerDamage);
 		pl.useAmmo(-1);

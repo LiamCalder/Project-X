@@ -45,7 +45,6 @@ public class Melee extends Weapon {
 		en.takeDamage(playerDamage);
 		
         // Damage output
-		System.out.println("");
         System.out.println("  You hit the "+enemyName+" with your "+p.getQNameM()+p.getNameM()+" for "+playerDamage+" damage.");
         if (en.getHealth() <= 0) {
             System.out.println("  The " +enemyName+ " dies!");
