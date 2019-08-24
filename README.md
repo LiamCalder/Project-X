@@ -1,2 +1,2 @@
-# oi josuke!
-for the 20/08/19 commit Another change is that the shops's weapon menu was changed to branch 'weapon' into buy 'weapons' and 'reload' also made 'last'input save between battles
+# Three cheers for All of Our *ahem my* Hard work 
+fGabriel some enemies at the bottom of the initialization list still don't have adjusted stats. Probably their health as well. Still drying to find that annoying double space durig combat. ARRRR
