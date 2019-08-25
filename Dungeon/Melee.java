@@ -25,29 +25,40 @@ public class Melee extends Weapon {
 			System.out.println("  Arvin spasms uselessly on the ground");
 			return;
 		}
-		
 		String enemyName = w.name;
-		int enemyDamage = w.getDamage() + d.enDamEffect;
-		p.takeDamage(enemyDamage);
+		int damage = w.getDamage() + d.enDamEffect;
+		p.takeDamage(damage);
 		
         // Damage output
-        System.out.println("  The " +enemyName+ " hits you for " +enemyDamage+ " damage.");
+        System.out.println("  The "+enemyName+" hits you for "+damage+" damage.");
         if (p.getHealth() <= 0) {
 			d.End();
         } else {
-            System.out.println("  You have " +p.getHealth()+ " hp.");
+            System.out.println("  You have "+p.getHealth()+" hp.");
         }
+		if (d.firewall == true) {
+			damage = d.fireWall.getBaseDamage();
+			p.takeDamage(damage);
+			System.out.println("  The wall of fire burns the "+enemyName+" for " +damage+ " damage.");
+			
+			if (en.getHealth() <= 0) {
+				System.out.println("  The " +enemyName+ " dies!");
+				en.setDead(true);
+			} else {
+            System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
+			}
+		}
     }
 	
 	public void EnHit(Weapon w, Enemy en, Player p) {
 		Dungeon d = new Dungeon();
         String enemyName = w.name;
-		int playerDamage = p.getDamageM() + d.plDamEffect;
-		en.takeDamage(playerDamage);
+		int damage = p.getDamageM() + d.plDamEffect;
+		en.takeDamage(damage);
 		
         // Damage output
-        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameM()+p.getNameM()+" for "+playerDamage+" damage.");
-        if (en.getHealth() <= 0) {
+        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameM()+p.getNameM()+" for "+damage+" damage.");
+		if (en.getHealth() <= 0) {
             System.out.println("  The " +enemyName+ " dies!");
 			en.setDead(true);
 			if (d.enId == 37) {
@@ -56,5 +67,16 @@ public class Melee extends Weapon {
         } else {
             System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
         }
+		if (d.firewall == true) {
+			damage = d.fireWall.getBaseDamage();
+			p.takeDamage(damage);
+			System.out.println("  The wall of fire burns you for " +damage+ " damage.");
+			
+			if (p.getHealth() <= 0) {
+				d.End();
+			} else {
+				System.out.println("  You have "+p.getHealth()+" hp.");
+			}
+		}
     }
 }

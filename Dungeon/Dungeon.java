@@ -658,7 +658,7 @@ public class Dungeon {
 		}
         int target = (e.getSpecial()+enSpecEffect) * 4;
         int score = r.nextInt(100)+1;
-		if (w.name.equalsIgnoreCase("Fireball") || w.name.equalsIgnoreCase("Ice Beam") || w.name.equalsIgnoreCase("Lightning Bolt") || type == 1) {
+		if (type == 1 || w.name.equalsIgnoreCase("Fireball") || w.name.equalsIgnoreCase("Ice Beam") || w.name.equalsIgnoreCase("Lightning Bolt")) {
 			if (score > target) {
 				if (type == 1) {
 					melee.EnHit(e, en, pl);
