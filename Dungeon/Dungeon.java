@@ -11,6 +11,10 @@ public class Dungeon {
 	static String battleSubLast = "melee";
 	static String weaponType;
     static double healthMult = 1.0; //enemy health = base x this
+	static int enSpecEffect = 0;
+	static int enDamEffect = 0;
+	static int plSpecEffect = 0;
+	static int plDamEffect = 0;
 	static int forceQuality = 2;
     static int potionHeal = 60; //potion regen amount
     static int potionMana = 60;
@@ -24,6 +28,7 @@ public class Dungeon {
 	static int reloadCost;
     static int enId;
     static Weapon shopW;
+	static boolean firewall = false;
 	static boolean findWeapon = false;
     static boolean isChest = false;
     static boolean changeW = true;
@@ -58,7 +63,8 @@ public class Dungeon {
     static Weapon cutlass        = new Melee("Cutlass", 7, 7);           
     static Weapon flail          = new Melee("Flail", 12, 3);               
     static Weapon club           = new Melee("Club", 8, 4);      
-    static Weapon warScythe      = new Melee("War Scythe", 17 ,1);        
+    static Weapon warScythe      = new Melee("War Scythe", 17 ,1);
+	static Weapon pebbles		 = new Melee("Storm Breaker", 101, 0);
             
     //Ranged weapons - special determines max ammunition
     static Weapon shortbow       = new Ranged("Shortbow", 5, 7);         
@@ -77,10 +83,10 @@ public class Dungeon {
     static Weapon flame          = new Magic("Fireball", 12, 17);
     static Weapon lightning      = new Magic("Lightning Bolt", 10, 15);    
     static Weapon frost          = new Magic("Ice Beam", 14, 19);         
-    static Weapon sapping        = new Magic("Drain Speed", 3, 25); //decrease en special  
-    static Weapon aura           = new Magic("Defensive Aura", 4, 25); //decrease en damage   
-    static Weapon speed          = new Magic("Swiftness", 3, 25); //increase pl special (melee) 
-    static Weapon shift          = new Magic("Dimensional Shift", 10, 20); //increase pl special (melee)
+    static Weapon sapping        = new Magic("Drain Speed", -3, 25); //decrease en special  
+    static Weapon aura           = new Magic("Defensive Aura", -4, 25); //decrease en damage   
+    static Weapon speed          = new Magic("Swiftness", 3, 25); //increase pl dodge 
+    static Weapon channel          = new Magic("Channel Magic", 4, 25); //increase pl damage
     static Weapon fireWall       = new Magic("Wall Of Fire", 3, 10); //damage melee attackers 
     
     //Enemies - Kept in Weapon class in case we want
@@ -144,7 +150,9 @@ public class Dungeon {
             System.out.print("  ");
             input = s.nextLine();
             if (input.equalsIgnoreCase("start") || input.equalsIgnoreCase("s")) {
-                LevelChain();//level method
+                System.out.println("");
+				System.out.println("  You descend the stairs...");
+				LevelChain();//level method
             }
             else if (input.equalsIgnoreCase("quit") || input.equalsIgnoreCase("q")) {
                 System.exit(1);
@@ -187,9 +195,6 @@ public class Dungeon {
 	}
     
     private static void LevelChain() {
-        System.out.println("");
-        System.out.println("  You descend the stairs...");
-        
 		subLevel++;
         Delay(); //make game wait for user
         Random r = new Random();
@@ -251,11 +256,38 @@ public class Dungeon {
     }
     
     private static void NextLevel() {
-        //This method will bump up enemy stats, loot spawns etc
+        //This method bumps up enemy stats and loot spawn tiers
+		Scanner s = new Scanner(System.in);
         level++;
 		subLevel = 0;
         healthMult += 0.2;
+		String input = "";
+		while (1 == 1) {
+			System.out.println("      Choose a stat to increase");
+			System.out.println("  ==================================");
+			System.out.println("  [Health:"+pl.getHpCap()+"->"+(pl.getHpCap()+10)+"]  [Mana:"+pl.getManaCap()+"->"+(pl.getManaCap()+10)+"]");
+			System.out.print("  ");
+			input = s.nextLine();
+			System.out.println("");
+			if (input.equalsIgnoreCase("health") || input.equalsIgnoreCase("h")) {
+				pl.setHpCap(10);
+				pl.setHealth(10);
+				System.out.println("  Max health increased to "+pl.getHpCap());
+				break;
+			}
+			else if (input.equalsIgnoreCase("mana") || input.equalsIgnoreCase("m")) {
+				pl.setManaCap(10);
+				pl.setMana(10);
+				System.out.println("  Max mana increased to "+pl.getManaCap());
+				break;
+			} else {
+				System.out.println("  Not a valid option. Enter '?' for help");
+			}
+		}			
+		Delay();
         System.out.println("  You find a staircase leading deeper into the dungeon");
+		System.out.println("");
+        System.out.println("  You descend the stairs...");
         LevelChain(); //then restart LevelChain
     }
     
@@ -284,7 +316,7 @@ public class Dungeon {
 			System.out.println("  body with hopelessness, you know one thing is certain: you are going to die.");
 			Battle(gtmichaels, 1000);
 		}
-		else if (delay.equalsIgnoreCase("223")) {
+		else if (delay.equalsIgnoreCase("111")) {
             usedCheats = true;
         }
 		if (usedCheats == true) {
@@ -311,7 +343,7 @@ public class Dungeon {
 					pl.giveSpell("Wall of Fire");
 					pl.giveSpell("Swiftness");
 					pl.giveSpell("Drain Speed");
-					pl.giveSpell("Dimensional Shift");
+					pl.giveSpell("Channel Magic");
 				} else {
 					pl.giveSpell(input);
 				}
@@ -323,15 +355,25 @@ public class Dungeon {
 				shopW.newWeapon();
 				wGen = false;
 			}
+			else if (delay.equalsIgnoreCase("wield")) {
+				changeW = true;
+				forceQuality = 1;
+				GetStats(pebbles);
+			}
 			else if (delay.equalsIgnoreCase("debug")) {
 				System.out.println("");
 				System.out.println("---- DEBUG STATS ----");
 				System.out.println("");
 				System.out.println("  level: "+level);
 				System.out.println("  Enemy Health Multiplier: "+healthMult);
+				System.out.println("  Enemy Special effect: "+enSpecEffect);
+				System.out.println("  Enemy Damage effect: "+enDamEffect);
+				System.out.println("  Player Special effect: "+plSpecEffect);
+				System.out.println("  Player Damage effect: "+plDamEffect);
 				System.out.println("  Last enemy Id: "+enId);
 				System.out.println("");
 				System.out.println("  Current Boolean states");
+				System.out.println("  FireWall spell active: "+firewall);
 				System.out.println("  Weapon found: "+findWeapon);
 				System.out.println("  getting loot from chest: "+isChest);
 				System.out.println("  force weapon change: "+changeW);
@@ -470,8 +512,8 @@ public class Dungeon {
 						if (pl.getSpell("speed") == true) {
 							System.out.println("  [S]wiftness: "+speed.getSpecial()+" mana");
 						}
-						if (pl.getSpell("shift") == true) {
-							System.out.println("  [Di]mensional Shift: "+shift.getSpecial()+" mana");
+						if (pl.getSpell("channel") == true) {
+							System.out.println("  [C]hannel Magic: "+channel.getSpecial()+" mana");
 						}
 						if (pl.getSpell("firewall") == true) {
 							System.out.println("  [W]all of Fire: "+fireWall.getSpecial()+" mana");
@@ -517,8 +559,8 @@ public class Dungeon {
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
-							case "di": if (pl.getMana() > shift.getSpecial() && pl.getSpell("shift") == true) {
-								enDodgeChance(e, en, 2, shift); break;
+							case "c": if (pl.getMana() > channel.getSpecial() && pl.getSpell("channel") == true) {
+								enDodgeChance(e, en, 2, channel); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
 							} break;
@@ -596,6 +638,11 @@ public class Dungeon {
 			last = false;
 			Delay();
         }
+		enSpecEffect = 0;
+		enDamEffect = 0;
+		plSpecEffect = 0;
+		plDamEffect = 0;
+		firewall = false;
     }
     
     private static void enDodgeChance(Weapon e, Enemy en, int type, Weapon w) {
@@ -609,23 +656,26 @@ public class Dungeon {
 			System.out.println("");
 			melee.PlHit(e, pl);
 		}
-        int target = e.getSpecial() * 4;
+        int target = (e.getSpecial()+enSpecEffect) * 4;
         int score = r.nextInt(100)+1;
-        
-        if (score > target) {
-			if (type == 1) {
-				melee.EnHit(e, en, pl);
+		if (w.name.equalsIgnoreCase("Fireball") || w.name.equalsIgnoreCase("Ice Beam") || w.name.equalsIgnoreCase("Lightning Bolt") || type == 1) {
+			if (score > target) {
+				if (type == 1) {
+					melee.EnHit(e, en, pl);
+				} else {
+					w.EnHit(e, en, pl);
+				}
 			} else {
-				w.EnHit(e, en, pl);
+				System.out.println("  The "+e.getName()+" dodges your attack!");
 			}
-        } else {
-            System.out.println("  The "+e.getName()+" dodges your attack!");
-        }
+		} else {
+			w.EnHit(e, en, pl);
+		}
     }
     
     private static void plDodgeChance(Weapon e) {
         Random r = new Random();
-        int target = pl.getSpecialM() * 4;
+        int target = (pl.getSpecialM()+plSpecEffect) * 4;
         int score = r.nextInt(100)+1;
         
         if (score > target) {
@@ -668,7 +718,7 @@ public class Dungeon {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
                         hPotionCost = (int) Math.round(healBaseCost * level);
-						healBaseCost++;
+						healBaseCost += 2;
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
                     } else {
@@ -750,6 +800,7 @@ public class Dungeon {
 		}
         if (wChance == 1) {
 			findWeapon = true;
+			System.out.println("");
             System.out.println("  You find a weapon!");
             Delay();
             WeaponTier();
@@ -895,7 +946,6 @@ public class Dungeon {
         } 
         if (findWeapon == true) { //if you find the weapon
             while (!input.equalsIgnoreCase("yes") && !input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("no") && !input.equalsIgnoreCase("n")) {
-                System.out.println("");
                 System.out.println("  Current Weapon:");
                 System.out.println("  Name: "+localPlName);
                 System.out.println("  Quality: "+localPlQName);
@@ -996,7 +1046,7 @@ public class Dungeon {
             case 32:GetStats(sapping); break;
             case 33:GetStats(aura); break;
             case 34:GetStats(speed); break;
-            case 35:GetStats(shift); break;
+            case 35:GetStats(channel); break;
             case 36:GetStats(fireWall); break;
         }
     }

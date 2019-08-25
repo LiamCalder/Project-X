@@ -17,9 +17,11 @@ public class Player {
 	
 	//store player stats
 	private int hp;
+	private int hpCap;
 	private int score;
 	private int cash;
 	private int mana;
+	private int manaCap;
 	private int hPotions;
 	private int mPotions;
 	
@@ -30,13 +32,15 @@ public class Player {
 	private boolean sapping = false;
 	private boolean aura = false;
 	private boolean speed = false;
-	private boolean shift = false;
+	private boolean channel = false;
 	private boolean fireWall = false;
 	private boolean haveSpells = false;
 	
     public Player() {
-        hp = 100;
-		mana = 100;
+        hpCap = 100;
+		hp = hpCap;
+		manaCap = 100;
+		mana = manaCap;
 		hPotions = 0;
 		mPotions = 0;
 		cash = 0;
@@ -51,7 +55,7 @@ public class Player {
 			case "sap": return sapping;
 			case "aura": return aura;
 			case "speed": return speed;
-			case "shift": return shift;
+			case "channel": return channel;
 			case "firewall": return fireWall;
 			default: return false;
 		}
@@ -64,16 +68,22 @@ public class Player {
 			case "Drain Speed": sapping = true; break;
 			case "Defensive Aura": aura = true; break;
 			case "Swiftness": speed = true; break;
-			case "Dimensional Shift": shift = true; break;
+			case "Channel Magic": channel = true; break;
 			case "Wall of Fire": fireWall = true; break;
 		}
 		haveSpells = true;
 	}
 	
+	public void setHpCap(int hpc) {
+		hpCap += hpc;
+	}
+	public int getHpCap() {
+		return hpCap;
+	}
 	public void setHealth(int sh) {
 		hp += sh;
-		if (hp > 100) {
-			hp = 100;
+		if (hp > hpCap) {
+			hp = hpCap;
 		}
 	}
 	public void takeDamage(int d) {
@@ -83,10 +93,16 @@ public class Player {
 		return hp;
 	}
 	
+	public void setManaCap(int mc) {
+		manaCap += mc;
+	}
+	public int getManaCap() {
+		return manaCap;
+	}
 	public void setMana(int sm) {
 		mana += sm;
-		if (mana > 100) {
-			mana = 100;
+		if (mana > manaCap) {
+			mana = manaCap;
 		}
 	}
 	public int getMana() {

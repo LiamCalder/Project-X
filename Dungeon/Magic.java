@@ -52,19 +52,24 @@ public class Magic extends Weapon {
 			}
 		}
 		else if (this.name.equalsIgnoreCase("Drain Speed")) {
-			
+			d.enSpecEffect = this.getBaseDamage();
+			System.out.println("  The enemies movements become slower");
 		}
 		else if (this.name.equalsIgnoreCase("Defensive Aura")) {
-			
+			d.enDamEffect = this.getBaseDamage();
+			System.out.println("  A transucent field surrounds you");
 		}
 		else if (this.name.equalsIgnoreCase("Swiftness")) {
-			
+			d.plSpecEffect = this.getBaseDamage();
+			System.out.println("  Your body is imbued with speed");
 		}
-		else if (this.name.equalsIgnoreCase("Dimensional Shift")) {
-			
+		else if (this.name.equalsIgnoreCase("Channel Magic")) {
+			d.plDamEffect = this.getBaseDamage();
+			System.out.println("  You channel powerful magic into your weapon");
 		}
 		else if (this.name.equalsIgnoreCase("Wall Of Fire")) {
-			
+			d.firewall = true;
+			System.out.println("  A fierce blaze springs up between you and you foe");
 		}
     }
 }

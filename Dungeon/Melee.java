@@ -21,12 +21,13 @@ public class Melee extends Weapon {
 	
 	public void PlHit(Weapon w, Player p) {
 		Dungeon d = new Dungeon();
-		String enemyName = w.name;
-		int enemyDamage = w.getDamage();
 		if (d.enId == 37) {
 			System.out.println("  Arvin spasms uselessly on the ground");
 			return;
 		}
+		
+		String enemyName = w.name;
+		int enemyDamage = w.getDamage() + d.enDamEffect;
 		p.takeDamage(enemyDamage);
 		
         // Damage output
@@ -41,7 +42,7 @@ public class Melee extends Weapon {
 	public void EnHit(Weapon w, Enemy en, Player p) {
 		Dungeon d = new Dungeon();
         String enemyName = w.name;
-		int playerDamage = p.getDamageM();
+		int playerDamage = p.getDamageM() + d.plDamEffect;
 		en.takeDamage(playerDamage);
 		
         // Damage output

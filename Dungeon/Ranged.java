@@ -39,14 +39,15 @@ public class Ranged extends Weapon {
 		if (enemyName.equalsIgnoreCase("GTMichaels")) {
 			System.out.println("  You drop your feeble weapons. Dispair fills your mind as he");
 			System.out.println("  approaches you, his very presence the harbinger of Death.");
-		}
-		int playerDamage = p.getDamageR();
-		en.takeDamage(playerDamage);
-		pl.useAmmo(-1);
+		} else {
+			int playerDamage = p.getDamageR() + d.plDamEffect;
+			en.takeDamage(playerDamage);
+			pl.useAmmo(-1);
 		
-        // Damage output
-		System.out.println("");
-        System.out.println("  You hit the "+enemyName+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");
+			// Damage output
+			System.out.println("");
+			System.out.println("  You hit the "+enemyName+" with your "+p.getQNameR()+p.getNameR()+" for "+p.getDamageR()+" damage.");
+		}
         if (en.getHealth() <= 0) {
             System.out.println("  The " +enemyName+ " dies!");
 			en.setDead(true);
