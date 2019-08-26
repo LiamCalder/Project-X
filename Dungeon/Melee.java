@@ -19,7 +19,7 @@ public class Melee extends Weapon {
 		return type;
 	}
 	
-	public void PlHit(Weapon w, Player p) {
+	public void PlHit(Weapon w, Enemy en, Player p) {
 		Dungeon d = new Dungeon();
 		if (d.enId == 37) {
 			System.out.println("  Arvin spasms uselessly on the ground");
@@ -38,15 +38,15 @@ public class Melee extends Weapon {
         }
 		if (d.firewall == true) {
 			damage = d.fireWall.getBaseDamage();
-			p.takeDamage(damage);
+			en.takeDamage(damage);
+			System.out.println("");
 			System.out.println("  The wall of fire burns the "+enemyName+" for " +damage+ " damage.");
-			
-			if (en.getHealth() <= 0) {
+		}
+		if (en.getHealth() <= 0) {
 				System.out.println("  The " +enemyName+ " dies!");
 				en.setDead(true);
 			} else {
             System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
-			}
 		}
     }
 	
@@ -70,6 +70,7 @@ public class Melee extends Weapon {
 		if (d.firewall == true) {
 			damage = d.fireWall.getBaseDamage();
 			p.takeDamage(damage);
+			System.out.println("");
 			System.out.println("  The wall of fire burns you for " +damage+ " damage.");
 			
 			if (p.getHealth() <= 0) {

@@ -40,7 +40,7 @@ public abstract class Weapon {
 	
 	public abstract int getBaseDamage();
 	
-	public abstract void PlHit(Weapon w, Player p);
+	public abstract void PlHit(Weapon w, Enemy En, Player p);
 	
 	public abstract void EnHit(Weapon w, Enemy en, Player p);
 	

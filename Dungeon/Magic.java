@@ -21,7 +21,7 @@ public class Magic extends Weapon {
 		return type;
 	}
 	
-	public void PlHit(Weapon w, Player p) {
+	public void PlHit(Weapon w, Enemy en, Player p) {
         String enemyName = w.name;
 		int enemyDamage = w.getDamage();
 		p.takeDamage(enemyDamage);

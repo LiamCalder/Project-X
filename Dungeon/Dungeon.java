@@ -318,6 +318,7 @@ public class Dungeon {
 		}
 		else if (delay.equalsIgnoreCase("111")) {
             usedCheats = true;
+			delay = s.nextLine();
         }
 		if (usedCheats == true) {
 			if (delay.equalsIgnoreCase("fast")) {
@@ -470,7 +471,7 @@ public class Dungeon {
 						return;
 					}
 					Delay();
-					plDodgeChance(e);
+					plDodgeChance(e, en);
 				}
 				else if (subInput.equalsIgnoreCase("ranged") || subInput.equalsIgnoreCase("r")) {
 					if (pl.getAmmo() != 0) {
@@ -483,7 +484,7 @@ public class Dungeon {
 							return;
 						}
 						Delay();
-						plDodgeChance(e);
+						plDodgeChance(e, en);
 					} else {
 						System.out.println("  You don't have any more ammunition!");
 					}
@@ -580,7 +581,7 @@ public class Dungeon {
 							return;
 						}
 						Delay();
-						plDodgeChance(e);
+						plDodgeChance(e, en);
 					} else {
 						System.out.println("  You don't know any spells!");
 					}
@@ -609,7 +610,7 @@ public class Dungeon {
 						pl.setHPotions(-1);
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
 						Delay();
-						plDodgeChance(e);
+						plDodgeChance(e, en);
 					} else {
 						System.out.println("  You don't have any more health potions!");
 					}
@@ -622,7 +623,7 @@ public class Dungeon {
 						pl.setMPotions(-1);
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
 						Delay();
-						plDodgeChance(e);
+						plDodgeChance(e, en);
 					} else {
 						System.out.println("  You don't have any more mana potions!");
 					}
@@ -654,7 +655,7 @@ public class Dungeon {
 			System.out.println("  You drop your feeble weapons. Dispair fills your mind as he");
 			System.out.println("  approaches you, his very presence the harbinger of Death.");
 			System.out.println("");
-			melee.PlHit(e, pl);
+			melee.PlHit(e, en, pl);
 		}
         int target = (e.getSpecial()+enSpecEffect) * 4;
         int score = r.nextInt(100)+1;
@@ -673,13 +674,13 @@ public class Dungeon {
 		}
     }
     
-    private static void plDodgeChance(Weapon e) {
+    private static void plDodgeChance(Weapon e, Enemy en) {
         Random r = new Random();
         int target = (pl.getSpecialM()+plSpecEffect) * 4;
         int score = r.nextInt(100)+1;
         
         if (score > target) {
-			melee.PlHit(e, pl);
+			melee.PlHit(e, en, pl);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
         }
