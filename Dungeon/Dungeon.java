@@ -6,7 +6,6 @@ public class Dungeon {
     //initialize Variables
     public static int level = 1; //highest weapon tier that can be generated. Adds onto enemy damage
 	public static int subLevel = 0;
-    static String mode = "realistic";
 	static String battleLast = "weapon";
 	static String battleSubLast = "melee";
 	static String weaponType;
@@ -39,6 +38,7 @@ public class Dungeon {
     
     //initialise Classes
     static Player pl = new Player();
+	static DungeonT dt = new DungeonT();
 	
 	//used to call general class functions eg: melee.enHit()
 	static Weapon melee         = new Melee("", 0, 0); 
@@ -126,7 +126,7 @@ public class Dungeon {
     static Weapon manticore        = new Melee("Manticore", 5, 5);
     static Weapon draugr           = new Melee("Draugr", 5, 5);
     static Weapon legion           = new Melee("Legion", 5, 5);
-    static Weapon gtmichaels       = new Melee("GTMichaels", 8554, 25);
+    static Weapon gtmichaels       = new Melee("GTMichaels", 8554, 2002);
     static Weapon arvin            = new Melee("Arvin", 0, 0);
     static Weapon griffin          = new Melee("Griffin", 5, 5);
     static Weapon mimic            = new Melee("Mimic", 9, 4);
@@ -163,7 +163,7 @@ public class Dungeon {
             else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
                 try {
                     FileWriter fw = new FileWriter("Save.txt");
-                    fw.write(mode);    
+                    fw.write("tutorial");    
                     fw.close();    
                 } 
                 catch(Exception e){
@@ -172,7 +172,7 @@ public class Dungeon {
                 System.out.println("");
                 System.out.println("  Mode changed to Tutorial");
                 
-                //dt.main(null);
+                dt.main(null);
                 System.exit(1);
             }
             else {
@@ -198,12 +198,11 @@ public class Dungeon {
 		subLevel++;
         Delay(); //make game wait for user
         Random r = new Random();
-        int vary = r.nextInt(3)+4; //variation on number of levels (btwn 4 - 6)
+        int vary = r.nextInt(4)+2; //variation on number of levels (btwn 4 - 6)
         int roomArr[] = new int[vary]; //create array of vary length
         for (int i=0; i<vary; i++) {
             //call RoomId and grab Id
-            int checkRoomId = -1;
-            int roomId = RoomId(checkRoomId);
+            int roomId = RoomId();
             boolean isDup = isDuplicate(roomArr, roomId); //check for duplicates
             if (isDup == true) {
                 i--;
@@ -214,7 +213,7 @@ public class Dungeon {
 				
             }
         }
-        
+        RoomGen(26); //generate shop at end of each level
         NextLevel();
     }
     
@@ -223,7 +222,7 @@ public class Dungeon {
             if (Id == roomArr[i])
             {
                 return true;
-            } 
+            }
         }
         return false;
     }
@@ -248,6 +247,7 @@ public class Dungeon {
     private static void Controls() {
         System.out.println("");
         System.out.println("  KEYBINDINGS            FUNCTION");
+		System.out.println("  'controls' or 'c'......brings up this menu");
         System.out.println("  'quit' or 'q'..........save and quit the game");
         System.out.println("  'help' or 'h' or '?'...bring up help menu");
         System.out.println("  'examine' or 'e'.......examine enemy");
@@ -304,6 +304,9 @@ public class Dungeon {
         }
         else if (delay.equalsIgnoreCase("quit")|| delay.equalsIgnoreCase("q")) {
             System.exit(1);
+        }
+		else if (delay.equalsIgnoreCase("controls")|| delay.equalsIgnoreCase("c")) {
+            Controls();
         }
         else if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
             System.out.println("  enId in Delay() is "+enId);
@@ -408,14 +411,9 @@ public class Dungeon {
 		}
     }
 
-    private static int RoomId(int roomId) { //room Id list
+    private static int RoomId() { //room Id list
         Random r = new Random();
-        roomId = r.nextInt(51)+1; //update with new room cases
-        //change max random number to change shop spawn chance 
-        //(E.g. 15 cases (rooms), max ran 20 = 1:4 spawn ratio)
-        if (roomId > 25) {
-            roomId = 26; //give shops one Id
-        }
+        int roomId = r.nextInt(25)+1; //choose random Id from room list
         return roomId; //pass RoomId back to Caller
     }
     
@@ -598,6 +596,7 @@ public class Dungeon {
 					System.out.println("    What potion do you use?");
 					System.out.println("  ============================");
 					System.out.println("  [Health("+pl.getHPotions()+")] [Mana("+pl.getMPotions()+")] [Back]");
+					System.out.println("  Current Health: "+pl.getHealth());
 					System.out.print("  ");
 					subInput = s.nextLine();
 					System.out.println("");
@@ -1123,7 +1122,7 @@ public class Dungeon {
 			case 8: System.out.println("  Perhaps the most infamous of foes, the goblin "); 
 					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
 			//... on and on it goes.
-            default:System.out.println("Congrats! this enemy doesn't exist"); break;
+            default:System.out.println("  It's Gabriels fault this enemy doesn't have a description yet. Shame on you Garbriel you lazy butt."); break;
         }
     }
     
@@ -1354,36 +1353,9 @@ public class Dungeon {
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            default:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
+            case 26:System.out.println("  A shopkeeper sits looking somewhat bored at his stall");
                     Delay();
                     Shop(); break;
-        }
-    }
-    
-    private void LWeapons(int Id) {
-        //legendary weapons
-        switch (Id) {
-            case 1:; //Excalibur
-            break;
-            case 2:; //Carved Basilisk Knife
-            break;
-            case 3:; //Meat-Cleaver of the Damned
-            break;
-            case 4:; //spell: Dragonfire
-            break;
-            case 5:; //Gatling Crossbow
-            break;
-            case 6:; //spell: Freeze time
-            break;
-            case 7:; //The Lobotimizer
-            break;
-            case 8:; //Chain-and-Sickle 
-            break;
-            case 9:; //Mithril Hamaxe
-            break;
-            case 10:; //Fists of Fury
-            break;
-            case 11:; //Shadow Daggers
         }
     }
 }

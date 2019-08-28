@@ -41,12 +41,12 @@ public class Melee extends Weapon {
 			en.takeDamage(damage);
 			System.out.println("");
 			System.out.println("  The wall of fire burns the "+enemyName+" for " +damage+ " damage.");
-		}
-		if (en.getHealth() <= 0) {
+			if (en.getHealth() <= 0) {
 				System.out.println("  The " +enemyName+ " dies!");
 				en.setDead(true);
 			} else {
-            System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
+				System.out.println("  The " +enemyName+ " has " +en.getHealth()+ " hp.");
+			}
 		}
     }
 	

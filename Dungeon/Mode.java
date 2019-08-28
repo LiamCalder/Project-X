@@ -40,7 +40,7 @@ public class Mode {
 			System.exit(1);
 		} 
 		else { 
-			//dt.main(null);
+			dt.main(null);
 			System.exit(1);
 		}
 	}

@@ -24,6 +24,7 @@ public class Player {
 	private int manaCap;
 	private int hPotions;
 	private int mPotions;
+	private int spellCount;
 	
 	//store learned spells
 	private boolean flame = false;
@@ -44,6 +45,7 @@ public class Player {
 		hPotions = 0;
 		mPotions = 0;
 		cash = 0;
+		spellCount = 0;
     }
 	
 	public boolean getSpell(String spell) {
@@ -71,7 +73,12 @@ public class Player {
 			case "Channel Magic": channel = true; break;
 			case "Wall of Fire": fireWall = true; break;
 		}
+		spellCount++;
 		haveSpells = true;
+	}
+	
+	public int getSpellCount() {
+		return spellCount;
 	}
 	
 	public void setHpCap(int hpc) {
