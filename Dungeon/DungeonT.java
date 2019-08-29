@@ -27,6 +27,7 @@ public class DungeonT {
 	static int reloadCost;
     static int enId;
     static Weapon shopW;
+	static boolean tutorial = true;
 	static boolean firewall = false;
 	static boolean findWeapon = false;
     static boolean isChest = false;
@@ -38,6 +39,7 @@ public class DungeonT {
     
     //initialise Classes
     static Player pl = new Player();
+	static Dungeon d = new Dungeon();
 	
 	//used to call general class functions eg: melee.enHit()
 	static Weapon melee         = new Melee("", 0, 0); 
@@ -169,7 +171,7 @@ public class DungeonT {
             else if (input.equalsIgnoreCase("controls") || input.equalsIgnoreCase("c")) {
                 Controls();
             }
-            else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
+            else if (input.equalsIgnoreCase("realistic") || input.equalsIgnoreCase("r")) {
                 try {
                     FileWriter fw = new FileWriter("Save.txt");
                     fw.write("realistic");    
@@ -179,9 +181,9 @@ public class DungeonT {
                     System.out.println(e);
                 }    
                 System.out.println("");
-                System.out.println("  Mode changed to Tutorial");
+                System.out.println("  Mode changed to realistic");
                 
-                //dt.main(null);
+                d.main(null);
                 System.exit(1);
             }
             else {

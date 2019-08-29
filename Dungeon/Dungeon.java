@@ -191,7 +191,32 @@ public class Dungeon {
 		Delay();
         System.out.println("  You Have Perished in the Dungeon...");
 		Delay();
-		System.exit(1);
+		Scanner s = new Scanner(System.in);
+		String input = "";
+		while (1 == 1) {
+			System.out.println("  Do you want to play again?");
+			System.out.println("  ==========================");
+			System.out.println("        [Yes]      [No]");
+			System.out.print("  ");
+			input = s.nextLine();
+			if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
+				try {
+					Mode m = new Mode();
+					Runtime.getRuntime().exec("cmd /C start Dungeon");
+					System.exit(0);
+				} 
+				catch (Exception e) {
+					System.out.println(e);
+				}
+			} 
+			else if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
+				System.exit(1);
+			} else {
+				System.out.println("");
+				System.out.println("  Not a valid option. Enter '?' for help");
+				System.out.println("");
+			}
+		}
 	}
     
     private static void LevelChain() {
@@ -262,10 +287,16 @@ public class Dungeon {
 		subLevel = 0;
         healthMult += 0.2;
 		String input = "";
+		
+		System.out.println("  You find a staircase leading deeper into the dungeon");
+		System.out.println("");
+        System.out.println("  You descend the stairs...");
+		Delay();
+		
 		while (1 == 1) {
 			System.out.println("      Choose a stat to increase");
 			System.out.println("  ==================================");
-			System.out.println("  [Health:"+pl.getHpCap()+"->"+(pl.getHpCap()+10)+"]  [Mana:"+pl.getManaCap()+"->"+(pl.getManaCap()+10)+"]");
+			System.out.println("  [Health]:"+pl.getHpCap()+"->"+(pl.getHpCap()+10)+"  [Mana]:"+pl.getManaCap()+"->"+(pl.getManaCap()+10)+"");
 			System.out.print("  ");
 			input = s.nextLine();
 			System.out.println("");
@@ -283,11 +314,7 @@ public class Dungeon {
 			} else {
 				System.out.println("  Not a valid option. Enter '?' for help");
 			}
-		}			
-		Delay();
-        System.out.println("  You find a staircase leading deeper into the dungeon");
-		System.out.println("");
-        System.out.println("  You descend the stairs...");
+		}
         LevelChain(); //then restart LevelChain
     }
     
@@ -363,6 +390,9 @@ public class Dungeon {
 				changeW = true;
 				forceQuality = 1;
 				GetStats(pebbles);
+			}
+			else if (delay.equalsIgnoreCase("end")) {
+				End();
 			}
 			else if (delay.equalsIgnoreCase("debug")) {
 				System.out.println("");
@@ -444,13 +474,18 @@ public class Dungeon {
 			if (input.equalsIgnoreCase("last") || input.equalsIgnoreCase("l")) {
 				last = true;
 				input = battleLast;
+				if (!input.equalsIgnoreCase("w") || !input.equalsIgnoreCase("weapon") || !input.equalsIgnoreCase("p") || !input.equalsIgnoreCase("potions")) {
+					input = "w";
+				}
+				if (!subInput.equalsIgnoreCase("m") || !subInput.equalsIgnoreCase("r") ) {
+					subInput = "m";
+				}
 				//select last choice to make battles less tedious
 			} else {
 				battleLast = input;
 			}
             if (input.equalsIgnoreCase("weapon") || input.equalsIgnoreCase("w")) {
 				if (last != true) {
-					System.out.println("");
 					System.out.println("       What weapon do you use?");
 					System.out.println("  ==================================");
 					System.out.println("  [Melee] [Ranged("+pl.getAmmo()+")] [Spell] [Back]");
@@ -604,10 +639,11 @@ public class Dungeon {
 				}
 				if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
 					if (pl.getHPotions() > 0) {
-						System.out.println("  You feel your body being repaired");
 						pl.setHealth(potionHeal);
 						pl.setHPotions(-1);
+						System.out.println("  You feel your body being repaired");
 						System.out.println("  You have "+pl.getHPotions()+" health potions");
+						System.out.println("  You have "+pl.getHealth()+" health");
 						Delay();
 						plDodgeChance(e, en);
 					} else {
@@ -705,6 +741,8 @@ public class Dungeon {
             System.out.println("");
             
             if (input.equalsIgnoreCase("potions") || input.equalsIgnoreCase("p")) {
+				hPotionCost = (int) Math.round(healBaseCost * level);
+				mPotionCost = (int) Math.round(manaBaseCost * level);
                 System.out.println("      What do you want to buy?");
                 System.out.println("  ================================");
                 System.out.println("  [Health:"+hPotionCost+"]  [Mana:"+mPotionCost+"]  [Back]");
@@ -717,7 +755,6 @@ public class Dungeon {
                     if (pl.getCash() > hPotionCost) {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
-                        hPotionCost = (int) Math.round(healBaseCost * level);
 						healBaseCost += 2;
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
@@ -729,8 +766,7 @@ public class Dungeon {
                     if (pl.getCash() > mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
-						mPotionCost = (int) Math.round(manaBaseCost * level);
-						manaBaseCost++;
+						manaBaseCost += 2;
                         System.out.println("  You purchased a mana potion");
                         System.out.println("  You have "+pl.getMPotions()+" mana potions");
                     } else {
@@ -1105,7 +1141,8 @@ public class Dungeon {
     private static void Examine(int Id) {
         switch (Id) {
             case 0: System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones.");
-					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
+					System.out.println("  Tier: 1    Damage: medium   Speed: slow"); 
+					System.out.println(""); break;
 			case 1: System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");
 					System.out.println("  Tier: 1    Type: Melee    Highest stat: Speed"); break;
 			case 2: System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction.");
@@ -1345,7 +1382,7 @@ public class Dungeon {
                     }
                     enemyId = EnemyId(enArr);
                     EnemyGen(enemyId); break;
-            case 25:System.out.println("  the doorway to this room has strange runes scrawled across it - probably a warning"); 
+            case 25:System.out.println("  The doorway to this room has strange runes scrawled across it - probably a warning"); 
                     switch(tier) {
                         default: enArr = new int[]{0,1,7,17,18,25}; break;
                         case 2:  enArr = new int[]{2,4,6,11,14,28,29,34}; break;
