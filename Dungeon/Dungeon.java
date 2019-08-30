@@ -123,13 +123,13 @@ public class Dungeon {
     static Weapon aElemental       = new Melee("Air Elemental", 9, 5);     
     static Weapon basilisk         = new Melee("Basilisk", 11, 3);           
     static Weapon golem            = new Melee("Rock Golem", 10, 2);
-    static Weapon manticore        = new Melee("Manticore", 5, 5);
-    static Weapon draugr           = new Melee("Draugr", 5, 5);
-    static Weapon legion           = new Melee("Legion", 5, 5);
+    static Weapon manticore        = new Melee("Manticore", 12, 5);
+    static Weapon draugr           = new Melee("Draugr", 12, 4);
+    static Weapon legion           = new Melee("Legion", 8, 5);
     static Weapon gtmichaels       = new Melee("GTMichaels", 8554, 2002);
     static Weapon arvin            = new Melee("Arvin", 0, 0);
-    static Weapon griffin          = new Melee("Griffin", 5, 5);
-    static Weapon mimic            = new Melee("Mimic", 9, 4);
+    static Weapon griffin          = new Melee("Griffin", 11, 3);
+    static Weapon mimic            = new Melee("Mimic", 9, 6);
 	
     
     public static void main(String[] args) {
