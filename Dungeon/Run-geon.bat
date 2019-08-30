@@ -1,5 +1,7 @@
 @echo off
-cd /D "%~dp0"
+cd /D "%~dp0" 
+set PATH=%JAVA_HOME%\bin;%PATH%
 title Dungeon
-javac Mode.java
+javac --release 8 Mode.java
 java Mode
+pause
