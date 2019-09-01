@@ -483,10 +483,10 @@ public class Dungeon {
 			if (input.equalsIgnoreCase("last") || input.equalsIgnoreCase("l")) {
 				last = true; //skip user inputs
 				input = battleLast;
-				if (!input.equalsIgnoreCase("w") || !input.equalsIgnoreCase("weapon") || !input.equalsIgnoreCase("p") || !input.equalsIgnoreCase("potions")) {
+				if (!input.equalsIgnoreCase("w") && !input.equalsIgnoreCase("weapon") && !input.equalsIgnoreCase("p") && !input.equalsIgnoreCase("potions")) {
 					input = "w"; //if prev input was empty, set as melee attack
 				}
-				if (!subInput.equalsIgnoreCase("m") || !subInput.equalsIgnoreCase("r") ) {
+				if (!subInput.equalsIgnoreCase("m") && !subInput.equalsIgnoreCase("r") && !subInput.equalsIgnoreCase("h")) {
 					subInput = "m"; //^ same
 				}
 				//select last choice to make battles less tedious

@@ -5,3 +5,4 @@ set PATH=%JAVA_HOME%\bin;%PATH%
 title Dungeon
 javac --release 8 Dungeon.java
 java Dungeon
+exit
