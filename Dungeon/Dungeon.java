@@ -64,7 +64,6 @@ public class Dungeon {
     static Weapon flail          = new Melee("Flail", 12, 3);               
     static Weapon club           = new Melee("Club", 8, 4);      
     static Weapon warScythe      = new Melee("War Scythe", 17 ,1);
-	static Weapon pebbles		 = new Melee("Storm Breaker", 101, 0);
             
     //Ranged weapons - special determines max ammunition
     static Weapon shortbow       = new Ranged("Shortbow", 5, 7);         
@@ -212,7 +211,7 @@ public class Dungeon {
 		subLevel++;
         Delay(); //make game wait for user
         Random r = new Random();
-        int vary = r.nextInt(4)+2; //variation on number of levels (btwn 4 - 6)
+        int vary = r.nextInt(3)+4; //variation on number of levels (btwn 4 - 6)
         int roomArr[] = new int[vary]; //create array of vary length
         for (int i=0; i<vary; i++) {
             //call RoomId and grab Id
@@ -381,7 +380,7 @@ public class Dungeon {
 					wGen = false;
 				}
 			}
-			else if (delay.equalsIgnoreCase("custom melee")) {
+			else if (delay.equalsIgnoreCase("c melee")) {
 				String tName = s.nextLine();
 				int d = s.nextInt();
 				int sp = s.nextInt();
@@ -389,18 +388,13 @@ public class Dungeon {
 				changeW = true;
 				GetStats(CM);
 			}
-			else if (delay.equalsIgnoreCase("custom ranged")) {
+			else if (delay.equalsIgnoreCase("c ranged")) {
 				String tName = s.nextLine();
 				int d = s.nextInt();
 				int sp = s.nextInt();
 				Weapon CR = new Ranged(tName, d, sp);
 				changeW = true;
-				SetStats(CR);
-			}
-			else if (delay.equalsIgnoreCase("wield")) {
-				changeW = true;
-				forceQuality = 1;
-				GetStats(pebbles);
+				GetStats(CR);
 			}
 			else if (delay.equalsIgnoreCase("end")) {
 				End();
@@ -702,9 +696,23 @@ public class Dungeon {
 			System.out.println("");
 			melee.PlHit(e, en, pl);
 		}
+		if (pl.getNameM().equalsIgnoreCase("Infinity Gauntlet")) {
+			int snap = r.nextInt(2)+1;
+			System.out.println("  You snap your fingers and energy pulses out");
+			System.out.println("");
+			if (snap == 1) {
+			System.out.println("  The "+e.getName()+" dissolves into dust at your feet");	
+			en.setHealth(0);
+			en.setDead(true);
+			return;
+			} else {
+				System.out.println("  The last thing you see is your body dissapearing before your eyes go dark");
+				End();
+			}
+		}
         int target = (e.getSpecial()+enSpecEffect) * 4; 
         int score = r.nextInt(100)+1;
-		if (type == 1 || w.name.equalsIgnoreCase("Fireball") || w.name.equalsIgnoreCase("Ice Beam") || w.name.equalsIgnoreCase("Lightning Bolt")) {
+		if (type == 1 || w.getName().equalsIgnoreCase("Fireball") || w.getName().equalsIgnoreCase("Ice Beam") || w.getName().equalsIgnoreCase("Lightning Bolt")) {
 			if (score > target) {
 				if (type == 1) { //if attacking with a melee weapon
 					melee.EnHit(e, en, pl);
@@ -1089,7 +1097,6 @@ public class Dungeon {
         switch (Id) {
             //Melee weapons T1
             default:GetStats(dagger); break;
-			case -5:GetStats(skeleton); break;
             case 2:GetStats(sword); break;
             case 3:GetStats(axe); break;
             case 4:GetStats(shank); break;
