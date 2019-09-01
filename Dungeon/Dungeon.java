@@ -189,10 +189,13 @@ public class Dungeon {
 			if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
 				try {
 					Runtime.getRuntime().exec("cmd /C start run-geon"); //run game again
-					System.exit(0);
+					System.exit(1);
 				} 
 				catch (Exception e) {
 					System.out.println(e);
+				}
+				finally {
+					System.exit(0);
 				}
 			} 
 			else if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
@@ -759,7 +762,7 @@ public class Dungeon {
                 System.out.println("");
                 
                 if (subInput.equalsIgnoreCase("health") || subInput.equalsIgnoreCase("h")) {
-                    if (pl.getCash() > hPotionCost) {
+                    if (pl.getCash() >= hPotionCost) {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
 						healBaseCost += 2;
@@ -770,7 +773,7 @@ public class Dungeon {
                     }
                 }
                 else if (subInput.equalsIgnoreCase("mana") || subInput.equalsIgnoreCase("m")) {
-                    if (pl.getCash() > mPotionCost) {
+                    if (pl.getCash() >= mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
 						manaBaseCost += 2;
@@ -809,7 +812,7 @@ public class Dungeon {
 						System.out.println("  You can't hold any more ammo!");
 					}
 					if (subInput.equalsIgnoreCase("yes") || subInput.equalsIgnoreCase("y")) {
-						if (pl.getCash() > reloadCost) {
+						if (pl.getCash() >= reloadCost) {
 							System.out.println("  You purchase a reload");
 							pl.setCash(-reloadCost);
 							pl.setNewAmmo(pl.getMaxAmmo());
@@ -829,7 +832,7 @@ public class Dungeon {
 					subInput = s.nextLine();
 					System.out.println("");
 					if(subInput.equalsIgnoreCase("m") || subInput.equalsIgnoreCase("melee")) {
-						if (pl.getCash() > reforgeCost) {
+						if (pl.getCash() >= reforgeCost) {
 							pl.setCash(-reforgeCost);
 							changeW = true;
 							System.out.print("  You reforge your "+pl.getQNameM()+pl.getNameM()+" to ");
@@ -840,7 +843,7 @@ public class Dungeon {
 						}
 					}
 					else if (subInput.equalsIgnoreCase("r") || subInput.equalsIgnoreCase("ranged")) {
-						if (pl.getCash() > reforgeCost) {
+						if (pl.getCash() >= reforgeCost) {
 							pl.setCash(-reforgeCost);
 							changeW = true;
 							System.out.print("  You reforge your "+pl.getQNameR()+pl.getNameR()+" to ");
@@ -1001,7 +1004,7 @@ public class Dungeon {
             System.out.println("");
             
             if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
-                if (pl.getCash() > weaponCost) {
+                if (pl.getCash() >= weaponCost) {
                     if (compare == false) {
 						System.out.println("  You learn "+localWName);
 					} else {
