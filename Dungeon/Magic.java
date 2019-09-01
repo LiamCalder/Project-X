@@ -57,7 +57,7 @@ public class Magic extends Weapon {
 		}
 		else if (this.name.equalsIgnoreCase("Defensive Aura")) {
 			d.enDamEffect = this.getBaseDamage();
-			System.out.println("  A transucent field surrounds you");
+			System.out.println("  A protective field surrounds you");
 		}
 		else if (this.name.equalsIgnoreCase("Swiftness")) {
 			d.plSpecEffect = this.getBaseDamage();
