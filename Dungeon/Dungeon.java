@@ -57,7 +57,7 @@ public class Dungeon {
     static Weapon shank          = new Melee("Shank", 5, 8);                
     static Weapon spear          = new Melee("Spear", 8, 6);               
     static Weapon wristBlades    = new Melee("Wrist Blades", 8, 5);       
-    static Weapon battleAxe       = new Melee("Battle Axe", 16, 4);          
+    static Weapon battleAxe      = new Melee("Battle Axe", 16, 4);          
     static Weapon morningstar    = new Melee("Morningstar", 14, 6);       
     static Weapon pike           = new Melee("Pike", 10, 8);              
     static Weapon cutlass        = new Melee("Cutlass", 7, 7);           
@@ -366,7 +366,7 @@ public class Dungeon {
 					pl.giveSpell(input);
 				}
 			}
-			else if (delay.equalsIgnoreCase("weapon")) {
+			else if (delay.equalsIgnoreCase("gen")) {
 				wGen = true;
 				try {
 					int input = s.nextInt();
@@ -377,6 +377,22 @@ public class Dungeon {
 					System.out.println("");
 					wGen = false;
 				}
+			}
+			else if (delay.equalsIgnoreCase("custom melee")) {
+				String tName = s.nextLine();
+				int d = s.nextInt();
+				int sp = s.nextInt();
+				Weapon CM = new Melee(tName, d, sp);
+				changeW = true;
+				GetStats(CM);
+			}
+			else if (delay.equalsIgnoreCase("custom ranged")) {
+				String tName = s.nextLine();
+				int d = s.nextInt();
+				int sp = s.nextInt();
+				Weapon CR = new Ranged(tName, d, sp);
+				changeW = true;
+				SetStats(CR);
 			}
 			else if (delay.equalsIgnoreCase("wield")) {
 				changeW = true;
@@ -686,7 +702,7 @@ public class Dungeon {
         int target = (e.getSpecial()+enSpecEffect) * 4; 
         int score = r.nextInt(100)+1;
 		if (type == 1 || w.name.equalsIgnoreCase("Fireball") || w.name.equalsIgnoreCase("Ice Beam") || w.name.equalsIgnoreCase("Lightning Bolt")) {
-			if (score < target) {
+			if (score > target) {
 				if (type == 1) { //if attacking with a melee weapon
 					melee.EnHit(e, en, pl);
 				} else { //if attacking with attack spell
@@ -705,7 +721,7 @@ public class Dungeon {
         int target = (pl.getSpecialM()+plSpecEffect) * 4;
         int score = r.nextInt(100)+1;
         
-        if (score < target) {
+        if (score > target) {
 			melee.PlHit(e, en, pl);
         } else {
             System.out.println("  You dodge the "+e.getName()+"'s attack!");
