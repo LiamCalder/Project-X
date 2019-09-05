@@ -24,6 +24,7 @@ public class DungeonT {
 	static double mPotionMult = 1.0;//cost multiplier
 	static double hPotionMult = 1.0;//cost multiplier
     static int weaponCost;
+	static int weaponCostMult;
 	static int reloadCost;
     static int enId;
     static Weapon shopW;
@@ -508,7 +509,7 @@ public class DungeonT {
 		}
         Delay();
 		if (tutorial == true) {
-			System.out.println("  you've encountered an enemy! There are a couple of");
+			System.out.println("  You've encountered an enemy! There are a couple of");
 			System.out.println("  things you need to know about battles:");
 			System.out.println("");
 			System.out.println("  Every enemy, and weapon, has 2 base stats.");
@@ -528,7 +529,7 @@ public class DungeonT {
 			Delay();
 			System.out.println("  On your turn, you have 3 options: weapon, potion and last.");
 			System.out.println("");
-			System.out.println("  weapon braches into 3 more options: melee, ranged or spell.");
+			System.out.println("  weapon branches into 3 more options: melee, ranged or spell.");
 			System.out.println("  Melee: free to use, chance to miss");
 			System.out.println("  Ranged: limited ammunition, always hits");
 			System.out.println("  Magic: 2 types, attack and effect");
@@ -1055,6 +1056,7 @@ public class DungeonT {
 		String showAmmo = "";
 		String quality = "Quality: ";
 		boolean compare = true;
+		int cost = weaponCost * weaponCostMult;
 		
         if (changeW == true) { //automatic weapon change
             w.newWeapon();
@@ -1110,7 +1112,7 @@ public class DungeonT {
             System.out.println(   damageType+localWDamage); 
             System.out.println(   specialType+localWSpecial);
             System.out.println("");
-            System.out.println("  Cost: "+weaponCost);
+            System.out.println("  Cost: "+cost);
             System.out.println("  Balance: "+pl.getCash());
             System.out.println("");
             System.out.println("  Do you want to buy this weapon?");
@@ -1121,13 +1123,13 @@ public class DungeonT {
             System.out.println("");
             
             if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) {
-                if (pl.getCash() >= weaponCost) {
+                if (pl.getCash() >= cost) {
                     if (compare == false) {
 						System.out.println("  You learn "+localWName);
 					} else {
 						System.out.println("  You swap out your weapon for a "+localWQName+localWName);
                     }
-                    pl.setCash(-weaponCost);
+                    pl.setCash(-cost);
                     SetStats(w);
                 } else {
                     System.out.println("  You don't have enough money!");
@@ -1198,6 +1200,7 @@ public class DungeonT {
             case 2: w = r.nextInt(12)+13; break;
             case 3: w = r.nextInt(12)+25; break;
         }
+		weaponCost = tier * 10;
 		WeaponStats(w);
     }
     
