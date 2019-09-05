@@ -131,7 +131,7 @@ public class Player {
 	}
 	
 	public void setMPotions(int smp) {
-		mPotions = smp;
+		mPotions += smp;
 	}
 	public int getMPotions() {
 		return mPotions;

@@ -35,6 +35,7 @@ public class Dungeon {
     static boolean shop = false;
     static boolean fast = false;
 	static boolean usedCheats = false;
+	static boolean prompt = false;
     
     //initialise Classes
     static Player pl = new Player();
@@ -138,7 +139,7 @@ public class Dungeon {
 		changeW = true;
 		WeaponStats(pl.getWeaponR());
         String input = "";
-        while (!input.equalsIgnoreCase("start")) {
+        while (1 == 1) {
             //option select
             System.out.println("");
             System.out.println("       Do you want to enter The Dungeon?");
@@ -159,7 +160,6 @@ public class Dungeon {
             }
             else if (input.equalsIgnoreCase("tutorial") || input.equalsIgnoreCase("t")) {
                 dt.main(null); //tutorial class, main method
-				System.exit(1);
             }
             else {
                 Help(); // help method 
@@ -187,8 +187,8 @@ public class Dungeon {
 			input = s.nextLine();
 			if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
 				try {
-					Runtime.getRuntime().exec("cmd /C start run-geon"); //run game again
-					System.exit(1);
+					Runtime.getRuntime().exec("cmd /c start Dungeon.lnk"); //run game again
+					System.exit(0);
 				} 
 				catch (Exception e) {
 					System.out.println(e);
@@ -262,7 +262,7 @@ public class Dungeon {
         System.out.println("  'quit' or 'q'..........quit the game");
         System.out.println("  'help' or 'h' or '?'...bring up help menu");
         System.out.println("  'examine' or 'e'.......examine enemy");
-        System.out.println("");
+		System.out.println("  'prompt' or 'p'........toggle continue prompt on pause");
         Delay();
     }
     
@@ -309,6 +309,9 @@ public class Dungeon {
             System.out.println("");
             return;
         }
+		if (prompt == true) {
+			System.out.println("  Press enter to continue... ");
+		}
         Scanner s = new Scanner(System.in);
         String delay = s.nextLine();
         
@@ -325,6 +328,12 @@ public class Dungeon {
             System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
+		else if (delay.equalsIgnoreCase("prompt") || delay.equalsIgnoreCase("p")) {
+            prompt = !prompt;
+        }
+		if (!delay.equalsIgnoreCase("") || prompt == true) {
+			System.out.println("");
+		}
 		else if (delay.equalsIgnoreCase("subscribe to GTMichaels2002")) {
 			System.out.println("");
 			System.out.println("  The caverns around you tremble. An ancient and powerful presence surrounds you,");
@@ -405,6 +414,7 @@ public class Dungeon {
 				System.out.println("");
 				System.out.println("  level: "+level);
 				System.out.println("  Enemy Health Multiplier: "+healthMult);
+				System.out.println("  Global weapon Damage Addition: "+melee.multiplier);
 				System.out.println("  Enemy Special effect: "+enSpecEffect);
 				System.out.println("  Enemy Damage effect: "+enDamEffect);
 				System.out.println("  Player Special effect: "+plSpecEffect);
@@ -480,7 +490,7 @@ public class Dungeon {
 				if (!input.equalsIgnoreCase("w") && !input.equalsIgnoreCase("weapon") && !input.equalsIgnoreCase("p") && !input.equalsIgnoreCase("potions")) {
 					input = "w"; //if prev input was empty, set as melee attack
 				}
-				if (!subInput.equalsIgnoreCase("m") && !subInput.equalsIgnoreCase("r") && !subInput.equalsIgnoreCase("h")) {
+				if (!subInput.equalsIgnoreCase("m") && !subInput.equalsIgnoreCase("r") && !subInput.equalsIgnoreCase("h") && !subInput.equalsIgnoreCase("s")) {
 					subInput = "m"; //^ same
 				}
 				//select last choice to make battles less tedious
@@ -526,6 +536,7 @@ public class Dungeon {
 					}
 				}
 				else if (subInput.equalsIgnoreCase("spell") || subInput.equalsIgnoreCase("s")) {
+					boolean noMana = false;
 					if (pl.getSpell("haveSpells") == true) {
 						System.out.println("");
 						System.out.println("     What spell do you use?");
@@ -566,48 +577,57 @@ public class Dungeon {
 							continue;
 						}
 						switch (subSubInput.toLowerCase()) { //each spells individual action when used
-							case "f": if (pl.getMana() > flame.getSpecial() && pl.getSpell("flame") == true) {
+							case "f": if (pl.getMana() >= flame.getSpecial() && pl.getSpell("flame") == true) {
 								enDodgeChance(e, en, 2, flame); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "l": if (pl.getMana() > lightning.getSpecial() && pl.getSpell("firewall") == true) {
+								noMana = true;
+							}  break;
+							case "l": if (pl.getMana() >= lightning.getSpecial() && pl.getSpell("firewall") == true) {
 								enDodgeChance(e, en, 2, lightning); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "i": if (pl.getMana() > frost.getSpecial() && pl.getSpell("frost") == true) {
+								noMana = true;
+							}  break;
+							case "i": if (pl.getMana() >= frost.getSpecial() && pl.getSpell("frost") == true) {
 								enDodgeChance(e, en, 2, frost); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "dr": if (pl.getMana() > sapping.getSpecial() && pl.getSpell("sap") == true) {
+								noMana = true;
+							}  break;
+							case "dr": if (pl.getMana() >= sapping.getSpecial() && pl.getSpell("sap") == true) {
 								enDodgeChance(e, en, 2, sapping); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "de": if (pl.getMana() > aura.getSpecial() && pl.getSpell("aura") == true) {
+								noMana = true;
+							}  break;
+							case "de": if (pl.getMana() >= aura.getSpecial() && pl.getSpell("aura") == true) {
 								enDodgeChance(e, en, 2, aura); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "s": if (pl.getMana() > speed.getSpecial() && pl.getSpell("speed") == true) {
+								noMana = true;
+							}  break;
+							case "s": if (pl.getMana() >= speed.getSpecial() && pl.getSpell("speed") == true) {
 								enDodgeChance(e, en, 2, speed); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "c": if (pl.getMana() > channel.getSpecial() && pl.getSpell("channel") == true) {
+								noMana = true;
+							}  break;
+							case "c": if (pl.getMana() >= channel.getSpecial() && pl.getSpell("channel") == true) {
 								enDodgeChance(e, en, 2, channel); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							case "w": if (pl.getMana() > fireWall.getSpecial() && pl.getSpell("firewall") == true) {
+								noMana = true;
+							}  break;
+							case "w": if (pl.getMana() >= fireWall.getSpecial() && pl.getSpell("firewall") == true) {
 								enDodgeChance(e, en, 2, fireWall); break;
 							} else {
 								System.out.println("  You don't have enough mana!");
-							} break;
-							default: System.out.println("  Not a valid option. Enter '?' for help"); 
-							Delay(); break;
+								noMana = true;
+							}  break;
+							default: System.out.println("  Not a valid option. Enter '?' for help");
+								noMana = true;
+							 break;
 						}
 						if (en.getDead()) {
 							pl.addScore((100 * level)+h); //+100 * level for winning, + damage dealt
@@ -615,10 +635,13 @@ public class Dungeon {
 							System.out.println("  You enter the next room");
 							Delay();
 							break;
+						} 
+						if (noMana == false) {
+							Delay();
+							plDodgeChance(e, en);
 						}
-						Delay();
-						plDodgeChance(e, en);
 					} else {
+						Delay();
 						System.out.println("  You don't know any spells!");
 					}
 				}
@@ -659,7 +682,8 @@ public class Dungeon {
 						System.out.println("  Your magik is restored");
 						pl.setMana(potionMana);// ^ same but for mana
 						pl.setMPotions(-1);
-						System.out.println("  You have "+pl.getHPotions()+" health potions");
+						System.out.println("  You have "+pl.getHPotions()+" mana potions");
+						System.out.println("  You have "+pl.getMana()+" mana points");
 						Delay();
 						plDodgeChance(e, en);
 					} else {
@@ -679,7 +703,7 @@ public class Dungeon {
         }
 		enSpecEffect = 0;
 		enDamEffect = 0;
-		plSpecEffect = 0; //- reset spell effects for battle
+		plSpecEffect = 0; //- reset spell effects for next battle
 		plDamEffect = 0;
 		firewall = false;
 		isChest = false;
@@ -699,7 +723,7 @@ public class Dungeon {
 		if (pl.getNameM().equalsIgnoreCase("Infinity Gauntlet")) {
 			int snap = r.nextInt(2)+1;
 			System.out.println("  You snap your fingers and energy pulses out");
-			System.out.println("");
+			Delay();
 			if (snap == 1) {
 			System.out.println("  The "+e.getName()+" dissolves into dust at your feet");	
 			en.setHealth(0);
@@ -717,13 +741,19 @@ public class Dungeon {
 				if (type == 1) { //if attacking with a melee weapon
 					melee.EnHit(e, en, pl);
 				} else { //if attacking with attack spell
-					magic.EnHit(e, en, pl);
+					pl.setMana(-w.getSpecial());
+					w.EnHit(e, en, pl);
 				}
-			} else { //if score < target
+			} 
+			else if (type != 1) { //if score < target and used a spell
+				pl.setMana(-w.getSpecial());
+				System.out.println("  The "+e.getName()+" dodges your attack!");
+			} else {
 				System.out.println("  The "+e.getName()+" dodges your attack!");
 			}
 		} else {
-			magic.EnHit(e, en, pl);
+			pl.setMana(-w.getSpecial());
+			w.EnHit(e, en, pl);
 		}
     }
     
@@ -773,7 +803,7 @@ public class Dungeon {
                     if (pl.getCash() >= hPotionCost) {
                         pl.setHPotions(1);
                         pl.setCash(-hPotionCost);
-						healBaseCost += 2;
+						healBaseCost += 1;
                         System.out.println("  You purchased a health potion");
                         System.out.println("  You have "+pl.getHPotions()+" health potions");
                     } else {
@@ -784,7 +814,7 @@ public class Dungeon {
                     if (pl.getCash() >= mPotionCost) {
                         pl.setMPotions(1);
                         pl.setCash(-mPotionCost);
-						manaBaseCost += 2;
+						manaBaseCost += 1;
                         System.out.println("  You purchased a mana potion");
                         System.out.println("  You have "+pl.getMPotions()+" mana potions");
                     } else {
@@ -1249,12 +1279,10 @@ public class Dungeon {
         int enemyId;
         //only selects weapon up to + including current level
         Random t = new Random();
-        Random q = new Random();
         int tier = 5;
-        if (tier > 3) {
-            tier = 3;
+        while (tier > 3) {
+            tier = t.nextInt(level)+1;
         }
-        tier = t.nextInt(level)+1;
         switch(Id) {
             //decide tier of enemy here or up there ^
             case 1: System.out.println("  You enter a crypt, probably once connected to a catacomb");

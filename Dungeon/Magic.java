@@ -38,7 +38,6 @@ public class Magic extends Weapon {
 	public void EnHit(Weapon w, Enemy en, Player p) {
 		Dungeon d = new Dungeon();
 		String enemyName = w.name;
-		p.setMana(-this.getSpecial());
         if (this.name.equalsIgnoreCase("Fireball") || this.name.equalsIgnoreCase("Ice Beam") || this.name.equalsIgnoreCase("Lightning Bolt")) {
 			en.takeDamage(this.getDamage());
 			// Damage output
