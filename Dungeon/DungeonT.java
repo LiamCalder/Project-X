@@ -26,7 +26,7 @@ public class DungeonT {
     static int weaponCost;
 	static int weaponCostMult;
 	static int reloadCost;
-    static int enId;
+    static int enId = -1;
     static Weapon shopW;
 	static boolean firewall = false;
 	static boolean findWeapon = false;
@@ -358,7 +358,6 @@ public class DungeonT {
             Controls();
         }
         else if (delay.equalsIgnoreCase("examine") || delay.equalsIgnoreCase("e")) {
-            System.out.println("  enId in Delay() is "+enId);
             Examine(enId);
         }
 		else if (delay.equalsIgnoreCase("prompt") || delay.equalsIgnoreCase("p")) {
@@ -1306,56 +1305,128 @@ public class DungeonT {
     }
     
     private static void Examine(int Id) {
+		System.out.println("");
         switch (Id) {
+			case -1:System.out.println("  You are currently alone"); break;
             case 0: System.out.println("  The skelton grins fearsomely at you, rage somehow evident in it's rigid bones.");
-					System.out.println("  Tier: 1    Damage: medium   Speed: slow"); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: fast"); 
 					System.out.println(""); break;
 			case 1: System.out.println("  Deep in the dungeons, spiders are said to grow to gargantuan sizes. This one does not dissapoint.");
-					System.out.println("  Tier: 1    Type: Melee    Highest stat: Speed"); break;
+					System.out.println("  Tier: 1    Damage: medium   Speed: fast"); 
+					System.out.println(""); break;
 			case 2: System.out.println("  Cave trolls are mindless and savage, easily bent by the will of a powerful master to exact terrible destruction.");
-					System.out.println("  Tier: 2    Type: Melee    Highest stat: Damage"); break;
+					System.out.println("  Tier: 2    Damage: high   Speed: very slow"); 
+					System.out.println(""); break;
 			case 3: System.out.println("  This ancient and powerful snake has lived through the ages in darkness, devouring any who happen upon it.");
-					System.out.println("  Tier: 1    Type: Melee    Highest stat: Speed"); break;
+					System.out.println("  Tier: 1    Damage: low   Speed: very fast"); 
+					System.out.println(""); break;
 			case 4: System.out.print  ("  Necromancers are the most despised of all magicians, performing the darkest magics on the deceased to ");
 					System.out.println("  bend into their undying slaves.");
-					System.out.println("  Tier: 1    Type: Magic    Highest stat: Damage"); break;
-			case 6: System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon");
-					System.out.println("  Tier: 3    Type: Magic    Highest stat: Damage"); break;
-			case 7: System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow");
-					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
-			case 8: System.out.println("  Perhaps the most infamous of foes, the goblin "); 
-					System.out.println("  Tier: 1    Type: Melee    Highest stat: Damage"); break;
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 5: System.out.println("  The wizards who dwell here have been overpowered and corrupted by the evil magic of the dungeon");
+					System.out.println("  Tier: 3    Damage: very high   Speed: average"); 
+					System.out.println(""); break;
+			case 6: System.out.println("  This reanimated skeleton is not very different from others, other than it's use of a bow");
+					System.out.println("  Tier: 1    Damage: medium   Speed: average"); 
+					System.out.println(""); break;
+			case 7: System.out.println("  Perhaps the most infamous of foes, the goblin "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 8: System.out.println("  Out of options, this doomed outlaw has fled into the dungeon to escape justice"); 
+					System.out.println("  Tier: 1    Damage: average   Speed: average"); 
+					System.out.println(""); break;
+		    case 9: System.out.println("  The cave rat is the size of a small dog, it's shark-like eyes fixated on you with hunger "); 
+					System.out.println("  Tier: 1    Damage: low   Speed: very fast"); 
+					System.out.println(""); break;
+	        case 10: System.out.println("  This undead spectre seems to stare through your very soul "); 
+					System.out.println("  Tier: 3    Damage: high   Speed: fast"); 
+					System.out.println(""); break;
+			case 11: System.out.println("  The Zealot looks you over, ready to battle to the death "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 12: System.out.println("  The hellish demon is the very embodiment of damnation, and possesses the devastating power of the underworld "); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: average"); 
+					System.out.println(""); break;
+			case 13: System.out.println("  This towering beast smells of smoke and burning flesh, The ultimate foe of any hero "); 
+					System.out.println("  Tier: 3    Damage: devastating   Speed: slow"); 
+					System.out.println(""); break;
+			case 14: System.out.println("  With tusks petruding through its lips, this orc brandishes it's weapon at you roars"); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 15: System.out.println("  A fanged foe that can smell the blood running through your veins "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 16: System.out.println("  The most feared enemy of any fleet, you can only guess at it's massive length concealed beneath the water"); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: slow"); 
+					System.out.println(""); break;
+			case 17: System.out.println("  A small but speedy flying being, it's size belies it's ferocity"); 
+					System.out.println("  Tier: 1    Damage: low   Speed: very fast"); 
+					System.out.println(""); break;
+			case 18: System.out.println("  This hideous winged creature looks like a human, but for the massive wings in place of arms and hooked claws for feet"); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: fast"); 
+					System.out.println(""); break;
+			case 19: System.out.println("  Once a valiant warrier in your position, its unnatural ressurection has poisioned its mind"); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 20: System.out.println("  The noble Guardian, a stone creation fueled by magic, created to protect and guard"); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: slow"); 
+					System.out.println(""); break;
+			case 21: System.out.println("  Deep in the dungeon, this plant has adapted to survive, growing to gargantuan sizes and turning it's appetite to meat"); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: average"); 
+					System.out.println(""); break;
+			case 22: System.out.println("  The lumbering giant makes up for its low intellegence with brute strength and endurance"); 
+					System.out.println("  Tier: 2    Damage: high   Speed: slow"); 
+					System.out.println(""); break;
+			case 23: System.out.println("  Rummaging for the gold and treasures of the deceased, he sees you as just another body to loot"); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: average"); 
+					System.out.println(""); break;
+			case 24: System.out.println("  This dragon-like creature is blood-thirsty and enraged "); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: slow"); 
+					System.out.println(""); break;
+			case 25: System.out.println("  An aggrevated spirit condemned to spend eternity roaming this dungeon "); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: average"); 
+					System.out.println(""); break;
+			case 26: System.out.println("  This elemental bears the power of pure fire and destruction "); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: average"); 
+					System.out.println(""); break;
+			case 27: System.out.println("  This elemental bears the power of the seven seas"); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: average"); 
+					System.out.println(""); break;
+			case 28: System.out.println("  This elemental bears the power of earth and soil "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 29: System.out.println("  This elemental bears the power of air, and tempests "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 30: System.out.println("  The basilisk's fangs drip with deadly venom, an unnering intelligence in it's eyes"); 
+					System.out.println("  Tier: 3    Damage: very high   Speed: slow"); 
+					System.out.println(""); break;
+			case 31: System.out.println("  The golem is an ancient machination powered by some unknown source"); 
+					System.out.println("  Tier: 2    Damage: high   Speed: slow"); 
+					System.out.println(""); break;
+			case 32: System.out.println("  The mimic can morph into any shape. This one concealed itself as a chest"); 
+					System.out.println("  Tier: 1    Damage: average   Speed: average"); 
+					System.out.println(""); break;
+			case 33: System.out.println("  Part bat, lion and scorpion, the manticore makes for a deadly foe "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 34: System.out.println("  This terrifying being is more powerful after death "); 
+					System.out.println("  Tier: 2    Damage: high   Speed: average"); 
+					System.out.println(""); break;
+			case 35: System.out.println("  A grotesque mound of hideous flesh, covered in eyes, mouths, and flailing arms, grasping for you"); 
+					System.out.println("  Tier: 1    Damage: medium   Speed: slow"); 
+					System.out.println(""); break;
+			case 36: System.out.println("  The griffin is a magestic beast, part eagle and part horse. Unfortunatly, this one has taken offence to your presence"); 
+					System.out.println("  Tier: 2    Damage: high   Speed: slow"); 
+					System.out.println(""); break;
+			case 37: System.out.println("  You don't think this guy does anything... "); 
+					System.out.println("  Tier: -5000    Damage: none   Speed: none (he just stands)"); 
+					System.out.println(""); break;
 			//... on and on it goes.
             default:System.out.println("  It's Gabriels fault this enemy doesn't have a description yet. Shame on you Garbriel you lazy butt."); break;
         }
     }
-    
-    /* Enemy Descriptions
- *Skeleton:          The skeleton looks energetic and fierceful despite it's boney build
- *Spider:            
- *Troll:             The troll is large and brutal, but seems to be weakened by it's slow-moving behaviour
- *Snake:             The snake is said to be a pure master of dodging, but is easily damaged due to it's thin build
- *Necromancer:       The necromancer is a quite a deadly opponent, but is hindered by it's laziness.
- *Wizard:            The wizard casts the most dangerous of attacks, which makes up for it's old age
- *Skeleton Archer:   With moderately striking damage and speed, the skeleton archer makes a worthy opponent
- *Goblin:            The goblin appears small and easily hurt, but it isn't the slowest or tamest foe
- *Outlaw:            Quick moving, heavy hitting and strongly built, the outlaw is a force to be reckoned with
- *Cave rat:          The cave rat is small and puny, but you've never seen something move so fast
- *Wraith:            The wraith immediatley spells trouble due to it's intimidating strength, but speed is this soul's downfall
- *Zealot:            The zealot has a devastating blow, but doesn't seem to have fast reflexes
- *Demon:             Fueled with pure anger, the demon is highly destructive and protected, but is surprisingly poor at dodging
- *Dragon:            Even though the dragon is arguebly the most powerful and heavily armoured creature, it's also one of the slowest
- *Orc:               Heavily fortified and armed, this lazy creature is more life-threatening than most think
- *Vampire:           The vampire's fangs are no doubt lethal, but it's speed is far from impressive
- *Leviathan:         The colossal leviathan can't swerve very well, but is no doubt one of the biggest threats in the dungeon
- *Pixie:             The pixie isn't the most harmful enemy, but can whizz past your attacks with ease
- *Harpy:             Not a very hard-hitting contender, but can certainly hold it's ground with it's agility
- *Fallen hero:       A master of his art, the fallen hero is malignant contestant, although the hero still hasn't aced ducking
- *Guardian:          As tall as the ceiling, and as tough as they come, the only thing stopping this behemoth is it's low momentum
- *Carnivorous plant: Not the weakest plant out there, but not the hardest to kill either
- *Giant:             The giant is larger and more brawny than you ever would've imagined, good thing they don't like to dart too much
- */
-
     private static void RoomGen(int Id) {   
         int enArr[];
         int enemyId;
